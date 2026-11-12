@@ -1,0 +1,236 @@
+<template>
+<style>
+  #root { position: absolute; inset: 0; background: #fbfaf8; overflow: hidden; }
+
+  .rec-title {
+    position: absolute;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 42px;
+    color: #1a1a1a;
+    top: 40px; left: 100px;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  .rec-bounce-label {
+    position: absolute;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 68px;
+    color: #22c55e;
+    right: 100px; top: 50px;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Animated bar chart */
+  .recovery-chart {
+    position: absolute;
+    left: 80px; top: 120px;
+    width: 1760px; height: 580px;
+    z-index: 5;
+  }
+  .recovery-chart svg { width: 100%; height: 100%; }
+
+  /* Milestone pop cards — redesigned with color accents */
+  .rec-milestone {
+    position: absolute;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 22px 30px;
+    opacity: 0;
+    z-index: 15;
+    border-left: 5px solid #22c55e;
+  }
+  .rm-year {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 30px;
+    color: #1a1a1a;
+  }
+  .rm-value {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px;
+    color: #22c55e;
+    margin-top: 4px;
+  }
+  .rm-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 15px;
+    color: #8d9399;
+    margin-top: 4px;
+  }
+
+  #rec-m-2009 { left: 180px; bottom: 120px; }
+  #rec-m-2012 { left: 660px; bottom: 120px; }
+  #rec-m-2014 { left: 1220px; bottom: 120px; }
+
+  /* Green up arrow for recovery */
+  .up-arrow {
+    position: absolute;
+    font-size: 80px;
+    color: #22c55e;
+    opacity: 0;
+    z-index: 10;
+  }
+  #arr-1 { left: 300px; top: 300px; }
+  #arr-2 { left: 750px; top: 250px; }
+  #arr-3 { left: 1350px; top: 200px; }
+
+  /* Progress tracker */
+  .progress-track {
+    position: absolute;
+    top: 100px; left: 100px; right: 100px;
+    height: 6px;
+    background: #E9E9EB;
+    border-radius: 3px;
+    z-index: 10;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #58BCEC);
+    border-radius: 3px;
+    width: 0%;
+  }
+</style>
+
+<div id="root" data-composition-id="recovery" data-width="1920" data-height="1080">
+  <div id="rec-title" class="clip rec-title" data-start="0" data-duration="13">
+    THE COMEBACK: 2009–2014
+  </div>
+
+  <div id="rec-bounce" class="clip rec-bounce-label" data-start="0" data-duration="13" data-layout-allow-occlusion>
+    +75.8% IN 2009
+  </div>
+
+  <!-- Progress bar -->
+  <div id="prog-track" class="clip progress-track" data-start="0" data-duration="13">
+    <div id="prog-fill" class="progress-fill"></div>
+  </div>
+
+  <!-- Up arrows -->
+  <div id="arr-1" class="clip up-arrow" data-start="0" data-duration="13">↑</div>
+  <div id="arr-2" class="clip up-arrow" data-start="0" data-duration="13">↑</div>
+  <div id="arr-3" class="clip up-arrow" data-start="0" data-duration="13">↑</div>
+
+  <!-- Bar chart -->
+  <div id="rec-chart" class="clip recovery-chart" data-start="0" data-duration="13">
+    <svg viewBox="0 0 1760 580" xmlns="http://www.w3.org/2000/svg">
+      <!-- Y axis -->
+      <line x1="60" y1="20" x2="60" y2="520" stroke="#E9E9EB" stroke-width="2"/>
+      <line x1="60" y1="520" x2="1700" y2="520" stroke="#E9E9EB" stroke-width="2"/>
+
+      <!-- Grid -->
+      <line x1="60" y1="390" x2="1700" y2="390" stroke="#F2F2F2" stroke-width="1"/>
+      <line x1="60" y1="260" x2="1700" y2="260" stroke="#F2F2F2" stroke-width="1"/>
+      <line x1="60" y1="130" x2="1700" y2="130" stroke="#F2F2F2" stroke-width="1"/>
+
+      <!-- Y labels -->
+      <text x="50" y="524" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="15">₹0</text>
+      <text x="50" y="394" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="15">₹50K</text>
+      <text x="50" y="264" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="15">₹100K</text>
+      <text x="50" y="134" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="15">₹150K</text>
+
+      <!-- Invested bars (grey) -->
+      <rect id="bi-09" x="120" y="520" width="110" height="0" fill="#E9E9EB" rx="6"/>
+      <rect id="bi-10" x="320" y="520" width="110" height="0" fill="#E9E9EB" rx="6"/>
+      <rect id="bi-11" x="520" y="520" width="110" height="0" fill="#E9E9EB" rx="6"/>
+      <rect id="bi-12" x="720" y="520" width="110" height="0" fill="#E9E9EB" rx="6"/>
+      <rect id="bi-13" x="920" y="520" width="110" height="0" fill="#E9E9EB" rx="6"/>
+      <rect id="bi-14" x="1120" y="520" width="110" height="0" fill="#E9E9EB" rx="6"/>
+
+      <!-- Portfolio bars (gradient) -->
+      <defs>
+        <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#22c55e"/>
+          <stop offset="100%" stop-color="#58BCEC"/>
+        </linearGradient>
+      </defs>
+      <rect id="bp-09" x="240" y="520" width="110" height="0" fill="url(#barGrad)" rx="6"/>
+      <rect id="bp-10" x="440" y="520" width="110" height="0" fill="url(#barGrad)" rx="6"/>
+      <rect id="bp-11" x="640" y="520" width="110" height="0" fill="url(#barGrad)" rx="6"/>
+      <rect id="bp-12" x="840" y="520" width="110" height="0" fill="url(#barGrad)" rx="6"/>
+      <rect id="bp-13" x="1040" y="520" width="110" height="0" fill="url(#barGrad)" rx="6"/>
+      <rect id="bp-14" x="1240" y="520" width="110" height="0" fill="url(#barGrad)" rx="6"/>
+
+      <!-- Year labels -->
+      <text x="195" y="555" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="20">2009</text>
+      <text x="395" y="555" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="20">2010</text>
+      <text x="595" y="555" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="20">2011</text>
+      <text x="795" y="555" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="20">2012</text>
+      <text x="995" y="555" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="20">2013</text>
+      <text x="1195" y="555" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="20">2014</text>
+
+      <!-- Legend -->
+      <rect x="1400" y="30" width="20" height="20" fill="#E9E9EB" rx="4"/>
+      <text x="1430" y="46" fill="#8d9399" font-family="Inter" font-size="15">Invested</text>
+      <rect x="1400" y="60" width="20" height="20" fill="url(#barGrad)" rx="4"/>
+      <text x="1430" y="76" fill="#8d9399" font-family="Inter" font-size="15">Portfolio</text>
+    </svg>
+  </div>
+
+  <!-- Milestone cards -->
+  <div id="rec-m-2009" class="clip rec-milestone" data-start="0" data-duration="13">
+    <div class="rm-year">2009</div>
+    <div class="rm-value">₹57,508</div>
+    <div class="rm-note">Invested: ₹40,000 · +43.8% gain</div>
+  </div>
+  <div id="rec-m-2012" class="clip rec-milestone" data-start="0" data-duration="13">
+    <div class="rm-year">2012</div>
+    <div class="rm-value">₹99,035</div>
+    <div class="rm-note">Invested: ₹70,000 · +41.5% gain</div>
+  </div>
+  <div id="rec-m-2014" class="clip rec-milestone" data-start="0" data-duration="13">
+    <div class="rm-year">2014</div>
+    <div class="rm-value">₹1,66,154</div>
+    <div class="rm-note">Invested: ₹90,000 · +84.6% gain</div>
+  </div>
+</div>
+
+<script>
+  const stepEase = (base, dur, fps = 12) => {
+    const e = gsap.parseEase(base);
+    const n = Math.max(1, Math.round(dur * fps));
+    return (p) => e(Math.floor(p * n) / n);
+  };
+
+  const tl = gsap.timeline({ paused: true });
+  const s = 500 / 200000; // Scale
+
+  // Title
+  tl.fromTo("#rec-title", {opacity:0, x:-30}, {opacity:1, x:0, duration:0.5, ease: stepEase("power2.out", 0.5)}, 0.2);
+
+  // Bounce label — big pop
+  tl.fromTo("#rec-bounce", {opacity:0, scale:1.5, y:-20}, {opacity:1, scale:1, y:0, duration:0.4, ease: stepEase("back.out(1.8)", 0.4)}, 0.8);
+
+  // Progress bar fills across the scene
+  tl.fromTo("#prog-fill", {width:"0%"}, {width:"100%", duration:10, ease:"none"}, 1.0);
+
+  // Bar pairs grow sequentially
+  const invH = [40000*s, 50000*s, 60000*s, 70000*s, 80000*s, 90000*s];
+  const pfH = [57508*s, 79592*s, 67553*s, 99035*s, 116449*s, 166154*s];
+  const invIds = ["#bi-09","#bi-10","#bi-11","#bi-12","#bi-13","#bi-14"];
+  const pfIds = ["#bp-09","#bp-10","#bp-11","#bp-12","#bp-13","#bp-14"];
+
+  for (let i = 0; i < 6; i++) {
+    const t = 1.8 + i * 1.3;
+    tl.fromTo(invIds[i], {height:0, y:0}, {height: invH[i], y: -invH[i], duration:0.5, ease: stepEase("power2.out", 0.5)}, t);
+    tl.fromTo(pfIds[i], {height:0, y:0}, {height: pfH[i], y: -pfH[i], duration:0.6, ease: stepEase("power2.out", 0.6)}, t + 0.15);
+  }
+
+  // Green arrows float up at milestones
+  tl.fromTo("#arr-1", {opacity:0, y:40}, {opacity:0.2, y:-40, duration:1.5, ease:"power2.out"}, 2.5);
+  tl.fromTo("#arr-2", {opacity:0, y:40}, {opacity:0.2, y:-40, duration:1.5, ease:"power2.out"}, 5.0);
+  tl.fromTo("#arr-3", {opacity:0, y:40}, {opacity:0.2, y:-40, duration:1.5, ease:"power2.out"}, 8.0);
+
+  // Milestone cards pop with bounce
+  tl.fromTo("#rec-m-2009", {opacity:0, scale:0.8, y:20}, {opacity:1, scale:1, y:0, duration:0.4, ease: stepEase("back.out(1.6)", 0.4)}, 3.0);
+  tl.fromTo("#rec-m-2012", {opacity:0, scale:0.8, y:20}, {opacity:1, scale:1, y:0, duration:0.4, ease: stepEase("back.out(1.6)", 0.4)}, 6.0);
+  tl.fromTo("#rec-m-2014", {opacity:0, scale:0.8, y:20}, {opacity:1, scale:1, y:0, duration:0.4, ease: stepEase("back.out(1.6)", 0.4)}, 9.0);
+
+  // Fade out
+  tl.to("#root", {opacity:0, duration:0.4, ease:"power2.in"}, 12.4);
+  tl.set("#root", {opacity:0, visibility:"hidden"}, 12.8);
+
+  window.__timelines["recovery"] = tl;
+</script>
+</template>

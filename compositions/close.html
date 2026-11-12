@@ -1,0 +1,229 @@
+<template>
+<style>
+  #root { position: absolute; inset: 0; background: #1a1a1a; overflow: hidden; }
+
+  /* Particle dots floating */
+  .float-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: #FFE619;
+    opacity: 0;
+    z-index: 1;
+  }
+  .fd1 { width: 8px; height: 8px; left: 200px; top: 100px; }
+  .fd2 { width: 12px; height: 12px; right: 300px; top: 200px; }
+  .fd3 { width: 6px; height: 6px; left: 400px; bottom: 250px; }
+  .fd4 { width: 10px; height: 10px; right: 150px; bottom: 300px; }
+  .fd5 { width: 7px; height: 7px; left: 800px; top: 150px; }
+  .fd6 { width: 9px; height: 9px; right: 600px; bottom: 200px; }
+
+  /* Three lines appearing with typewriter effect */
+  .close-line {
+    position: absolute;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 62px;
+    color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    z-index: 10;
+  }
+  #line-1 { top: 160px; }
+  #line-2 { top: 250px; }
+  #line-3 { top: 340px; }
+
+  .close-line .hl {
+    background-image: linear-gradient(#FFE619, #FFE619);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-position: left;
+    padding: 0 12px;
+    color: #1a1a1a;
+  }
+
+  /* Underline */
+  .line-underline {
+    position: absolute;
+    left: 50%; top: 420px;
+    transform: translateX(-50%);
+    width: 0; height: 4px;
+    background: #FFE619;
+    border-radius: 2px;
+    z-index: 10;
+  }
+
+  /* Stats row — bigger and bolder */
+  .close-stats {
+    position: absolute;
+    left: 50%; top: 470px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 60px;
+    opacity: 0;
+    z-index: 10;
+  }
+  .cs-item {
+    text-align: center;
+    padding: 0 20px;
+    border-right: 2px solid rgba(255,255,255,0.1);
+  }
+  .cs-item:last-child { border-right: none; }
+  .cs-val {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 52px;
+    color: #FFE619;
+  }
+  .cs-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Tagline */
+  .close-tagline {
+    position: absolute;
+    bottom: 140px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 36px;
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Brand dots */
+  .brand-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: #FFE619;
+    opacity: 0;
+    z-index: 10;
+  }
+  .bd-1 { width: 60px; height: 60px; right: 100px; bottom: 70px; }
+  .bd-2 { width: 30px; height: 30px; right: 180px; bottom: 90px; }
+
+  .close-disclaimer {
+    position: absolute;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    opacity: 0;
+    z-index: 10;
+  }
+</style>
+
+<div id="root" data-composition-id="close" data-width="1920" data-height="1080">
+  <!-- Floating dots -->
+  <div id="fd1" class="clip float-dot fd1" data-start="0" data-duration="8"></div>
+  <div id="fd2" class="clip float-dot fd2" data-start="0" data-duration="8"></div>
+  <div id="fd3" class="clip float-dot fd3" data-start="0" data-duration="8"></div>
+  <div id="fd4" class="clip float-dot fd4" data-start="0" data-duration="8"></div>
+  <div id="fd5" class="clip float-dot fd5" data-start="0" data-duration="8"></div>
+  <div id="fd6" class="clip float-dot fd6" data-start="0" data-duration="8"></div>
+
+  <!-- Three headline lines -->
+  <div id="line-1" class="clip close-line" data-start="0" data-duration="8">
+    ₹10,000 a year.
+  </div>
+  <div id="line-2" class="clip close-line" data-start="0" data-duration="8">
+    20 years of patience.
+  </div>
+  <div id="line-3" class="clip close-line" data-start="0" data-duration="8">
+    <span class="hl" id="close-hl">₹7,61,175.</span>
+  </div>
+
+  <div id="line-ul" class="clip line-underline" data-start="0" data-duration="8"></div>
+
+  <!-- Stats -->
+  <div id="close-stats" class="clip close-stats" data-start="0" data-duration="8">
+    <div class="cs-item">
+      <div class="cs-val">₹2L</div>
+      <div class="cs-label">Invested</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-val">₹7.6L</div>
+      <div class="cs-label">Final Value</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-val">3.8x</div>
+      <div class="cs-label">Multiplier</div>
+    </div>
+    <div class="cs-item">
+      <div class="cs-val">280%</div>
+      <div class="cs-label">Total Return</div>
+    </div>
+  </div>
+
+  <!-- Tagline -->
+  <div id="close-tag" class="clip close-tagline" data-start="0" data-duration="8">
+    Compounding rewards the patient.
+  </div>
+
+  <!-- Brand dots -->
+  <div id="bd1" class="clip brand-dot bd-1" data-start="0" data-duration="8"></div>
+  <div id="bd2" class="clip brand-dot bd-2" data-start="0" data-duration="8"></div>
+
+  <!-- Disclaimer -->
+  <div id="close-disc" class="clip close-disclaimer" data-start="0" data-duration="8">
+    Past performance does not guarantee future returns. This is for educational purposes only.
+  </div>
+</div>
+
+<script>
+  const stepEase = (base, dur, fps = 12) => {
+    const e = gsap.parseEase(base);
+    const n = Math.max(1, Math.round(dur * fps));
+    return (p) => e(Math.floor(p * n) / n);
+  };
+
+  const tl = gsap.timeline({ paused: true });
+
+  // Floating dots drift in
+  const fds = ["#fd1","#fd2","#fd3","#fd4","#fd5","#fd6"];
+  fds.forEach((f, i) => {
+    tl.fromTo(f, {opacity:0}, {opacity:0.3, duration:0.5}, 0.1 + i * 0.15);
+    tl.to(f, {y: -20 + (i % 2 ? 40 : 0), x: (i % 2 ? -15 : 15), duration:6, ease:"none"}, 0.5);
+  });
+
+  // Line 1 — slides in from left
+  tl.fromTo("#line-1", {opacity:0, x:-60}, {opacity:1, x:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 0.3);
+
+  // Line 2 — slides in from right
+  tl.fromTo("#line-2", {opacity:0, x:60}, {opacity:1, x:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 0.9);
+
+  // Line 3 — SLAMS in with scale
+  tl.fromTo("#line-3", {opacity:0, scale:1.3}, {opacity:1, scale:1, duration:0.35, ease: stepEase("back.out(1.6)", 0.35)}, 1.5);
+
+  // Yellow highlight sweep
+  tl.fromTo("#close-hl", {backgroundSize:"0% 100%"}, {backgroundSize:"100% 100%", duration:0.4, ease: stepEase("power2.inOut", 0.4)}, 1.9);
+
+  // Underline draws
+  tl.to("#line-ul", {width: 600, duration:0.4, ease: stepEase("power2.out", 0.4)}, 2.4);
+
+  // Stats row — pops in
+  tl.fromTo("#close-stats", {opacity:0, y:30}, {opacity:1, y:0, duration:0.5, ease: stepEase("power2.out", 0.5)}, 2.8);
+
+  // Tagline fades in with elegance
+  tl.fromTo("#close-tag", {opacity:0, y:10}, {opacity:1, y:0, duration:0.6, ease: stepEase("power2.out", 0.6)}, 4.0);
+
+  // Brand dots pop
+  tl.fromTo("#bd1", {opacity:0, scale:0.3}, {opacity:1, scale:1, duration:0.3, ease: stepEase("back.out(1.6)", 0.3)}, 4.5);
+  tl.fromTo("#bd2", {opacity:0, scale:0.3}, {opacity:0.6, scale:1, duration:0.25, ease: stepEase("back.out(1.6)", 0.25)}, 4.7);
+
+  // Disclaimer
+  tl.fromTo("#close-disc", {opacity:0}, {opacity:1, duration:0.4, ease:"power2.out"}, 5.0);
+
+  window.__timelines["close"] = tl;
+</script>
+</template>

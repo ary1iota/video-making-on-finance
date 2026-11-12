@@ -1,0 +1,294 @@
+<template>
+<style>
+  #root { position: absolute; inset: 0; background: #fbfaf8; overflow: hidden; }
+
+  .comp-title {
+    position: absolute;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 42px;
+    color: #1a1a1a;
+    top: 40px; left: 100px;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Live counter */
+  .live-counter {
+    position: absolute;
+    right: 80px; top: 35px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 62px;
+    color: #58BCEC;
+    opacity: 0;
+    z-index: 10;
+  }
+  .live-counter .lc-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #8d9399;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Line chart area */
+  .comp-chart {
+    position: absolute;
+    left: 80px; top: 130px;
+    width: 1760px; height: 480px;
+    opacity: 0;
+    z-index: 5;
+  }
+  .comp-chart svg { width: 100%; height: 100%; }
+
+  /* COVID crash callout — redesigned as breaking news */
+  .covid-banner {
+    position: absolute;
+    left: 0; right: 0;
+    top: 450px;
+    height: 80px;
+    background: #ef4444;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    opacity: 0;
+    z-index: 20;
+  }
+  .covid-flash {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: #fff;
+    background: #1a1a1a;
+    padding: 8px 20px;
+    border-radius: 6px;
+    margin-right: 24px;
+    flex-shrink: 0;
+  }
+  .covid-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  /* Recovery badge */
+  .recovery-badge {
+    position: absolute;
+    left: 50%; top: 540px;
+    transform: translateX(-50%);
+    background: #22c55e;
+    color: #fff;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px;
+    padding: 14px 36px;
+    border-radius: 40px;
+    opacity: 0;
+    z-index: 21;
+  }
+
+  /* Year data row */
+  .comp-data-row {
+    position: absolute;
+    bottom: 40px; left: 80px;
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+    z-index: 10;
+  }
+  .comp-data-cell {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+    padding: 14px 18px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .cd-year {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    color: #8d9399;
+  }
+  .cd-val {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: #1a1a1a;
+    margin-top: 3px;
+  }
+  .cd-ret {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #22c55e;
+    margin-top: 2px;
+  }
+  .cd-ret.neg { color: #ef4444; }
+
+  /* Heartbeat line */
+  .heartbeat-line {
+    position: absolute;
+    left: 900px; top: 380px;
+    width: 200px; height: 60px;
+    opacity: 0;
+    z-index: 18;
+  }
+</style>
+
+<div id="root" data-composition-id="compound" data-width="1920" data-height="1080">
+  <div id="comp-title" class="clip comp-title" data-start="0" data-duration="15">
+    THE COMPOUNDING MACHINE
+  </div>
+
+  <!-- Live counting value -->
+  <div id="live-counter" class="clip live-counter" data-start="0" data-duration="15">
+    <span class="lc-label">PORTFOLIO VALUE</span>
+    <span id="lc-num">₹1,68,932</span>
+  </div>
+
+  <!-- Line chart -->
+  <div id="comp-chart" class="clip comp-chart" data-start="0" data-duration="15">
+    <svg viewBox="0 0 1760 480" xmlns="http://www.w3.org/2000/svg">
+      <!-- Grid -->
+      <line x1="60" y1="20" x2="60" y2="420" stroke="#E9E9EB" stroke-width="2"/>
+      <line x1="60" y1="420" x2="1700" y2="420" stroke="#E9E9EB" stroke-width="2"/>
+      <line x1="60" y1="320" x2="1700" y2="320" stroke="#F2F2F2" stroke-width="1"/>
+      <line x1="60" y1="220" x2="1700" y2="220" stroke="#F2F2F2" stroke-width="1"/>
+      <line x1="60" y1="120" x2="1700" y2="120" stroke="#F2F2F2" stroke-width="1"/>
+
+      <!-- Y labels -->
+      <text x="50" y="424" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="14">₹0</text>
+      <text x="50" y="324" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="14">₹1.5L</text>
+      <text x="50" y="224" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="14">₹3L</text>
+      <text x="50" y="124" text-anchor="end" fill="#8d9399" font-family="Inter" font-size="14">₹4.5L</text>
+
+      <!-- Invested (grey dashed) -->
+      <polyline id="comp-inv" points="140,385 370,365 600,345 830,325 1060,305 1220,285 1450,265"
+                fill="none" stroke="#E9E9EB" stroke-width="3" stroke-dasharray="8,8"/>
+
+      <!-- Area fill (under portfolio line) -->
+      <polygon id="comp-area"
+               points="140,350 370,335 600,375 830,305 1060,265 1220,215 1450,120 1450,420 140,420"
+               fill="#58BCEC" opacity="0"/>
+
+      <!-- Portfolio line -->
+      <polyline id="comp-pf-line"
+                points="140,350 370,335 600,375 830,305 1060,265 1220,215 1450,120"
+                fill="none" stroke="#58BCEC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Data points -->
+      <circle id="dot-15" cx="140" cy="350" r="0" fill="#58BCEC"/>
+      <circle id="dot-16" cx="370" cy="335" r="0" fill="#58BCEC"/>
+      <circle id="dot-17" cx="600" cy="375" r="0" fill="#ef4444"/>
+      <circle id="dot-18" cx="830" cy="305" r="0" fill="#58BCEC"/>
+      <circle id="dot-19" cx="1060" cy="265" r="0" fill="#58BCEC"/>
+      <circle id="dot-20" cx="1220" cy="215" r="0" fill="#ef4444"/>
+      <circle id="dot-21" cx="1450" cy="120" r="0" fill="#22c55e"/>
+
+      <!-- Year labels -->
+      <text x="140" y="450" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="17">2015</text>
+      <text x="370" y="450" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="17">2016</text>
+      <text x="600" y="450" text-anchor="middle" fill="#ef4444" font-family="Archivo Black" font-size="17">2017</text>
+      <text x="830" y="450" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="17">2018</text>
+      <text x="1060" y="450" text-anchor="middle" fill="#1a1a1a" font-family="Archivo Black" font-size="17">2019</text>
+      <text x="1220" y="450" text-anchor="middle" fill="#ef4444" font-family="Archivo Black" font-size="17">2020</text>
+      <text x="1450" y="450" text-anchor="middle" fill="#22c55e" font-family="Archivo Black" font-size="17">2021</text>
+    </svg>
+  </div>
+
+  <!-- Heartbeat line at COVID -->
+  <div id="heartbeat" class="clip heartbeat-line" data-start="0" data-duration="15">
+    <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="0,30 30,30 45,5 60,55 75,10 90,50 105,30 140,30 160,30 200,30"
+                fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- COVID breaking news banner -->
+  <div id="covid-banner" class="clip covid-banner" data-start="0" data-duration="15">
+    <div class="covid-flash">BREAKING</div>
+    <div class="covid-text">COVID-19 Crash · Nifty fell 38% in 45 days · March 2020 · But ended the year at +14.9%</div>
+  </div>
+
+  <!-- Recovery badge -->
+  <div id="recovery-badge" class="clip recovery-badge" data-start="0" data-duration="15" data-layout-allow-overlap>
+    ✓ MARKET RECOVERED — ₹4,70,936 BY 2021
+  </div>
+
+  <!-- Data row -->
+  <div id="comp-row" class="clip comp-data-row" data-start="0" data-duration="15">
+    <div class="comp-data-cell"><div class="cd-year">2015</div><div class="cd-val">₹1.69L</div><div class="cd-ret neg">−4.1%</div></div>
+    <div class="comp-data-cell"><div class="cd-year">2016</div><div class="cd-val">₹1.84L</div><div class="cd-ret">+3.0%</div></div>
+    <div class="comp-data-cell"><div class="cd-year">2017</div><div class="cd-val">₹2.50L</div><div class="cd-ret">+28.6%</div></div>
+    <div class="comp-data-cell"><div class="cd-year">2018</div><div class="cd-val">₹2.68L</div><div class="cd-ret">+3.2%</div></div>
+    <div class="comp-data-cell"><div class="cd-year">2019</div><div class="cd-val">₹3.12L</div><div class="cd-ret">+12.0%</div></div>
+    <div class="comp-data-cell"><div class="cd-year">2020</div><div class="cd-val">₹3.69L</div><div class="cd-ret">+14.9%</div></div>
+    <div class="comp-data-cell"><div class="cd-year">2021</div><div class="cd-val">₹4.71L</div><div class="cd-ret">+24.1%</div></div>
+  </div>
+</div>
+
+<script>
+  const stepEase = (base, dur, fps = 12) => {
+    const e = gsap.parseEase(base);
+    const n = Math.max(1, Math.round(dur * fps));
+    return (p) => e(Math.floor(p * n) / n);
+  };
+
+  const tl = gsap.timeline({ paused: true });
+
+  // Title
+  tl.fromTo("#comp-title", {opacity:0, x:-30}, {opacity:1, x:0, duration:0.5, ease: stepEase("power2.out", 0.5)}, 0.2);
+
+  // Live counter appears
+  tl.fromTo("#live-counter", {opacity:0, y:-20}, {opacity:1, y:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 0.5);
+
+  // Chart fades in
+  tl.fromTo("#comp-chart", {opacity:0}, {opacity:1, duration:0.5, ease: stepEase("power2.out", 0.5)}, 1.0);
+
+  // Line draws using stroke-dashoffset
+  const lineLen = 2200;
+  tl.set("#comp-pf-line", {strokeDasharray: lineLen, strokeDashoffset: lineLen}, 1.0);
+  tl.to("#comp-pf-line", {strokeDashoffset: 0, duration: 5.0, ease: "power1.inOut"}, 1.5);
+
+  // Dots pop in as line reaches them
+  const dots = ["#dot-15","#dot-16","#dot-17","#dot-18","#dot-19","#dot-20","#dot-21"];
+  const dotTimes = [1.8, 2.5, 3.2, 3.9, 4.6, 5.3, 6.0];
+  dots.forEach((d, i) => {
+    tl.fromTo(d, {r:0}, {r:9, duration:0.2, ease: stepEase("back.out(2)", 0.2)}, dotTimes[i]);
+  });
+
+  // Area fill fades in
+  tl.to("#comp-area", {opacity:0.12, duration:1.5, ease:"power2.out"}, 4.5);
+
+  // Heartbeat appears at COVID point
+  tl.fromTo("#heartbeat", {opacity:0}, {opacity:0.6, duration:0.3}, 5.0);
+  tl.to("#heartbeat", {opacity:0, duration:0.5}, 6.0);
+
+  // COVID banner slides in from left
+  tl.fromTo("#covid-banner", {opacity:0, x:-200}, {opacity:1, x:0, duration:0.4, ease: stepEase("power3.out", 0.4)}, 6.5);
+
+  // Screen shakes on COVID
+  tl.to("#comp-chart", {x:8, duration:0.06, ease:"none"}, 6.5);
+  tl.to("#comp-chart", {x:-6, duration:0.06, ease:"none"}, 6.56);
+  tl.to("#comp-chart", {x:4, duration:0.06, ease:"none"}, 6.62);
+  tl.to("#comp-chart", {x:0, duration:0.06, ease:"none"}, 6.68);
+
+  // COVID banner out
+  tl.to("#covid-banner", {opacity:0, x:200, duration:0.3, ease:"power2.in"}, 8.0);
+
+  // Recovery badge pops
+  tl.fromTo("#recovery-badge", {opacity:0, scale:0.6}, {opacity:1, scale:1, duration:0.35, ease: stepEase("back.out(1.8)", 0.35)}, 8.5);
+  tl.to("#recovery-badge", {opacity:0, duration:0.3}, 9.5);
+
+  // Data row
+  tl.fromTo("#comp-row", {opacity:0, y:30}, {opacity:1, y:0, duration:0.5, ease: stepEase("power2.out", 0.5)}, 10.0);
+
+  // Camera drift on chart
+  tl.to("#comp-chart", {x:-8, y:-4, duration:12, ease:"none"}, 1.5);
+
+  // Fade out
+  tl.to("#root", {opacity:0, duration:0.4, ease:"power2.in"}, 14.4);
+  tl.set("#root", {opacity:0, visibility:"hidden"}, 14.8);
+
+  window.__timelines["compound"] = tl;
+</script>
+</template>

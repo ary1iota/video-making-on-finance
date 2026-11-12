@@ -1,0 +1,298 @@
+<template>
+<style>
+  #root { position: absolute; inset: 0; background: #fbfaf8; overflow: hidden; }
+
+  /* Top section title */
+  .sum-title {
+    position: absolute;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 52px;
+    color: #1a1a1a;
+    top: 45px; left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    z-index: 10;
+  }
+  .sum-title .hl { color: #FFE619; background: #1a1a1a; padding: 2px 16px; border-radius: 8px; }
+
+  /* Investment Summary Cards — left column */
+  .invest-summary {
+    position: absolute;
+    left: 80px; top: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    z-index: 5;
+  }
+  .is-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px 36px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    opacity: 0;
+    transform: translateX(-40px);
+    min-width: 420px;
+  }
+  .is-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #8d9399;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .is-value {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 48px;
+    color: #1a1a1a;
+    margin-top: 4px;
+  }
+  .is-value.green { color: #22c55e; }
+  .is-value.blue { color: #58BCEC; }
+
+  /* Profit bar visual */
+  .profit-bar-wrap {
+    width: 100%;
+    height: 12px;
+    background: #F2F2F2;
+    border-radius: 6px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .profit-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    width: 0%;
+  }
+  .fill-invested { background: #FFE619; }
+  .fill-profit { background: #22c55e; }
+
+  /* Right column: Lifestyle comparison */
+  .lifestyle-panel {
+    position: absolute;
+    right: 60px; top: 140px;
+    width: 820px;
+    z-index: 5;
+  }
+  .lp-header {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 34px;
+    color: #1a1a1a;
+    margin-bottom: 18px;
+    opacity: 0;
+  }
+  .lp-header .yr { color: #58BCEC; }
+
+  /* Comparison table */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .cg-head {
+    background: #1a1a1a;
+    color: #fff;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .cg-head.yellow { background: #FFE619; color: #1a1a1a; }
+  .cg-head.blue { background: #58BCEC; color: #fff; }
+  .cg-row {
+    display: contents;
+  }
+  .cg-cell {
+    background: #fff;
+    padding: 14px 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: #1a1a1a;
+    text-align: center;
+    border-bottom: 1px solid #F2F2F2;
+    opacity: 0;
+  }
+  .cg-cell.item-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    text-align: left;
+    color: #8d9399;
+  }
+  .cg-cell.old { color: #22c55e; }
+  .cg-cell.new { color: #ef4444; }
+
+  /* Inflation badge */
+  .inflation-badge {
+    position: absolute;
+    bottom: 55px; left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #FFE619;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px;
+    padding: 16px 40px;
+    border-radius: 40px;
+    opacity: 0;
+    z-index: 10;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  /* Arrow icon between prices */
+  .price-arrow {
+    font-size: 20px;
+    color: #ef4444;
+    margin: 0 4px;
+  }
+
+  /* Multiplier indicators on comparison */
+  .mult-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    color: #ef4444;
+    font-weight: 700;
+  }
+
+  /* Decorative elements */
+  .deco-stripe {
+    position: absolute;
+    background: #FFE619;
+    opacity: 0;
+    z-index: 0;
+  }
+  .ds1 { width: 8px; height: 200px; left: 540px; top: 80px; transform: rotate(15deg); }
+  .ds2 { width: 6px; height: 160px; right: 40px; bottom: 100px; transform: rotate(-10deg); }
+</style>
+
+<div id="root" data-composition-id="structure" data-width="1920" data-height="1080">
+  <!-- Decorative -->
+  <div id="ds1" class="clip deco-stripe ds1" data-start="0" data-duration="14"></div>
+  <div id="ds2" class="clip deco-stripe ds2" data-start="0" data-duration="14"></div>
+
+  <!-- Title -->
+  <div id="sum-title" class="clip sum-title" data-start="0" data-duration="14">
+    THE <span class="hl">COMPLETE</span> PICTURE
+  </div>
+
+  <!-- Investment Summary (left) -->
+  <div class="invest-summary">
+    <div id="is-invested" class="clip is-card" data-start="0" data-duration="14">
+      <div class="is-label">Total Invested</div>
+      <div class="is-value">₹2,00,000</div>
+      <div class="profit-bar-wrap">
+        <div id="bar-invested" class="profit-bar-fill fill-invested"></div>
+      </div>
+    </div>
+    <div id="is-portfolio" class="clip is-card" data-start="0" data-duration="14">
+      <div class="is-label">Portfolio Value</div>
+      <div class="is-value green">₹7,61,175</div>
+      <div class="profit-bar-wrap">
+        <div id="bar-portfolio" class="profit-bar-fill fill-profit"></div>
+      </div>
+    </div>
+    <div id="is-profit" class="clip is-card" data-start="0" data-duration="14">
+      <div class="is-label">Net Profit</div>
+      <div class="is-value green">₹5,61,175</div>
+    </div>
+    <div id="is-multi" class="clip is-card" data-start="0" data-duration="14">
+      <div class="is-label">Wealth Multiplier</div>
+      <div class="is-value blue">3.8×</div>
+    </div>
+  </div>
+
+  <!-- Lifestyle Comparison (right) -->
+  <div id="lifestyle" class="clip lifestyle-panel" data-start="0" data-duration="14">
+    <div id="lp-header" class="lp-header">WHAT ₹10,000 BOUGHT: <span class="yr">2006</span> vs <span class="yr">2025</span></div>
+    <div class="compare-grid">
+      <div class="cg-head">ITEM</div>
+      <div class="cg-head yellow">2006 PRICE</div>
+      <div class="cg-head blue">2025 PRICE</div>
+
+      <div id="r1c1" class="clip cg-cell item-name" data-start="0" data-duration="14" data-layout-allow-overlap>🎬 Movie Ticket</div>
+      <div id="r1c2" class="clip cg-cell old" data-start="0" data-duration="14" data-layout-allow-overlap>₹50</div>
+      <div id="r1c3" class="clip cg-cell new" data-start="0" data-duration="14" data-layout-allow-overlap>₹350 <span class="mult-tag">7×</span></div>
+
+      <div id="r2c1" class="clip cg-cell item-name" data-start="0" data-duration="14" data-layout-allow-overlap>⛽ Petrol (1L)</div>
+      <div id="r2c2" class="clip cg-cell old" data-start="0" data-duration="14" data-layout-allow-overlap>₹47</div>
+      <div id="r2c3" class="clip cg-cell new" data-start="0" data-duration="14" data-layout-allow-overlap>₹106 <span class="mult-tag">2.3×</span></div>
+
+      <div id="r3c1" class="clip cg-cell item-name" data-start="0" data-duration="14" data-layout-allow-overlap>🥇 Gold (10g)</div>
+      <div id="r3c2" class="clip cg-cell old" data-start="0" data-duration="14" data-layout-allow-overlap>₹8,600</div>
+      <div id="r3c3" class="clip cg-cell new" data-start="0" data-duration="14" data-layout-allow-overlap>₹95,000 <span class="mult-tag">11×</span></div>
+
+      <div id="r4c1" class="clip cg-cell item-name" data-start="0" data-duration="14" data-layout-allow-overlap>🏠 Rent (1BHK)</div>
+      <div id="r4c2" class="clip cg-cell old" data-start="0" data-duration="14" data-layout-allow-overlap>₹5,000</div>
+      <div id="r4c3" class="clip cg-cell new" data-start="0" data-duration="14" data-layout-allow-overlap>₹18,000 <span class="mult-tag">3.6×</span></div>
+
+      <div id="r5c1" class="clip cg-cell item-name" data-start="0" data-duration="14" data-layout-allow-overlap>🍽️ Thali Meal</div>
+      <div id="r5c2" class="clip cg-cell old" data-start="0" data-duration="14" data-layout-allow-overlap>₹30</div>
+      <div id="r5c3" class="clip cg-cell new" data-start="0" data-duration="14" data-layout-allow-overlap>₹120 <span class="mult-tag">4×</span></div>
+    </div>
+  </div>
+
+  <!-- Inflation badge -->
+  <div id="inf-badge" class="clip inflation-badge" data-start="0" data-duration="14">
+    INFLATION ATE ~65% OF YOUR MONEY'S VALUE · NIFTY 50 GREW 280%
+  </div>
+</div>
+
+<script>
+  const stepEase = (base, dur, fps = 12) => {
+    const e = gsap.parseEase(base);
+    const n = Math.max(1, Math.round(dur * fps));
+    return (p) => e(Math.floor(p * n) / n);
+  };
+
+  const tl = gsap.timeline({ paused: true });
+
+  // Decorative stripes
+  tl.fromTo("#ds1", {opacity:0, y:-100}, {opacity:0.12, y:0, duration:0.5, ease:"power2.out"}, 0);
+  tl.fromTo("#ds2", {opacity:0, y:100}, {opacity:0.1, y:0, duration:0.5, ease:"power2.out"}, 0.2);
+
+  // Title slams in
+  tl.fromTo("#sum-title", {opacity:0, scale:1.2, y:-20}, {opacity:1, scale:1, y:0, duration:0.4, ease: stepEase("back.out(1.4)", 0.4)}, 0.3);
+
+  // Investment summary cards slide in from left
+  tl.fromTo("#is-invested", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 1.0);
+  tl.fromTo("#bar-invested", {width:"0%"}, {width:"26%", duration:0.6, ease: stepEase("power2.out", 0.6)}, 1.3);
+
+  tl.fromTo("#is-portfolio", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 1.8);
+  tl.fromTo("#bar-portfolio", {width:"0%"}, {width:"100%", duration:0.8, ease: stepEase("power2.out", 0.8)}, 2.1);
+
+  tl.fromTo("#is-profit", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 2.8);
+
+  tl.fromTo("#is-multi", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 3.5);
+
+  // Lifestyle comparison panel
+  tl.fromTo("#lp-header", {opacity:0, y:-15}, {opacity:1, y:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 4.5);
+
+  // Table rows appear row by row
+  const rows = [
+    ["#r1c1","#r1c2","#r1c3"],
+    ["#r2c1","#r2c2","#r2c3"],
+    ["#r3c1","#r3c2","#r3c3"],
+    ["#r4c1","#r4c2","#r4c3"],
+    ["#r5c1","#r5c2","#r5c3"]
+  ];
+  rows.forEach((row, i) => {
+    const t = 5.2 + i * 0.5;
+    row.forEach((cell, j) => {
+      tl.fromTo(cell, {opacity:0, y:15}, {opacity:1, y:0, duration:0.3, ease: stepEase("power2.out", 0.3)}, t + j * 0.08);
+    });
+  });
+
+  // Inflation badge slides up
+  tl.fromTo("#inf-badge", {opacity:0, y:30, scale:0.9}, {opacity:1, y:0, scale:1, duration:0.5, ease: stepEase("back.out(1.3)", 0.5)}, 10.0);
+
+  // Fade out
+  tl.to("#root", {opacity:0, duration:0.4, ease:"power2.in"}, 13.4);
+  tl.set("#root", {opacity:0, visibility:"hidden"}, 13.8);
+
+  window.__timelines["structure"] = tl;
+</script>
+</template>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    background: #0a0a0a;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+  }
+
+  /* Dramatic radial glow */
+  .glow-bg {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1100px;
+    height: 1100px;
+    background: radial-gradient(circle, rgba(255,230,25,0.12) 0%, rgba(255,165,0,0.05) 35%, transparent 65%);
+    border-radius: 50%;
+  }
+
+  /* Subtle grid */
+  .grid-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 54px 54px;
+  }
+
+  /* Corner accents */
+  .corner { position: absolute; width: 70px; height: 70px; border-color: #FFE619; border-style: solid; }
+  .corner-tl { top: 32px; left: 32px; border-width: 4px 0 0 4px; }
+  .corner-tr { top: 32px; right: 32px; border-width: 4px 4px 0 0; }
+  .corner-bl { bottom: 32px; left: 32px; border-width: 0 0 4px 4px; }
+  .corner-br { bottom: 32px; right: 32px; border-width: 0 4px 4px 0; }
+
+  /* Sparkle dots */
+  .sparkle {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: #FFE619;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #FFE619, 0 0 20px rgba(255,230,25,0.3);
+  }
+
+  /* Red warning badge */
+  .warning-badge {
+    position: absolute;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #E53935;
+    color: white;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 38px;
+    padding: 14px 50px;
+    border-radius: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    box-shadow: 0 0 50px rgba(229,57,53,0.4);
+  }
+
+  /* Main hook */
+  .hook {
+    position: absolute;
+    top: 260px;
+    width: 100%;
+    text-align: center;
+    padding: 0 50px;
+  }
+  .hook-line1 {
+    color: white;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 78px;
+    line-height: 1.1;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+  }
+  .hook-amount {
+    color: #FFE619;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 78px;
+  }
+
+  /* Invested section */
+  .invested {
+    position: absolute;
+    top: 530px;
+    width: 100%;
+    text-align: center;
+  }
+  .invested-label {
+    color: #666;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .invested-val {
+    color: rgba(255,255,255,0.9);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 80px;
+  }
+
+  /* Arrow */
+  .arrow-wrap {
+    position: absolute;
+    top: 720px;
+    width: 100%;
+    text-align: center;
+  }
+  .arrow-down {
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 55px solid #FFE619;
+    filter: drop-shadow(0 0 25px rgba(255,230,25,0.5));
+  }
+
+  /* Result — the hero */
+  .result {
+    position: absolute;
+    top: 830px;
+    width: 100%;
+    text-align: center;
+  }
+  .result-label {
+    color: #58BCEC;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .result-val {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 160px;
+    line-height: 1;
+    background: linear-gradient(135deg, #FFE619 0%, #FFA500 60%, #FF8C00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(255,230,25,0.35));
+  }
+
+  /* Multiplier pill */
+  .multiplier-row {
+    position: absolute;
+    top: 1060px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    align-items: center;
+  }
+  .multiplier-pill {
+    background: linear-gradient(135deg, #FFE619, #FFA500);
+    color: #0a0a0a;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 56px;
+    padding: 18px 50px;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(255,230,25,0.25);
+  }
+
+  /* Timeline strip */
+  .timeline {
+    position: absolute;
+    top: 1210px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+  .yr {
+    background: rgba(88,188,236,0.1);
+    border: 2px solid rgba(88,188,236,0.4);
+    color: #58BCEC;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 36px;
+    padding: 12px 32px;
+    border-radius: 40px;
+  }
+  .yr-line {
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, #58BCEC, #FFE619);
+    border-radius: 2px;
+  }
+  .yr-dot {
+    width: 12px; height: 12px;
+    background: #FFE619;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #FFE619;
+    flex-shrink: 0;
+  }
+
+  /* Profit callout */
+  .profit-callout {
+    position: absolute;
+    top: 1340px;
+    width: 100%;
+    text-align: center;
+  }
+  .profit-tag {
+    display: inline-block;
+    background: rgba(76, 175, 80, 0.12);
+    border: 2px solid rgba(76, 175, 80, 0.4);
+    color: #4CAF50;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 44px;
+    padding: 14px 48px;
+    border-radius: 14px;
+  }
+
+  /* Bottom branding */
+  .bottom {
+    position: absolute;
+    bottom: 140px;
+    width: 100%;
+    text-align: center;
+  }
+  .nifty-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 56px;
+    color: #58BCEC;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+  }
+  .subtitle {
+    font-size: 34px;
+    color: #555;
+    font-weight: 700;
+  }
+
+  /* Upward chart line decorative */
+  .chart-line {
+    position: absolute;
+    bottom: 320px;
+    left: 80px;
+    right: 80px;
+    height: 100px;
+  }
+  .chart-line svg {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+
+  <div class="grid-bg"></div>
+  <div class="glow-bg"></div>
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="sparkle" style="top:180px;left:100px;"></div>
+  <div class="sparkle" style="top:320px;right:90px;"></div>
+  <div class="sparkle" style="top:750px;left:70px;"></div>
+  <div class="sparkle" style="top:950px;right:110px;"></div>
+  <div class="sparkle" style="top:1400px;left:130px;"></div>
+  <div class="sparkle" style="top:1150px;right:60px;"></div>
+  <div class="sparkle" style="top:550px;left:60px;"></div>
+  <div class="sparkle" style="top:1300px;right:140px;"></div>
+
+  <div class="warning-badge">⚡ 20 YEARS</div>
+
+  <div class="hook">
+    <div class="hook-line1">I INVESTED <span class="hook-amount">₹10K</span><br>EVERY YEAR</div>
+  </div>
+
+  <div class="invested">
+    <div class="invested-label">Total Invested</div>
+    <div class="invested-val">₹2,00,000</div>
+  </div>
+
+  <div class="arrow-wrap">
+    <div class="arrow-down"></div>
+  </div>
+
+  <div class="result">
+    <div class="result-label">It Became</div>
+    <div class="result-val">₹7.61L</div>
+  </div>
+
+  <div class="multiplier-row">
+    <div class="multiplier-pill">3.8× RETURN</div>
+  </div>
+
+  <div class="timeline">
+    <div class="yr">2006</div>
+    <div class="yr-dot"></div>
+    <div class="yr-line"></div>
+    <div class="yr-dot"></div>
+    <div class="yr">2025</div>
+  </div>
+
+  <div class="profit-callout">
+    <div class="profit-tag">₹5,61,175 PROFIT ↗</div>
+  </div>
+
+  <!-- Decorative upward chart line -->
+  <div class="chart-line">
+    <svg viewBox="0 0 920 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 90 C100 85, 150 80, 200 70 C280 55, 350 65, 420 45 C480 30, 550 50, 620 25 C700 5, 780 15, 920 2"
+        stroke="url(#grad)" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+      <defs>
+        <linearGradient id="grad" x1="0" y1="0" x2="920" y2="0">
+          <stop offset="0%" stop-color="#58BCEC" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#FFE619" stop-opacity="0.8"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="bottom">
+    <div class="nifty-title">NIFTY 50 SIP</div>
+    <div class="subtitle">The power of compounding 📈</div>
+  </div>
+
+</body>
+</html>

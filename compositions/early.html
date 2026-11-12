@@ -1,0 +1,505 @@
+<template>
+<style>
+  #root { position: absolute; inset: 0; background: #fbfaf8; overflow: hidden; }
+
+  /* Full-width timeline track */
+  .timeline-track {
+    position: absolute;
+    bottom: 160px; left: 100px; right: 100px;
+    height: 8px;
+    background: #E9E9EB;
+    border-radius: 4px;
+    opacity: 0;
+    z-index: 5;
+  }
+  .timeline-progress {
+    height: 100%; border-radius: 4px; width: 0%;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+  }
+  .timeline-dot {
+    position: absolute;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #22c55e;
+    top: -7px;
+    opacity: 0;
+    z-index: 6;
+  }
+  .timeline-dot.crash { background: #ef4444; }
+  #dot-06 { left: 10%; }
+  #dot-07 { left: 45%; }
+  #dot-08 { left: 80%; }
+
+  /* Scene title */
+  .early-title {
+    position: absolute;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 42px;
+    color: #1a1a1a;
+    top: 45px; left: 100px;
+    opacity: 0;
+    z-index: 10;
+  }
+  .early-title .yr-range {
+    font-family: 'Space Mono', monospace;
+    font-size: 28px;
+    color: #8d9399;
+    margin-left: 16px;
+  }
+
+  /* Scrolling ticker tape at top */
+  .ticker-tape {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 46px;
+    background: #1a1a1a;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 20;
+  }
+  .ticker-inner {
+    position: absolute;
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    color: #22c55e;
+    line-height: 46px;
+    will-change: transform;
+  }
+  .ticker-inner .neg { color: #ef4444; }
+
+  /* Year hero card — BIG, centered, one at a time */
+  .year-hero {
+    position: absolute;
+    top: 120px;
+    width: 700px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    padding: 40px 48px;
+    opacity: 0;
+    z-index: 10;
+  }
+  #hero-06 { left: 100px; }
+  #hero-07 { left: 100px; }
+  #hero-08 { left: 100px; }
+
+  .yh-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .yh-year {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 72px;
+    color: #1a1a1a;
+    line-height: 1;
+  }
+  .yh-return {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+  }
+  .yh-return.pos { color: #22c55e; }
+  .yh-return.neg { color: #ef4444; }
+
+  .yh-bar-track {
+    width: 100%; height: 16px;
+    background: #F2F2F2;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .yh-bar {
+    height: 100%; border-radius: 8px; width: 0%;
+  }
+  .yh-bar.pos { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .yh-bar.neg { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+  .yh-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    color: #8d9399;
+  }
+  .yh-portfolio {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #1a1a1a;
+    margin-top: 12px;
+  }
+  .yh-portfolio-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #8d9399;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Right side — growing investment meter */
+  .invest-meter {
+    position: absolute;
+    right: 100px;
+    top: 120px;
+    width: 360px;
+    opacity: 0;
+    z-index: 8;
+  }
+  .im-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #8d9399;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+  .im-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    opacity: 0;
+  }
+  .im-yr {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: #1a1a1a;
+    width: 60px;
+  }
+  .im-bar-bg {
+    flex: 1;
+    height: 32px;
+    background: #F2F2F2;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .im-bar-fill {
+    height: 100%;
+    border-radius: 16px;
+    width: 0%;
+    position: relative;
+  }
+  .im-bar-fill.pos { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .im-bar-fill.neg { background: linear-gradient(90deg, #ef4444, #f87171); }
+  .im-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    width: 100px;
+    text-align: right;
+  }
+
+  /* Crash overlay */
+  .crash-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(239,68,68,0);
+    z-index: 15;
+    pointer-events: none;
+  }
+  .crash-badge {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) rotate(-3deg);
+    background: #ef4444;
+    color: #fff;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 72px;
+    padding: 20px 50px;
+    border-radius: 16px;
+    opacity: 0;
+    z-index: 25;
+    white-space: nowrap;
+  }
+  .crash-sub {
+    position: absolute;
+    left: 50%; top: calc(50% + 80px);
+    transform: translate(-50%, 0);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    color: #fff;
+    opacity: 0;
+    z-index: 25;
+    white-space: nowrap;
+  }
+
+  /* Bottom summary strip */
+  .early-summary {
+    position: absolute;
+    bottom: 40px; left: 100px; right: 100px;
+    display: flex;
+    gap: 30px;
+    opacity: 0;
+    z-index: 10;
+  }
+  .es-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px 24px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.05);
+    flex: 1;
+  }
+  .es-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #8d9399;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .es-val {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px;
+    margin-top: 4px;
+  }
+  .es-val.loss { color: #ef4444; }
+  .es-val.gain { color: #22c55e; }
+</style>
+
+<div id="root" data-composition-id="early" data-width="1920" data-height="1080">
+  <!-- Ticker tape -->
+  <div id="ticker" class="clip ticker-tape" data-start="0" data-duration="18" data-layout-allow-overflow>
+    <div id="ticker-inner" class="ticker-inner">
+      SENSEX +39.8% · NIFTY 3,966 → 6,139 · INFOSYS +62% · RELIANCE +118% · ICICI +85% · TCS +44% ·
+      SENSEX +39.8% · NIFTY 3,966 → 6,139 · INFOSYS +62% · RELIANCE +118% · ICICI +85% · TCS +44% ·
+      SENSEX +39.8% · NIFTY 3,966 → 6,139 · INFOSYS +62% · RELIANCE +118%
+    </div>
+  </div>
+
+  <div id="early-title" class="clip early-title" data-start="0" data-duration="18">
+    THE EARLY YEARS <span class="yr-range">2006 – 2008</span>
+  </div>
+
+  <!-- Timeline track at bottom -->
+  <div id="tl-track" class="clip timeline-track" data-start="0" data-duration="18">
+    <div id="tl-progress" class="timeline-progress"></div>
+    <div id="dot-06" class="timeline-dot"></div>
+    <div id="dot-07" class="timeline-dot"></div>
+    <div id="dot-08" class="timeline-dot crash"></div>
+  </div>
+
+  <!-- 2006 Hero Card -->
+  <div id="hero-06" class="clip year-hero" data-start="0" data-duration="18">
+    <div class="yh-top">
+      <div class="yh-year">2006</div>
+      <div class="yh-return pos">+39.8%</div>
+    </div>
+    <div class="yh-bar-track"><div id="bar-06" class="yh-bar pos"></div></div>
+    <div class="yh-stats">
+      <span>Invested: ₹10,000</span>
+      <span>Nifty: 3,966 → 6,139</span>
+    </div>
+    <div class="yh-portfolio-label">PORTFOLIO VALUE</div>
+    <div class="yh-portfolio">₹13,980</div>
+  </div>
+
+  <!-- 2007 Hero Card -->
+  <div id="hero-07" class="clip year-hero" data-start="0" data-duration="18">
+    <div class="yh-top">
+      <div class="yh-year">2007</div>
+      <div class="yh-return pos">+54.8%</div>
+    </div>
+    <div class="yh-bar-track"><div id="bar-07" class="yh-bar pos"></div></div>
+    <div class="yh-stats">
+      <span>Invested: ₹20,000</span>
+      <span>Nifty: 6,139 → 6,144</span>
+    </div>
+    <div class="yh-portfolio-label">PORTFOLIO VALUE</div>
+    <div class="yh-portfolio">₹37,121</div>
+  </div>
+
+  <!-- 2008 Hero Card -->
+  <div id="hero-08" class="clip year-hero" data-start="0" data-duration="18">
+    <div class="yh-top">
+      <div class="yh-year">2008</div>
+      <div class="yh-return neg">−51.8%</div>
+    </div>
+    <div class="yh-bar-track"><div id="bar-08" class="yh-bar neg"></div></div>
+    <div class="yh-stats">
+      <span>Invested: ₹30,000</span>
+      <span>Nifty: 6,144 → 2,959</span>
+    </div>
+    <div class="yh-portfolio-label">PORTFOLIO VALUE</div>
+    <div class="yh-portfolio">₹22,712</div>
+  </div>
+
+  <!-- Right side — stacking investment bars -->
+  <div id="invest-meter" class="clip invest-meter" data-start="0" data-duration="18">
+    <div class="im-title">Your Investment Journey</div>
+    <div id="im-row-06" class="im-row">
+      <div class="im-yr">2006</div>
+      <div class="im-bar-bg"><div id="im-fill-06" class="im-bar-fill pos"></div></div>
+      <div class="im-val">₹13,980</div>
+    </div>
+    <div id="im-row-07" class="im-row">
+      <div class="im-yr">2007</div>
+      <div class="im-bar-bg"><div id="im-fill-07" class="im-bar-fill pos"></div></div>
+      <div class="im-val">₹37,121</div>
+    </div>
+    <div id="im-row-08" class="im-row">
+      <div class="im-yr">2008</div>
+      <div class="im-bar-bg"><div id="im-fill-08" class="im-bar-fill neg"></div></div>
+      <div class="im-val">₹22,712</div>
+    </div>
+  </div>
+
+  <!-- Crash overlay + badge -->
+  <div id="crash-flash" class="clip crash-overlay" data-start="0" data-duration="18"></div>
+  <div id="crash-badge" class="clip crash-badge" data-start="0" data-duration="18">⚠ GFC CRASH ⚠</div>
+  <div id="crash-sub" class="clip crash-sub" data-start="0" data-duration="18">
+    Global Financial Crisis · Nifty fell 52% in one year
+  </div>
+
+  <!-- Bottom summary strip -->
+  <div id="early-summary" class="clip early-summary" data-start="0" data-duration="18">
+    <div class="es-item">
+      <div class="es-label">Total Invested</div>
+      <div class="es-val">₹30,000</div>
+    </div>
+    <div class="es-item">
+      <div class="es-label">Portfolio</div>
+      <div class="es-val loss">₹22,712</div>
+    </div>
+    <div class="es-item">
+      <div class="es-label">Loss</div>
+      <div class="es-val loss">−₹7,288</div>
+    </div>
+    <div class="es-item">
+      <div class="es-label">But You Didn't Stop</div>
+      <div class="es-val gain">→ Keep Going</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const stepEase = (base, dur, fps = 12) => {
+    const e = gsap.parseEase(base);
+    const n = Math.max(1, Math.round(dur * fps));
+    return (p) => e(Math.floor(p * n) / n);
+  };
+
+  const tl = gsap.timeline({ paused: true });
+
+  /*
+   * RETIMED for 18s duration (video 8-26s).
+   * Narration landmarks (local scene time):
+   *   t≈0.0  "The year is 2006"
+   *   t≈3.4  "first ten thousand" ends
+   *   t≈5.2  "nearly 40 percent" ends
+   *   t≈9.5  "past 37 thousand" ends (2007)
+   *   t≈11.2 "Then 2008 hits"
+   *   t≈14.4 "over 50 percent" ends
+   *   t≈16.0 "twenty-two thousand" ends
+   *   t≈16.9 "But you don't stop"
+   */
+
+  // === PHASE 1: 2006 — instant entry (0s - 5.0s) ===
+
+  // Ticker slides in immediately
+  tl.fromTo("#ticker", {opacity:0, y:-46}, {opacity:1, y:0, duration:0.25, ease:"power2.out"}, 0.1);
+  tl.fromTo("#ticker-inner", {x:0}, {x:-2400, duration:17, ease:"none"}, 0.3);
+
+  // Title appears fast
+  tl.fromTo("#early-title", {opacity:0, x:-30}, {opacity:1, x:0, duration:0.35, ease: stepEase("power2.out", 0.35)}, 0.2);
+
+  // Timeline track appears
+  tl.fromTo("#tl-track", {opacity:0}, {opacity:1, duration:0.25}, 0.3);
+
+  // 2006 hero card FLIES in
+  tl.fromTo("#hero-06", {opacity:0, x:-60, scale:0.9}, {opacity:1, x:0, scale:1, duration:0.4, ease: stepEase("back.out(1.4)", 0.4)}, 0.4);
+  tl.fromTo("#bar-06", {width:"0%"}, {width:"40%", duration:0.5, ease: stepEase("power2.out", 0.5)}, 0.8);
+
+  // Investment meter fades in, 2006 row animates
+  tl.fromTo("#invest-meter", {opacity:0, x:40}, {opacity:1, x:0, duration:0.35, ease:"power2.out"}, 0.5);
+  tl.fromTo("#im-row-06", {opacity:0, x:20}, {opacity:1, x:0, duration:0.3, ease:"power2.out"}, 0.8);
+  tl.fromTo("#im-fill-06", {width:"0%"}, {width:"46%", duration:0.5, ease: stepEase("power2.out", 0.5)}, 1.0);
+
+  // Timeline progress to 2006
+  tl.fromTo("#tl-progress", {width:"0%"}, {width:"15%", duration:0.4, ease:"power2.out"}, 0.7);
+  tl.fromTo("#dot-06", {opacity:0, scale:0}, {opacity:1, scale:1, duration:0.2, ease:"back.out(2)"}, 1.0);
+
+  // Subtle card breathing while narration plays
+  tl.to("#hero-06", {y:-5, duration:1.5, ease:"sine.inOut", yoyo:true, repeat:1}, 2.0);
+
+  // === PHASE 2: 2007 — swap at ~5.0s (narration: "nearly 40 percent" done) ===
+
+  // 2006 card slides left and shrinks
+  tl.to("#hero-06", {opacity:0, x:-100, scale:0.85, duration:0.35, ease:"power2.in"}, 5.0);
+
+  // 2007 hero card slides in from right
+  tl.fromTo("#hero-07", {opacity:0, x:80, scale:0.9}, {opacity:1, x:0, scale:1, duration:0.4, ease: stepEase("back.out(1.4)", 0.4)}, 5.3);
+  tl.fromTo("#bar-07", {width:"0%"}, {width:"55%", duration:0.5, ease: stepEase("power2.out", 0.5)}, 5.6);
+
+  // 2007 investment row
+  tl.fromTo("#im-row-07", {opacity:0, x:20}, {opacity:1, x:0, duration:0.3, ease:"power2.out"}, 5.4);
+  tl.fromTo("#im-fill-07", {width:"0%"}, {width:"100%", duration:0.5, ease: stepEase("power2.out", 0.5)}, 5.6);
+
+  // Timeline progress to 2007
+  tl.to("#tl-progress", {width:"50%", duration:0.5, ease:"power2.out"}, 5.3);
+  tl.fromTo("#dot-07", {opacity:0, scale:0}, {opacity:1, scale:1, duration:0.2, ease:"back.out(2)"}, 5.7);
+
+  // Card breathing during 2007 narration
+  tl.to("#hero-07", {y:-4, duration:1.5, ease:"sine.inOut", yoyo:true, repeat:1}, 7.0);
+
+  // === PHASE 3: 2008 CRASH — dramatic at ~11.0s (narration: "Then 2008 hits") ===
+
+  // Ticker turns red
+  tl.to("#ticker-inner", {color:"#ef4444", duration:0.15}, 10.8);
+  tl.to("#ticker .ticker-tape, #ticker", {background:"#2a0000", duration:0.2}, 10.8);
+
+  // 2007 card gets pushed away
+  tl.to("#hero-07", {opacity:0, x:-100, scale:0.85, duration:0.3, ease:"power2.in"}, 11.0);
+
+  // RED FLASH — screen shakes
+  tl.to("#crash-flash", {backgroundColor:"rgba(239,68,68,0.25)", duration:0.08}, 11.2);
+  tl.to("#crash-flash", {backgroundColor:"rgba(239,68,68,0.08)", duration:0.15}, 11.28);
+  tl.to("#crash-flash", {backgroundColor:"rgba(239,68,68,0.18)", duration:0.08}, 11.43);
+  tl.to("#crash-flash", {backgroundColor:"rgba(239,68,68,0)", duration:0.5}, 11.51);
+
+  // Screen shake on the whole root
+  tl.to("#root", {x:12, duration:0.05, ease:"none"}, 11.2);
+  tl.to("#root", {x:-10, duration:0.05, ease:"none"}, 11.25);
+  tl.to("#root", {x:7, duration:0.05, ease:"none"}, 11.3);
+  tl.to("#root", {x:-4, duration:0.05, ease:"none"}, 11.35);
+  tl.to("#root", {x:0, duration:0.05, ease:"none"}, 11.4);
+
+  // GFC CRASH badge SLAMS in center
+  tl.fromTo("#crash-badge", {opacity:0, scale:2.5, rotation:-8}, {opacity:1, scale:1, rotation:-3, duration:0.3, ease: stepEase("power3.out", 0.3)}, 11.3);
+  tl.fromTo("#crash-sub", {opacity:0, y:20}, {opacity:1, y:0, duration:0.35, ease: stepEase("power2.out", 0.35)}, 11.7);
+
+  // Crash badge fades after impact
+  tl.to("#crash-badge", {opacity:0, scale:0.9, duration:0.4, ease:"power2.in"}, 12.6);
+  tl.to("#crash-sub", {opacity:0, duration:0.3, ease:"power2.in"}, 12.6);
+
+  // 2008 card appears after crash badge clears
+  tl.fromTo("#hero-08", {opacity:0, y:-60, scale:1.1}, {opacity:1, y:0, scale:1, duration:0.4, ease: stepEase("power3.out", 0.4)}, 13.0);
+  tl.fromTo("#bar-08", {width:"0%"}, {width:"52%", duration:0.5, ease: stepEase("power2.out", 0.5)}, 13.3);
+
+  // 2008 investment row — bar shrinks dramatically
+  tl.fromTo("#im-row-08", {opacity:0, x:20}, {opacity:1, x:0, duration:0.3, ease:"power2.out"}, 13.1);
+  tl.fromTo("#im-fill-08", {width:"0%"}, {width:"60%", duration:0.5, ease: stepEase("power2.out", 0.5)}, 13.3);
+
+  // Timeline progress completes — red for crash
+  tl.to("#tl-progress", {width:"85%", background:"linear-gradient(90deg, #22c55e, #22c55e 60%, #ef4444)", duration:0.4, ease:"power2.out"}, 13.0);
+  tl.fromTo("#dot-08", {opacity:0, scale:0}, {opacity:1, scale:1, duration:0.2, ease:"back.out(2)"}, 13.3);
+
+  // === PHASE 4: Summary (15.5s - 17.2s) — "But you don't stop" ===
+
+  // Summary strip slides up
+  tl.fromTo("#early-summary", {opacity:0, y:30}, {opacity:1, y:0, duration:0.4, ease: stepEase("power2.out", 0.4)}, 15.5);
+
+  // === FADE OUT ===
+  tl.to("#root", {opacity:0, duration:0.4, ease:"power2.in"}, 17.2);
+  tl.set("#root", {opacity:0, visibility:"hidden"}, 17.6);
+
+  window.__timelines["early"] = tl;
+</script>
+</template>

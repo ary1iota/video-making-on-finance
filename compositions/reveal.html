@@ -1,0 +1,278 @@
+<template>
+<style>
+  #root { position: absolute; inset: 0; background: #fbfaf8; overflow: hidden; }
+
+  /* Starburst rays behind the circle */
+  .starburst {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px; height: 1200px;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  /* The yellow circle */
+  .reveal-circle {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) scale(0.3);
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: #FFE619;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    z-index: 10;
+    box-shadow: 0 0 0 0 rgba(255,230,25,0.4);
+  }
+  .rc-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    color: rgba(26,26,26,0.7);
+    letter-spacing: 0.06em;
+    opacity: 0;
+  }
+  .rc-amount {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 100px;
+    color: #1a1a1a;
+    opacity: 0;
+  }
+  .rc-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    color: rgba(26,26,26,0.7);
+    opacity: 0;
+  }
+
+  /* Confetti particles */
+  .confetti {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-radius: 2px;
+    opacity: 0;
+    z-index: 12;
+  }
+  .cf-y { background: #FFE619; }
+  .cf-b { background: #58BCEC; }
+  .cf-g { background: #22c55e; }
+  .cf-w { background: #fff; border: 1px solid #E9E9EB; }
+
+  /* Summary cards */
+  .summary-card {
+    position: absolute;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    padding: 22px 28px;
+    opacity: 0;
+    z-index: 5;
+  }
+  .sm-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #8d9399;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .sm-value {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 34px;
+    color: #1a1a1a;
+    margin-top: 4px;
+  }
+
+  #sm-invested { left: 80px; top: 130px; }
+  #sm-years { left: 80px; top: 280px; }
+  #sm-gain { right: 80px; top: 130px; }
+  #sm-multiplier { right: 80px; top: 280px; }
+  #sm-nifty-start { left: 80px; bottom: 150px; }
+  #sm-nifty-end { right: 80px; bottom: 150px; }
+
+  /* Final years row */
+  .final-row {
+    position: absolute;
+    bottom: 45px; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+    z-index: 5;
+  }
+  .final-chip {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 17px;
+    color: #1a1a1a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .final-chip span { color: #22c55e; font-weight: 700; }
+
+  /* Glow ring on circle */
+  .glow-outer {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 750px; height: 750px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,230,25,0.3);
+    opacity: 0;
+    z-index: 8;
+  }
+</style>
+
+<div id="root" data-composition-id="reveal" data-width="1920" data-height="1080">
+  <!-- Starburst rays -->
+  <div id="starburst" class="clip starburst" data-start="0" data-duration="10">
+    <svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(600,600)">
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(0)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(30)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(60)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(90)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(120)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(150)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(180)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(210)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(240)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(270)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(300)"/>
+        <line x1="0" y1="0" x2="0" y2="-580" stroke="rgba(255,230,25,0.12)" stroke-width="3" transform="rotate(330)"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Glow outer ring -->
+  <div id="glow-outer" class="clip glow-outer" data-start="0" data-duration="10"></div>
+
+  <!-- Yellow Circle -->
+  <div id="reveal-circle" class="clip reveal-circle" data-start="0" data-duration="10">
+    <div class="rc-label" id="rc-label">YOUR PORTFOLIO TODAY</div>
+    <div class="rc-amount" id="rc-amt">₹7,61,175</div>
+    <div class="rc-sub" id="rc-sub">From ₹2,00,000 invested</div>
+  </div>
+
+  <!-- Confetti particles (20 pieces) -->
+  <div id="cf1" class="clip confetti cf-y" data-start="0" data-duration="10" style="left:920px;top:300px"></div>
+  <div id="cf2" class="clip confetti cf-b" data-start="0" data-duration="10" style="left:980px;top:320px"></div>
+  <div id="cf3" class="clip confetti cf-g" data-start="0" data-duration="10" style="left:860px;top:280px"></div>
+  <div id="cf4" class="clip confetti cf-w" data-start="0" data-duration="10" style="left:1050px;top:350px"></div>
+  <div id="cf5" class="clip confetti cf-y" data-start="0" data-duration="10" style="left:800px;top:400px"></div>
+  <div id="cf6" class="clip confetti cf-b" data-start="0" data-duration="10" style="left:1100px;top:290px"></div>
+  <div id="cf7" class="clip confetti cf-g" data-start="0" data-duration="10" style="left:750px;top:350px"></div>
+  <div id="cf8" class="clip confetti cf-y" data-start="0" data-duration="10" style="left:1150px;top:400px"></div>
+  <div id="cf9" class="clip confetti cf-w" data-start="0" data-duration="10" style="left:900px;top:250px"></div>
+  <div id="cf10" class="clip confetti cf-b" data-start="0" data-duration="10" style="left:1000px;top:440px"></div>
+  <div id="cf11" class="clip confetti cf-y" data-start="0" data-duration="10" style="left:840px;top:450px"></div>
+  <div id="cf12" class="clip confetti cf-g" data-start="0" data-duration="10" style="left:1080px;top:250px"></div>
+
+  <!-- Summary cards -->
+  <div id="sm-invested" class="clip summary-card" data-start="0" data-duration="10">
+    <div class="sm-label">Total Invested</div>
+    <div class="sm-value">₹2,00,000</div>
+  </div>
+  <div id="sm-years" class="clip summary-card" data-start="0" data-duration="10">
+    <div class="sm-label">Duration</div>
+    <div class="sm-value">20 Years</div>
+  </div>
+  <div id="sm-gain" class="clip summary-card" data-start="0" data-duration="10">
+    <div class="sm-label">Total Gain</div>
+    <div class="sm-value" style="color:#22c55e">₹5,61,175</div>
+  </div>
+  <div id="sm-multiplier" class="clip summary-card" data-start="0" data-duration="10">
+    <div class="sm-label">Wealth Multiplier</div>
+    <div class="sm-value" style="color:#58BCEC">3.8x</div>
+  </div>
+  <div id="sm-nifty-start" class="clip summary-card" data-start="0" data-duration="10">
+    <div class="sm-label">Nifty 50 in 2006</div>
+    <div class="sm-value">3,966</div>
+  </div>
+  <div id="sm-nifty-end" class="clip summary-card" data-start="0" data-duration="10">
+    <div class="sm-label">Nifty 50 in 2025</div>
+    <div class="sm-value">26,130</div>
+  </div>
+
+  <!-- Final years -->
+  <div id="final-row" class="clip final-row" data-start="0" data-duration="10">
+    <div class="final-chip">2022: <span>+4.3%</span></div>
+    <div class="final-chip">2023: <span>+20.0%</span></div>
+    <div class="final-chip">2024: <span>+8.8%</span></div>
+    <div class="final-chip">2025: <span>+10.5%</span></div>
+  </div>
+</div>
+
+<script>
+  const stepEase = (base, dur, fps = 12) => {
+    const e = gsap.parseEase(base);
+    const n = Math.max(1, Math.round(dur * fps));
+    return (p) => e(Math.floor(p * n) / n);
+  };
+
+  const tl = gsap.timeline({ paused: true });
+
+  // Starburst spins in
+  tl.fromTo("#starburst", {opacity:0, scale:0.3, rotation:-30}, {opacity:1, scale:1, rotation:0, duration:0.8, ease: stepEase("power2.out", 0.8)}, 0.2);
+  tl.to("#starburst", {rotation:15, duration:9, ease:"none"}, 1.0);
+
+  // Yellow circle EXPANDS with dramatic measured curve
+  tl.set("#reveal-circle", {opacity:1, scale:0.05}, 0.5);
+  tl.to("#reveal-circle", {scale:0.5, duration:0.2, ease: stepEase("power3.out", 0.2)}, 0.5);
+  tl.to("#reveal-circle", {scale:0.85, duration:0.15, ease: stepEase("power2.out", 0.15)}, 0.7);
+  tl.to("#reveal-circle", {scale:1.0, duration:0.15, ease: stepEase("power2.out", 0.15)}, 0.85);
+
+  // Glow ring expands with circle
+  tl.fromTo("#glow-outer", {opacity:0, scale:0.6}, {opacity:1, scale:1, duration:0.5, ease:"power2.out"}, 0.7);
+
+  // Circle shadow pulse
+  tl.to("#reveal-circle", {boxShadow:"0 0 60px 20px rgba(255,230,25,0.3)", duration:0.5, ease:"power2.out"}, 1.0);
+
+  // Text inside circle appears
+  tl.fromTo("#rc-label", {opacity:0, y:10}, {opacity:1, y:0, duration:0.3, ease: stepEase("power2.out", 0.3)}, 1.3);
+  tl.fromTo("#rc-amt", {opacity:0, scale:1.3}, {opacity:1, scale:1, duration:0.4, ease: stepEase("back.out(1.4)", 0.4)}, 1.6);
+  tl.fromTo("#rc-sub", {opacity:0, y:-10}, {opacity:1, y:0, duration:0.3, ease: stepEase("power2.out", 0.3)}, 2.2);
+
+  // CONFETTI BURST — 12 particles explode outward
+  const confetti = [];
+  for (let i = 1; i <= 12; i++) confetti.push("#cf" + i);
+  const cfDx = [-80, 60, -120, 140, -160, 180, -200, 170, -50, 90, -140, 130];
+  const cfDy = [-200, -180, -160, -140, 80, -190, 60, 100, -220, 120, 90, -170];
+  const cfRot = [45, -30, 60, -45, 30, -60, 50, -40, 35, -55, 25, -35];
+  confetti.forEach((c, i) => {
+    tl.fromTo(c, {opacity:0, x:0, y:0, rotation:0},
+      {opacity:0.8, x: cfDx[i], y: cfDy[i], rotation: cfRot[i], duration:0.5, ease: stepEase("power2.out", 0.5)}, 1.6);
+    tl.to(c, {opacity:0, y: cfDy[i] + 100, duration:1.5, ease:"power2.in"}, 2.1);
+  });
+
+  // Summary cards pop in staggered with bounce
+  tl.fromTo("#sm-invested", {opacity:0, scale:0.85, y:20}, {opacity:1, scale:1, y:0, duration:0.35, ease: stepEase("back.out(1.6)", 0.35)}, 2.8);
+  tl.fromTo("#sm-years", {opacity:0, scale:0.85, y:20}, {opacity:1, scale:1, y:0, duration:0.35, ease: stepEase("back.out(1.6)", 0.35)}, 3.3);
+  tl.fromTo("#sm-gain", {opacity:0, scale:0.85, y:20}, {opacity:1, scale:1, y:0, duration:0.35, ease: stepEase("back.out(1.6)", 0.35)}, 3.8);
+  tl.fromTo("#sm-multiplier", {opacity:0, scale:0.85, y:20}, {opacity:1, scale:1, y:0, duration:0.35, ease: stepEase("back.out(1.6)", 0.35)}, 4.3);
+  tl.fromTo("#sm-nifty-start", {opacity:0, scale:0.85, y:20}, {opacity:1, scale:1, y:0, duration:0.35, ease: stepEase("back.out(1.6)", 0.35)}, 5.3);
+  tl.fromTo("#sm-nifty-end", {opacity:0, scale:0.85, y:20}, {opacity:1, scale:1, y:0, duration:0.35, ease: stepEase("back.out(1.6)", 0.35)}, 5.8);
+
+  // Final years
+  tl.fromTo("#final-row", {opacity:0, y:20}, {opacity:1, y:0, duration:0.5, ease: stepEase("power2.out", 0.5)}, 6.8);
+
+  // Circle gentle pulse
+  tl.to("#reveal-circle", {scale:1.03, duration:2, ease:"sine.inOut"}, 4.0);
+  tl.to("#reveal-circle", {scale:1.0, duration:2, ease:"sine.inOut"}, 6.0);
+
+  // Glow ring pulses
+  tl.to("#glow-outer", {scale:1.05, opacity:0.5, duration:2, ease:"sine.inOut"}, 4.0);
+  tl.to("#glow-outer", {scale:1.0, opacity:1, duration:2, ease:"sine.inOut"}, 6.0);
+
+  // Fade out
+  tl.to("#root", {opacity:0, duration:0.5, ease:"power2.in"}, 9.3);
+  tl.set("#root", {opacity:0, visibility:"hidden"}, 9.8);
+
+  window.__timelines["reveal"] = tl;
+</script>
+</template>

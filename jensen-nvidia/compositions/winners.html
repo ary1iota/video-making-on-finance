@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="../assets/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  #root {
+    width: 1920px; height: 1080px; overflow: hidden;
+    background: #fbfaf8; position: relative;
+    font-family: 'Inter', sans-serif;
+  }
+  .inner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
+
+  #scene-label {
+    position: absolute; top: 60px; left: 120px;
+    font-size: 22px; color: #6b7075; text-transform: uppercase;
+    letter-spacing: 0.2em; font-family: 'Space Mono', monospace;
+  }
+  #scene-title {
+    position: absolute; top: 100px; left: 120px;
+    font-size: 56px; color: #1A1A1A; font-family: 'Archivo Black', sans-serif;
+  }
+
+  /* Split layout */
+  #winners-side {
+    position: absolute; top: 200px; left: 120px; width: 780px; height: 700px;
+  }
+  #losers-side {
+    position: absolute; top: 200px; right: 120px; width: 780px; height: 700px;
+  }
+  .side-label {
+    font-size: 32px; font-weight: 700; margin-bottom: 30px;
+    font-family: 'Archivo Black', sans-serif;
+  }
+  #winners-side .side-label { color: #1B9E55; }
+  #losers-side .side-label { color: #E74C3C; }
+
+  /* Divider */
+  #divider {
+    position: absolute; top: 200px; left: 50%; width: 3px; height: 0;
+    background: #E9E9EB; transform: translateX(-50%);
+  }
+
+  /* Bar items */
+  .bar-item {
+    display: flex; align-items: center; gap: 20px;
+    margin-bottom: 28px; opacity: 0;
+  }
+  .bar-name {
+    font-size: 28px; font-weight: 700; color: #1A1A1A; width: 180px;
+    font-family: 'Inter', sans-serif;
+  }
+  .bar-track {
+    flex: 1; height: 56px; background: #F2F2F2; border-radius: 8px;
+    position: relative; overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; border-radius: 8px; width: 0;
+  }
+  .bar-fill.green { background: #2ECC71; }
+  .bar-fill.red { background: #E74C3C; }
+  .bar-pct {
+    font-size: 32px; font-weight: 700; width: 120px; text-align: right;
+    font-family: 'Space Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .bar-pct.green { color: #1B9E55; }
+  .bar-pct.red { color: #E74C3C; }
+
+  /* Arrow indicators */
+  .arrow { font-size: 28px; margin-right: 4px; }
+
+  /* Source */
+  #source {
+    position: absolute; bottom: 20px; left: 120px;
+    font-size: 16px; color: #6b7075;
+    font-family: 'Space Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="winners" data-start="0" data-duration="11.9" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner">
+    <div id="scene-label">MARKET IMPACT</div>
+    <div id="scene-title">Winners & Losers</div>
+    <div id="divider"></div>
+
+    <!-- Winners -->
+    <div id="winners-side">
+      <div class="side-label">📈 WINNERS</div>
+      <div class="bar-item" id="amd-bar">
+        <div class="bar-name">AMD</div>
+        <div class="bar-track"><div class="bar-fill green" id="amd-fill"></div></div>
+        <div class="bar-pct green" id="amd-pct">0%</div>
+      </div>
+      <div class="bar-item" id="bcom-bar">
+        <div class="bar-name">Broadcom</div>
+        <div class="bar-track"><div class="bar-fill green" id="bcom-fill"></div></div>
+        <div class="bar-pct green" id="bcom-pct">0%</div>
+      </div>
+    </div>
+
+    <!-- Losers -->
+    <div id="losers-side">
+      <div class="side-label">📉 LOSERS</div>
+      <div class="bar-item" id="cw-bar">
+        <div class="bar-name">CoreWeave</div>
+        <div class="bar-track"><div class="bar-fill red" id="cw-fill"></div></div>
+        <div class="bar-pct red" id="cw-pct">0%</div>
+      </div>
+      <div class="bar-item" id="tsmc-bar">
+        <div class="bar-name">TSMC</div>
+        <div class="bar-track"><div class="bar-fill red" id="tsmc-fill"></div></div>
+        <div class="bar-pct red" id="tsmc-pct">0%</div>
+      </div>
+    </div>
+
+    <div id="source">Source: Market data, week of Nov 12 2026</div>
+  </div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+
+// Fade in
+tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+// Labels
+tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.1);
+tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+
+// Divider grows
+tl.to("#divider", { height: 700, duration: 1.5, ease: "power2.inOut" }, 0.4);
+
+// Winners side label
+tl.fromTo("#winners-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.6);
+
+// AMD bar (30%)
+tl.to("#amd-bar", { opacity: 1, duration: 0.2 }, 1.0);
+tl.to("#amd-fill", { width: "100%", duration: 1.0, ease: "power2.out" }, 1.2);
+tl.to("#amd-pct", {
+  innerText: "+30%",
+  duration: 1.0,
+  snap: { innerText: 1 },
+  ease: "power1.inOut",
+  modifiers: {
+    innerText: function(value) {
+      return "+" + Math.round(parseFloat(value)) + "%";
+    }
+  }
+}, 1.2);
+
+// Broadcom bar (24%)
+tl.to("#bcom-bar", { opacity: 1, duration: 0.2 }, 2.5);
+tl.to("#bcom-fill", { width: "80%", duration: 0.8, ease: "power2.out" }, 2.7);
+tl.to("#bcom-pct", {
+  innerText: "+24%",
+  duration: 0.8,
+  modifiers: {
+    innerText: function(value) {
+      return "+" + Math.round(parseFloat(value)) + "%";
+    }
+  }
+}, 2.7);
+
+// Losers side label
+tl.fromTo("#losers-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.0);
+
+// CoreWeave bar (-7%)
+tl.to("#cw-bar", { opacity: 1, duration: 0.2 }, 5.5);
+tl.to("#cw-fill", { width: "23%", duration: 0.7, ease: "power2.out" }, 5.7);
+tl.to("#cw-pct", {
+  innerText: "-7.5%",
+  duration: 0.7,
+  modifiers: {
+    innerText: function(value) {
+      return "-" + Math.abs(Math.round(parseFloat(value) * 10) / 10) + "%";
+    }
+  }
+}, 5.7);
+
+// TSMC bar (-1.15%)
+tl.to("#tsmc-bar", { opacity: 1, duration: 0.2 }, 7.0);
+tl.to("#tsmc-fill", { width: "5%", duration: 0.5, ease: "power2.out" }, 7.2);
+tl.to("#tsmc-pct", {
+  innerText: "-1.2%",
+  duration: 0.5,
+  modifiers: {
+    innerText: function(value) {
+      return "-" + Math.abs(Math.round(parseFloat(value) * 10) / 10) + "%";
+    }
+  }
+}, 7.2);
+
+// Fade out
+tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 11.3);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 11.8);
+
+window.__timelines["winners"] = tl;
+</script>
+</body>
+</html>

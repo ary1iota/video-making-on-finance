@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="../assets/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  #root {
+    width: 1920px; height: 1080px; overflow: hidden;
+    background: #1A1A1A; position: relative;
+    font-family: 'Archivo Black', 'Arial Black', sans-serif;
+  }
+  .inner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
+
+  /* Jensen silhouette area */
+  #jensen-figure {
+    position: absolute; bottom: 0; left: 160px;
+    width: 500px; height: 700px;
+  }
+  #jacket-body {
+    position: absolute; bottom: 0; left: 50px;
+    width: 400px; height: 600px;
+    background: #2a2a2a; border-radius: 30px 30px 0 0;
+    box-shadow: inset 0 -40px 60px rgba(0,0,0,0.5);
+  }
+  #jacket-collar {
+    position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 80px;
+    background: #333; border-radius: 50% 50% 0 0;
+  }
+  #jacket-zip {
+    position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 400px; background: #555;
+  }
+  #head {
+    position: absolute; bottom: 560px; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 180px;
+    background: #8B7355; border-radius: 80px 80px 60px 60px;
+  }
+  #head-hair {
+    position: absolute; top: 0; left: 0; width: 100%; height: 60%;
+    background: #3a3a3a; border-radius: 80px 80px 0 0;
+  }
+
+  /* Text elements */
+  #leather-text {
+    position: absolute; top: 180px; right: 160px;
+    font-size: 64px; color: #FFE619; letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  #trillion-number {
+    position: absolute; top: 280px; right: 160px;
+    font-size: 160px; color: #ffffff; letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  #trillion-label {
+    position: absolute; top: 460px; right: 160px;
+    font-size: 48px; color: #b0b5ba; letter-spacing: 0.1em;
+    text-transform: uppercase; font-family: 'Space Mono', monospace;
+  }
+  #built-line {
+    position: absolute; top: 560px; right: 160px;
+    font-size: 42px; color: #E9E9EB; max-width: 700px;
+    text-align: right; line-height: 1.3;
+    font-family: 'Inter', sans-serif; font-weight: 700;
+  }
+
+  /* Scandal headline */
+  #scandal-bar {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 200px;
+    background: #E74C3C;
+  }
+  #scandal-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 72px; color: #ffffff; text-transform: uppercase;
+    letter-spacing: 0.05em; white-space: nowrap;
+  }
+
+  /* Yellow accent line */
+  #accent-line {
+    position: absolute; top: 520px; right: 160px;
+    width: 0; height: 6px; background: #FFE619;
+  }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="hook" data-start="0" data-duration="8.6" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner">
+    <!-- Jensen figure -->
+    <div id="jensen-figure">
+      <div id="jacket-body">
+        <div id="jacket-collar"></div>
+        <div id="jacket-zip"></div>
+      </div>
+      <div id="head">
+        <div id="head-hair"></div>
+      </div>
+    </div>
+
+    <!-- Text stack -->
+    <div id="leather-text">Leather Jacket.</div>
+    <div id="trillion-number">$3.4T</div>
+    <div id="trillion-label">MARKET CAP</div>
+    <div id="accent-line"></div>
+    <div id="built-line">Jensen Huang built NVIDIA into the world's most valuable company.</div>
+
+    <!-- Scandal bar -->
+    <div id="scandal-bar">
+      <div id="scandal-text">THEN HE BLEW IT UP.</div>
+    </div>
+  </div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+
+const stepEase = (base, dur, fps = 12) => {
+  const e = gsap.parseEase(base);
+  const n = Math.max(1, Math.round(dur * fps));
+  return (p) => e(Math.floor(p * n) / n);
+};
+
+// Fade in scene
+tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+// Jensen figure rises from bottom
+tl.fromTo("#jensen-figure", { y: 200, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.2);
+
+// "Leather Jacket" text
+tl.fromTo("#leather-text", { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.3);
+
+// $3.4T counter effect
+tl.fromTo("#trillion-number", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 0.8);
+
+// Market cap label
+tl.fromTo("#trillion-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.2);
+
+// Yellow accent line wipe
+tl.to("#accent-line", { width: 500, duration: 0.6, ease: "power2.inOut" }, 1.4);
+
+// Built NVIDIA line
+tl.fromTo("#built-line", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 2.0);
+
+// Start scandal bar off-screen (below viewport)
+gsap.set("#scandal-bar", { y: 200 });
+
+// Hold for a beat... then scandal bar SMASHES up
+tl.to("#scandal-bar", { y: 0, duration: 0.3, ease: "power4.out" }, 5.5);
+
+// Screen flash on scandal hit
+tl.fromTo("#root", { filter: "brightness(3)" }, { filter: "brightness(1)", duration: 0.3, ease: "power2.out" }, 5.5);
+
+// Hard kill at end
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 8.5);
+
+window.__timelines["hook"] = tl;
+</script>
+</body>
+</html>

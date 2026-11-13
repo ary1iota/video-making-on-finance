@@ -1,27 +1,3 @@
 node_modules/
 .hyperframes/
-package-lock.json
-
-# Old render versions (keep latest only: v5 + reels-v3)
-renders/nifty50-sip-v1.mp4
-renders/nifty50-sip-v2.mp4
-renders/nifty50-sip-v3.mp4
-renders/nifty50-sip-v4.mp4
-renders/nifty50-sip-reels.mp4
-renders/nifty50-sip-reels-v1.mp4
-renders/nifty50-sip-reels-v2.mp4
-renders/nifty50-sip-voiceover.mp4
-renders/nifty50-sip_*.mp4
-renders/thumbnail-v1.png
-renders/thumbnail-v2.png
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Editor files
-*.swp
-*.swo
-*~
-.vscode/
-.idea/
+*.log

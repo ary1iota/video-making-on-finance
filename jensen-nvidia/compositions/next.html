@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="../assets/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  #root {
+    width: 1920px; height: 1080px; overflow: hidden;
+    background: #fbfaf8; position: relative;
+    font-family: 'Inter', sans-serif;
+  }
+  .inner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
+
+  #scene-label {
+    position: absolute; top: 60px; left: 120px;
+    font-size: 22px; color: #6b7075; text-transform: uppercase;
+    letter-spacing: 0.2em; font-family: 'Space Mono', monospace;
+  }
+  #scene-title {
+    position: absolute; top: 100px; left: 120px;
+    font-size: 56px; color: #1A1A1A; font-family: 'Archivo Black', sans-serif;
+  }
+
+  /* Analyst price targets - waterfall */
+  #targets-area {
+    position: absolute; top: 220px; left: 120px; right: 120px; height: 380px;
+  }
+  .target-card {
+    position: absolute; top: 0; width: 360px; height: 360px;
+    background: #ffffff; border-radius: 16px; padding: 32px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border-top: 6px solid #58BCEC; opacity: 0;
+  }
+  .target-firm {
+    font-size: 22px; color: #6b7075; text-transform: uppercase;
+    letter-spacing: 0.1em; font-family: 'Space Mono', monospace;
+    margin-bottom: 16px;
+  }
+  .target-old {
+    font-size: 36px; color: #6b7075; text-decoration: line-through;
+    font-family: 'Space Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .target-arrow {
+    font-size: 32px; color: #E74C3C; margin: 8px 0;
+  }
+  .target-new {
+    font-size: 64px; color: #E74C3C; font-weight: 700;
+    font-family: 'Archivo Black', sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  .target-label {
+    font-size: 18px; color: #6b7075; margin-top: 8px;
+  }
+
+  #card-citi { left: 0; }
+  #card-bernstein { left: 420px; }
+  #card-stifel { left: 840px; }
+  #card-morningstar { left: 1260px; border-top-color: #FFE619; }
+
+  /* Interim CEO card */
+  #ceo-card {
+    position: absolute; bottom: 160px; left: 120px;
+    width: 700px; padding: 32px 40px;
+    background: #1A1A1A; border-radius: 16px; opacity: 0;
+    display: flex; align-items: center; gap: 32px;
+  }
+  #ceo-icon {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: #58BCEC; display: flex; align-items: center;
+    justify-content: center; font-size: 40px; flex-shrink: 0;
+  }
+  #ceo-info { color: #ffffff; }
+  #ceo-name {
+    font-size: 32px; font-weight: 700;
+    font-family: 'Archivo Black', sans-serif;
+  }
+  #ceo-role {
+    font-size: 22px; color: #b0b5ba; margin-top: 4px;
+  }
+  #ceo-note {
+    font-size: 20px; color: #FFE619; margin-top: 8px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Earnings countdown */
+  #earnings-box {
+    position: absolute; bottom: 160px; right: 120px;
+    width: 520px; padding: 32px 40px;
+    background: #FFE619; border-radius: 16px; opacity: 0;
+    text-align: center;
+  }
+  #earnings-label {
+    font-size: 22px; color: #1A1A1A; text-transform: uppercase;
+    letter-spacing: 0.15em; font-family: 'Space Mono', monospace;
+    margin-bottom: 8px;
+  }
+  #earnings-date {
+    font-size: 48px; color: #1A1A1A; font-weight: 700;
+    font-family: 'Archivo Black', sans-serif;
+  }
+  #earnings-sub {
+    font-size: 20px; color: #1A1A1A; margin-top: 8px;
+    opacity: 0.7;
+  }
+
+  /* Question */
+  #question {
+    position: absolute; bottom: 60px; left: 120px; right: 120px;
+    text-align: center; font-size: 36px; color: #1A1A1A;
+    font-family: 'Archivo Black', sans-serif; opacity: 0;
+  }
+
+  #source {
+    position: absolute; bottom: 20px; left: 120px;
+    font-size: 16px; color: #6b7075;
+    font-family: 'Space Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="next" data-start="0" data-duration="20.2" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner">
+    <div id="scene-label">WHAT'S NEXT</div>
+    <div id="scene-title">Analyst Targets Slashed</div>
+
+    <div id="targets-area">
+      <div class="target-card" id="card-citi">
+        <div class="target-firm">Citi / Dan Ives</div>
+        <div class="target-old">$300</div>
+        <div class="target-arrow">↓</div>
+        <div class="target-new">$225</div>
+        <div class="target-label">-25% cut</div>
+      </div>
+      <div class="target-card" id="card-bernstein">
+        <div class="target-firm">Bernstein</div>
+        <div class="target-old">$400</div>
+        <div class="target-arrow">↓</div>
+        <div class="target-new">$200</div>
+        <div class="target-label">-50% cut</div>
+      </div>
+      <div class="target-card" id="card-stifel">
+        <div class="target-firm">Stifel</div>
+        <div class="target-old">—</div>
+        <div class="target-arrow">→</div>
+        <div class="target-new">$205</div>
+        <div class="target-label">New target</div>
+      </div>
+      <div class="target-card" id="card-morningstar">
+        <div class="target-firm">Morningstar</div>
+        <div class="target-old">—</div>
+        <div class="target-arrow">→</div>
+        <div class="target-new">$310</div>
+        <div class="target-label">Fair value</div>
+      </div>
+    </div>
+
+    <!-- Interim CEO -->
+    <div id="ceo-card">
+      <div id="ceo-icon">👩‍💼</div>
+      <div id="ceo-info">
+        <div id="ceo-name">Colette Kress</div>
+        <div id="ceo-role">Interim CEO (Former CFO)</div>
+        <div id="ceo-note">FINANCE EXEC — NOT AN ENGINEER</div>
+      </div>
+    </div>
+
+    <!-- Earnings countdown -->
+    <div id="earnings-box">
+      <div id="earnings-label">NVIDIA EARNINGS</div>
+      <div id="earnings-date">NOV 17</div>
+      <div id="earnings-sub">5 days away</div>
+    </div>
+
+    <div id="question">Can anyone replace the man in the leather jacket?</div>
+    <div id="source">Source: Bloomberg, CNBC, Morningstar — Nov 2026</div>
+  </div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+
+// Fade in
+tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.1);
+tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+
+// Analyst cards cascade in (staggered)
+tl.fromTo("#card-citi", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.0);
+tl.fromTo("#card-bernstein", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.0);
+tl.fromTo("#card-stifel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 3.0);
+tl.fromTo("#card-morningstar", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.0);
+
+// CEO card slides in
+tl.to("#ceo-card", { opacity: 1, duration: 0.4, ease: "power2.out" }, 8.0);
+tl.fromTo("#ceo-card", { x: -60 }, { x: 0, duration: 0.5, ease: "power3.out" }, 8.0);
+
+// Earnings box pops
+tl.to("#earnings-box", { opacity: 1, duration: 0.3, ease: "power2.out" }, 11.0);
+tl.fromTo("#earnings-box", { scale: 0.8 }, { scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 11.0);
+
+// Question fades in
+tl.to("#question", { opacity: 1, duration: 0.6, ease: "power2.out" }, 16.0);
+
+// Fade out
+tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 19.6);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 20.1);
+
+window.__timelines["next"] = tl;
+</script>
+</body>
+</html>

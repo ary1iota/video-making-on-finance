@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground-dark: #1A1A1A;
+        --ground-light: #fbfaf8;
+        --ink: #1A1A1A;
+        --ink-light: #ffffff;
+        --yellow: #FFE619;
+        --blue: #58BCEC;
+        --blue-light: #66CFFF;
+        --red: #E74C3C;
+        --green: #2ECC71;
+        --grey-1: #F2F2F2;
+        --grey-2: #E9E9EB;
+        --grey-3: #8d9399;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        margin: 0; width: 1920px; height: 1080px;
+        overflow: hidden; background: var(--ground-dark);
+      }
+      .clip {
+        position: absolute; top: 0; left: 0;
+        width: 1920px; height: 1080px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"
+         data-composition-id="main"
+         data-start="0" data-duration="90"
+         data-width="1920" data-height="1080"
+         style="width:1920px;height:1080px;position:relative;">
+
+      <!-- Scene 1: Hook (0-8.6s) -->
+      <div id="hook-host" class="clip" data-start="0" data-duration="8.6"
+           data-composition-id="hook"
+           data-composition-src="compositions/hook.html"
+           data-track-index="0" data-track-kind="graphics"></div>
+
+      <!-- Scene 2: Scandal (8.6-25.4s) -->
+      <div id="scandal-host" class="clip" data-start="8.6" data-duration="16.8"
+           data-composition-id="scandal"
+           data-composition-src="compositions/scandal.html"
+           data-track-index="0" data-track-kind="graphics"></div>
+
+      <!-- Scene 3: Stock Crash (25.4-39.6s) -->
+      <div id="crash-host" class="clip" data-start="25.4" data-duration="14.2"
+           data-composition-id="crash"
+           data-composition-src="compositions/crash.html"
+           data-track-index="0" data-track-kind="graphics"></div>
+
+      <!-- Scene 4: Winners & Losers (39.6-51.5s) -->
+      <div id="winners-host" class="clip" data-start="39.6" data-duration="11.9"
+           data-composition-id="winners"
+           data-composition-src="compositions/winners.html"
+           data-track-index="0" data-track-kind="graphics"></div>
+
+      <!-- Scene 5: What's Next (51.5-71.7s) -->
+      <div id="next-host" class="clip" data-start="51.5" data-duration="20.2"
+           data-composition-id="next"
+           data-composition-src="compositions/next.html"
+           data-track-index="0" data-track-kind="graphics"></div>
+
+      <!-- Scene 6: Trader Takeaway (71.7-85.4s) -->
+      <div id="trader-host" class="clip" data-start="71.7" data-duration="13.7"
+           data-composition-id="trader"
+           data-composition-src="compositions/trader.html"
+           data-track-index="0" data-track-kind="graphics"></div>
+
+      <!-- Scene 7: CTA (85.4-90s) -->
+      <div id="cta-host" class="clip" data-start="85.4" data-duration="4.6"
+           data-composition-id="cta"
+           data-composition-src="compositions/cta.html"
+           data-track-index="0" data-track-kind="graphics"></div>
+
+      <!-- Voiceover audio -->
+      <audio id="voiceover" src="assets/voiceover.wav"
+             data-start="0" data-duration="87.8"
+             data-track-index="1" data-track-kind="voice"
+             data-volume="1.0"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

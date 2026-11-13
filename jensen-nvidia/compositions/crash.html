@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="../assets/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  #root {
+    width: 1920px; height: 1080px; overflow: hidden;
+    background: #fbfaf8; position: relative;
+    font-family: 'Inter', sans-serif;
+  }
+  .inner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
+
+  /* Scene label */
+  #scene-label {
+    position: absolute; top: 60px; left: 120px;
+    font-size: 22px; color: #6b7075; text-transform: uppercase;
+    letter-spacing: 0.2em; font-family: 'Space Mono', monospace;
+  }
+
+  /* Chart area */
+  #chart-area {
+    position: absolute; top: 140px; left: 120px; right: 120px; bottom: 240px;
+  }
+  #chart-title {
+    font-size: 48px; color: #1A1A1A; font-weight: 700;
+    font-family: 'Archivo Black', sans-serif; margin-bottom: 20px;
+  }
+
+  /* SVG chart */
+  #stock-chart {
+    width: 100%; height: calc(100% - 80px);
+  }
+  .chart-line {
+    fill: none; stroke: #E74C3C; stroke-width: 4;
+    stroke-dasharray: 2000; stroke-dashoffset: 2000;
+  }
+  .chart-grid { stroke: #E9E9EB; stroke-width: 1; }
+  .chart-axis { stroke: #1A1A1A; stroke-width: 2; }
+  .price-label {
+    font-size: 18px; fill: #6b7075; font-family: 'Space Mono', monospace;
+  }
+
+  /* Big crash number */
+  #crash-number {
+    position: absolute; top: 220px; right: 180px;
+    font-size: 140px; color: #E74C3C;
+    font-family: 'Archivo Black', sans-serif;
+    font-variant-numeric: tabular-nums; opacity: 0;
+  }
+
+  /* Trillion counter */
+  #trillion-wipe {
+    position: absolute; bottom: 100px; left: 120px;
+    display: flex; align-items: baseline; gap: 20px;
+  }
+  #trillion-val {
+    font-size: 96px; color: #E74C3C;
+    font-family: 'Archivo Black', sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  #trillion-desc {
+    font-size: 32px; color: #1A1A1A; font-weight: 700;
+  }
+
+  /* Australia comparison */
+  #australia-bar {
+    position: absolute; bottom: 60px; right: 120px;
+    display: flex; align-items: center; gap: 16px; opacity: 0;
+  }
+  #australia-text {
+    font-size: 26px; color: #6b7075; font-style: italic;
+    font-family: 'Inter', sans-serif;
+  }
+  #flag-emoji { font-size: 40px; }
+
+  /* Source line */
+  #source {
+    position: absolute; bottom: 20px; left: 120px;
+    font-size: 16px; color: #6b7075;
+    font-family: 'Space Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="crash" data-start="0" data-duration="14.2" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner">
+    <div id="scene-label">STOCK CRASH</div>
+
+    <div id="chart-area">
+      <div id="chart-title">NVDA Stock Price — Nov 2026</div>
+      <svg id="stock-chart" viewBox="0 0 1680 560">
+        <!-- Grid lines -->
+        <line class="chart-grid" x1="0" y1="112" x2="1680" y2="112" />
+        <line class="chart-grid" x1="0" y1="224" x2="1680" y2="224" />
+        <line class="chart-grid" x1="0" y1="336" x2="1680" y2="336" />
+        <line class="chart-grid" x1="0" y1="448" x2="1680" y2="448" />
+        <!-- Axes -->
+        <line class="chart-axis" x1="0" y1="560" x2="1680" y2="560" />
+        <line class="chart-axis" x1="0" y1="0" x2="0" y2="560" />
+        <!-- Price labels -->
+        <text class="price-label" x="10" y="108">$200</text>
+        <text class="price-label" x="10" y="220">$180</text>
+        <text class="price-label" x="10" y="332">$160</text>
+        <text class="price-label" x="10" y="444">$140</text>
+        <!-- Stock line: starts at ~$190, drops to $148, recovers to $166 -->
+        <polyline class="chart-line" id="stock-line"
+          points="80,70 240,65 400,72 560,80 720,90 800,100 880,400 960,420 1040,380 1120,340 1200,300 1360,280 1520,260 1680,270" />
+        <!-- Crash annotation -->
+        <circle id="crash-dot" cx="880" cy="400" r="0" fill="#E74C3C" opacity="0" />
+        <text id="crash-label" x="900" y="440" font-size="22" fill="#E74C3C" font-family="Space Mono, monospace" opacity="0">$148.80 LOW</text>
+      </svg>
+    </div>
+
+    <!-- Big crash percentage -->
+    <div id="crash-number">-14%</div>
+
+    <!-- Trillion counter -->
+    <div id="trillion-wipe">
+      <div id="trillion-val">$1.6T</div>
+      <div id="trillion-desc">wiped out in 6 weeks</div>
+    </div>
+
+    <!-- Australia comparison -->
+    <div id="australia-bar">
+      <div id="flag-emoji">🇦🇺</div>
+      <div id="australia-text">Bigger than Australia's entire GDP</div>
+    </div>
+
+    <div id="source">Source: Yahoo Finance, Nov 12 2026</div>
+  </div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+
+// Fade in with light background
+tl.to("#scene-inner", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+
+// Scene label
+tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.2);
+
+// Chart title
+tl.fromTo("#chart-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.3);
+
+// Draw stock line
+tl.to("#stock-line", { strokeDashoffset: 0, duration: 3.0, ease: "power1.inOut" }, 0.8);
+
+// Crash dot appears at low point
+tl.to("#crash-dot", { r: 12, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 3.0);
+tl.to("#crash-label", { opacity: 1, duration: 0.3 }, 3.2);
+
+// Big -14% number smashes in
+tl.to("#crash-number", { opacity: 1, duration: 0.15, ease: "power4.out" }, 3.5);
+tl.fromTo("#crash-number", { scale: 2, y: -40 }, { scale: 1, y: 0, duration: 0.4, ease: "back.out(1.2)" }, 3.5);
+
+// Screen shake on crash
+tl.fromTo("#scene-inner", { x: -10 }, { x: 0, duration: 0.1, ease: "power4.out" }, 3.5);
+tl.fromTo("#scene-inner", { x: 8 }, { x: 0, duration: 0.08, ease: "power4.out" }, 3.62);
+
+// Trillion counter (at ~7s into scene, matching "one point six trillion")
+tl.fromTo("#trillion-val", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 7.0);
+tl.fromTo("#trillion-desc", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 7.4);
+
+// Australia comparison
+tl.to("#australia-bar", { opacity: 1, duration: 0.4, ease: "power2.out" }, 10.5);
+tl.fromTo("#australia-bar", { y: 20 }, { y: 0, duration: 0.4, ease: "power2.out" }, 10.5);
+
+// Fade out
+tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 13.6);
+
+// Hard kill
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 14.1);
+
+window.__timelines["crash"] = tl;
+</script>
+</body>
+</html>

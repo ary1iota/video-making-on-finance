@@ -12,156 +12,493 @@
   }
   .inner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
 
-  /* Timeline vertical line */
-  #timeline-line {
-    position: absolute; top: 120px; left: 960px;
-    width: 4px; height: 0; background: #FFE619;
-    transform: translateX(-50%);
-  }
-
-  /* Timeline cards */
-  .timeline-card {
-    position: absolute; width: 680px; padding: 36px 44px;
-    background: #2a2a2a; border-radius: 16px;
-    border-left: 6px solid #FFE619; opacity: 0;
-  }
-  .timeline-card.right { left: 1000px; }
-  .timeline-card.left { left: 200px; }
-  .card-label {
-    font-size: 20px; color: #FFE619; text-transform: uppercase;
-    letter-spacing: 0.15em; font-weight: 700; margin-bottom: 12px;
-    font-family: 'Space Mono', monospace;
-  }
-  .card-title {
-    font-size: 38px; color: #ffffff; font-weight: 700;
-    font-family: 'Archivo Black', sans-serif; margin-bottom: 10px;
-  }
-  .card-detail {
-    font-size: 24px; color: #b0b5ba; line-height: 1.4;
-  }
-  .card-emoji {
-    font-size: 48px; position: absolute; top: 30px; right: 30px;
-  }
-
-  /* Card 1: Spy affair */
-  #card-spy { top: 130px; left: 1000px; width: 680px; height: 230px; }
-  #card-spy .timeline-card { border-left-color: #E74C3C; }
-
-  /* Card 2: VP affair */
-  #card-vp { top: 390px; left: 200px; width: 680px; height: 230px; }
-  #card-vp .timeline-card { border-left-color: #E74C3C; }
-
-  /* Card 3: Resignation */
-  #card-resign { top: 650px; left: 1000px; width: 680px; height: 230px; }
-  #card-resign .timeline-card { border-left-color: #FFE619; }
-
-  /* Dot markers on timeline */
-  .timeline-dot {
-    position: absolute; left: 960px; transform: translate(-50%, -50%);
-    width: 24px; height: 24px; border-radius: 50%;
-    background: #FFE619; opacity: 0;
-  }
-  #dot1 { top: 220px; background: #E74C3C; }
-  #dot2 { top: 480px; background: #E74C3C; }
-  #dot3 { top: 740px; background: #FFE619; }
-
-  /* Board stamp */
-  #board-stamp {
-    position: absolute; bottom: 60px; right: 120px;
-    font-size: 42px; color: #E74C3C; font-weight: 700;
-    font-family: 'Archivo Black', sans-serif;
-    border: 5px solid #E74C3C; padding: 16px 32px;
-    opacity: 0;
-    text-transform: uppercase; letter-spacing: 0.08em;
-  }
-
-  /* Scene title */
-  #scene-title {
-    position: absolute; top: 40px; left: 120px;
-    font-size: 28px; color: #b0b5ba; text-transform: uppercase;
+  /* Scene label */
+  #scene-label {
+    position: absolute; top: 35px; left: 80px;
+    font-size: 24px; color: #b0b5ba; text-transform: uppercase;
     letter-spacing: 0.2em; font-family: 'Space Mono', monospace;
+    opacity: 0;
+  }
+
+  /* Jensen character for scandal */
+  #jensen-scandal {
+    position: absolute; bottom: 120px; left: 700px;
+    width: 320px; height: 530px;
+  }
+
+  /* Hearts */
+  .heart {
+    position: absolute; font-size: 48px; opacity: 0;
+    pointer-events: none;
+  }
+  #heart1 { left: 820px; bottom: 500px; font-size: 52px; }
+  #heart2 { left: 900px; bottom: 550px; font-size: 36px; }
+  #heart3 { left: 760px; bottom: 580px; font-size: 44px; }
+  #heart4 { left: 870px; bottom: 620px; font-size: 30px; }
+  #heart5 { left: 950px; bottom: 480px; font-size: 40px; }
+
+  /* Spotlight cone */
+  #spotlight {
+    position: absolute; top: 0; left: 50%;
+    width: 0; height: 0;
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-top: 500px solid rgba(255,230,25,0.15);
+    opacity: 0;
+  }
+
+  /* Info cards */
+  .info-card {
+    position: absolute; width: 480px; padding: 32px 40px;
+    background: #2a2a2a; border-radius: 14px;
+    border-left: 5px solid #E74C3C; opacity: 0;
+  }
+  .info-card .card-num {
+    font-size: 18px; color: #E74C3C; text-transform: uppercase;
+    letter-spacing: 0.15em; font-weight: 700;
+    font-family: 'Space Mono', monospace; margin-bottom: 8px;
+  }
+  .info-card .card-name {
+    font-size: 34px; color: #ffffff; font-weight: 700;
+    font-family: 'Archivo Black', sans-serif; margin-bottom: 8px;
+  }
+  .info-card .card-desc {
+    font-size: 22px; color: #b0b5ba; line-height: 1.4;
+  }
+  .info-card .card-icon {
+    font-size: 40px; position: absolute; top: 25px; right: 25px;
+  }
+  #card1 { top: 220px; left: 80px; }
+  #card2 { top: 220px; left: 80px; }
+
+  /* Spy silhouette */
+  #spy-figure {
+    position: absolute; bottom: 100px; right: 180px;
+    opacity: 0;
+  }
+
+  /* NVIDIA door */
+  #nvidia-door {
+    position: absolute; right: -20px; bottom: 0;
+    width: 380px; height: 720px;
+    background: #333;
+    border-left: 8px solid #76B900;
+    opacity: 0;
+  }
+  #door-logo {
+    position: absolute; top: 180px; left: 50%;
+    font-size: 52px; color: #76B900; font-weight: 900;
+    font-family: 'Archivo Black', sans-serif;
+    letter-spacing: 0.08em;
+  }
+  #door-sign {
+    position: absolute; top: 350px; left: 50%;
+    font-size: 28px; color: #E74C3C; font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    padding: 10px 24px; border: 3px solid #E74C3C;
+    opacity: 0;
+  }
+
+  /* Giant boot */
+  #boot-container {
+    position: absolute; right: 60px; bottom: 200px;
+    width: 260px; height: 200px;
+    opacity: 0;
+  }
+
+  /* Sweat drops */
+  .scandal-sweat {
+    position: absolute; width: 12px; height: 17px;
+    background: #66CFFF; border-radius: 50% 50% 50% 20%;
+    opacity: 0;
+  }
+  #ss1 { left: 780px; top: 280px; }
+  #ss2 { left: 870px; top: 260px; }
+  #ss3 { left: 830px; top: 240px; }
+
+  /* Stars (post-kick dizzy) */
+  .dizzy-star {
+    position: absolute; font-size: 32px; opacity: 0;
+  }
+  #star1 { left: 240px; top: 320px; }
+  #star2 { left: 290px; top: 280px; }
+  #star3 { left: 200px; top: 290px; }
+
+  /* Resigned stamp */
+  #resign-stamp {
+    position: absolute; top: 400px; left: 50%;
+    font-size: 80px; color: #E74C3C; font-weight: 900;
+    font-family: 'Archivo Black', sans-serif;
+    border: 8px solid #E74C3C; padding: 16px 48px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    opacity: 0;
+  }
+
+  /* Board text */
+  #board-text {
+    position: absolute; bottom: 50px; left: 50%;
+    font-size: 36px; color: #b0b5ba; font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap; opacity: 0;
+  }
+
+  /* Flash */
+  #scandal-flash {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #fff; opacity: 0; pointer-events: none;
   }
 </style>
 </head>
 <body>
 <div id="root" data-composition-id="scandal" data-start="0" data-duration="16.8" data-width="1920" data-height="1080">
   <div class="inner" id="scene-inner">
-    <div id="scene-title">THE SCANDAL</div>
-    <div id="timeline-line"></div>
 
-    <!-- Timeline dots -->
-    <div class="timeline-dot" id="dot1"></div>
-    <div class="timeline-dot" id="dot2"></div>
-    <div class="timeline-dot" id="dot3"></div>
+    <div id="scene-label">THE SCANDAL</div>
 
-    <!-- Card 1: Spy affair (right side) -->
-    <div id="card-spy" style="position:absolute;">
-      <div class="timeline-card" style="position:relative; left:0; top:0;">
-        <div class="card-label">AFFAIR #1</div>
-        <div class="card-title">Alice Huang</div>
-        <div class="card-detail">Chinese executive at Megaspeed.<br>U.S. intelligence says: suspected spy.</div>
-        <div class="card-emoji">🕵️</div>
-      </div>
+    <!-- Spotlight cone (hidden) -->
+    <div id="spotlight"></div>
+
+    <!-- Jensen character (scandal version - starts in sneaking pose) -->
+    <div id="jensen-scandal">
+      <svg viewBox="0 0 320 530" width="320" height="530">
+        <!-- Legs (animatable for tiptoe) -->
+        <g id="s-legs">
+          <g id="s-leg-l">
+            <rect x="100" y="380" width="40" height="110" rx="8" fill="#2a2a2a"/>
+            <ellipse cx="120" cy="490" rx="30" ry="11" fill="#111"/>
+          </g>
+          <g id="s-leg-r">
+            <rect x="180" y="380" width="40" height="110" rx="8" fill="#2a2a2a"/>
+            <ellipse cx="200" cy="490" rx="30" ry="11" fill="#111"/>
+          </g>
+        </g>
+
+        <!-- Body (leather jacket) -->
+        <g id="s-body">
+          <path d="M80,175 L70,390 L250,390 L240,175 C232,140 200,125 160,125 C120,125 88,140 80,175Z" fill="#2a2a2a"/>
+          <path d="M115,180 L110,375 L145,375 L148,180Z" fill="#333" opacity="0.4"/>
+          <!-- Collar -->
+          <path d="M90,178 L125,215 L142,190 L115,155Z" fill="#333"/>
+          <path d="M230,178 L195,215 L178,190 L205,155Z" fill="#333"/>
+          <line x1="160" y1="210" x2="160" y2="380" stroke="#444" stroke-width="2"/>
+          <circle cx="160" cy="218" r="4" fill="#555"/>
+        </g>
+
+        <!-- Arms -->
+        <g id="s-arms">
+          <g id="s-arm-l">
+            <path d="M78,185 L40,320" stroke="#2a2a2a" stroke-width="28" stroke-linecap="round"/>
+            <circle cx="38" cy="326" r="16" fill="#D4A574"/>
+          </g>
+          <g id="s-arm-r">
+            <path d="M242,185 L280,320" stroke="#2a2a2a" stroke-width="28" stroke-linecap="round"/>
+            <circle cx="282" cy="326" r="16" fill="#D4A574"/>
+          </g>
+        </g>
+
+        <!-- Head -->
+        <g id="s-head">
+          <rect x="140" y="108" width="40" height="28" rx="6" fill="#D4A574"/>
+          <ellipse cx="160" cy="75" rx="58" ry="66" fill="#D4A574"/>
+          <ellipse cx="104" cy="80" rx="10" ry="15" fill="#C49A6C"/>
+          <ellipse cx="216" cy="80" rx="10" ry="15" fill="#C49A6C"/>
+
+          <!-- Hair -->
+          <path d="M102,70 C102,30 125,2 160,0 C195,2 218,30 218,70
+                   L212,56 L204,70 L196,54 L188,70 L180,48 L172,70
+                   L160,44 L148,70 L140,48 L132,70 L124,54 L116,70 L108,56 Z" fill="#9a9a9a"/>
+
+          <!-- Glasses -->
+          <g id="s-glasses">
+            <rect x="118" y="64" width="32" height="26" rx="4" fill="rgba(200,220,255,0.1)" stroke="#333" stroke-width="3"/>
+            <rect x="170" y="64" width="32" height="26" rx="4" fill="rgba(200,220,255,0.1)" stroke="#333" stroke-width="3"/>
+            <line x1="150" y1="77" x2="170" y2="77" stroke="#333" stroke-width="3"/>
+            <line x1="118" y1="73" x2="106" y2="73" stroke="#333" stroke-width="2"/>
+            <line x1="202" y1="73" x2="214" y2="73" stroke="#333" stroke-width="2"/>
+          </g>
+
+          <!-- Eyes (sneaky/shifty) -->
+          <g id="s-eyes-sneaky">
+            <circle cx="134" cy="77" r="5.5" fill="#1a1a1a"/>
+            <circle cx="186" cy="77" r="5.5" fill="#1a1a1a"/>
+            <circle cx="132" cy="75.5" r="2" fill="#fff"/>
+            <circle cx="184" cy="75.5" r="2" fill="#fff"/>
+          </g>
+
+          <!-- Eyes (shocked) -->
+          <g id="s-eyes-shocked" opacity="0">
+            <ellipse cx="134" cy="77" rx="14" ry="16" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
+            <circle cx="134" cy="79" r="6" fill="#1a1a1a"/>
+            <ellipse cx="186" cy="77" rx="14" ry="16" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
+            <circle cx="186" cy="79" r="6" fill="#1a1a1a"/>
+          </g>
+
+          <!-- Mouth (nervous grin) -->
+          <path id="s-mouth-nervous" d="M140,104 Q160,112 180,104" fill="none" stroke="#8B4513" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- Mouth (shocked O) -->
+          <ellipse id="s-mouth-shocked" cx="160" cy="110" rx="14" ry="17" fill="#5C3310" stroke="#4A2508" stroke-width="2" opacity="0"/>
+
+          <!-- Eyebrows -->
+          <g id="s-brows">
+            <line id="s-brow-l" x1="120" y1="56" x2="148" y2="54" stroke="#7a7a7a" stroke-width="4" stroke-linecap="round"/>
+            <line id="s-brow-r" x1="172" y1="54" x2="200" y2="56" stroke="#7a7a7a" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
     </div>
 
-    <!-- Card 2: VP affair (left side) -->
-    <div id="card-vp" style="position:absolute;">
-      <div class="timeline-card" style="position:relative; left:0; top:0;">
-        <div class="card-label">AFFAIR #2</div>
-        <div class="card-title">His Own VP</div>
-        <div class="card-detail">Kimberly Powell, VP of Healthcare.<br>She reported directly to him.</div>
-        <div class="card-emoji">💼</div>
-      </div>
+    <!-- Floating hearts -->
+    <div class="heart" id="heart1">❤️</div>
+    <div class="heart" id="heart2">💕</div>
+    <div class="heart" id="heart3">❤️</div>
+    <div class="heart" id="heart4">💗</div>
+    <div class="heart" id="heart5">💕</div>
+
+    <!-- Spy silhouette (SVG) -->
+    <div id="spy-figure">
+      <svg viewBox="0 0 180 400" width="140" height="310">
+        <!-- Dark mysterious figure with fedora -->
+        <ellipse cx="90" cy="60" rx="50" ry="45" fill="#111"/>
+        <!-- Fedora hat -->
+        <path d="M25,50 L155,50 L140,25 Q90,5 40,25 Z" fill="#111"/>
+        <rect x="15" y="48" width="150" height="8" rx="3" fill="#1a1a1a"/>
+        <!-- Body (trenchcoat) -->
+        <path d="M40,85 L30,350 L150,350 L140,85 C130,70 105,65 90,65 C75,65 50,70 40,85Z" fill="#111"/>
+        <!-- Sunglasses glint -->
+        <rect x="58" y="55" width="22" height="14" rx="3" fill="#E74C3C" opacity="0.6"/>
+        <rect x="100" y="55" width="22" height="14" rx="3" fill="#E74C3C" opacity="0.6"/>
+        <!-- Question mark -->
+        <text x="90" y="240" text-anchor="middle" font-size="72" fill="#E74C3C" font-family="Archivo Black, sans-serif" opacity="0.7">?</text>
+      </svg>
     </div>
 
-    <!-- Card 3: Resignation (right side) -->
-    <div id="card-resign" style="position:absolute;">
-      <div class="timeline-card" style="position:relative; left:0; top:0;">
-        <div class="card-label">NOV 12, 2026</div>
-        <div class="card-title">Jensen Resigns</div>
-        <div class="card-detail">After 33 years as CEO.<br>Effective immediately.</div>
-        <div class="card-emoji">📉</div>
-      </div>
+    <!-- Info cards -->
+    <div class="info-card" id="card1">
+      <div class="card-num">AFFAIR #1</div>
+      <div class="card-name">Alice Huang</div>
+      <div class="card-desc">Chinese executive at Megaspeed.<br>U.S. intelligence: suspected spy.</div>
+      <div class="card-icon">🕵️</div>
+    </div>
+    <div class="info-card" id="card2">
+      <div class="card-num">AFFAIR #2</div>
+      <div class="card-name">His Own VP</div>
+      <div class="card-desc">Kimberly Powell, VP of Healthcare.<br>She reported directly to him.</div>
+      <div class="card-icon">💼</div>
     </div>
 
-    <!-- Board stamp -->
-    <div id="board-stamp">THE BOARD DIDN'T FIGHT IT</div>
+    <!-- Sweat drops -->
+    <div class="scandal-sweat" id="ss1"></div>
+    <div class="scandal-sweat" id="ss2"></div>
+    <div class="scandal-sweat" id="ss3"></div>
+
+    <!-- NVIDIA door -->
+    <div id="nvidia-door">
+      <div id="door-logo">NVIDIA</div>
+      <div id="door-sign">GET OUT</div>
+    </div>
+
+    <!-- Giant boot (SVG) -->
+    <div id="boot-container">
+      <svg viewBox="0 0 260 200" width="260" height="200">
+        <path d="M60,20 L60,120 L10,140 L10,180 L250,180 L250,140 L200,120 L200,20 Z" fill="#76B900"/>
+        <rect x="10" y="165" width="240" height="20" rx="4" fill="#5a9000"/>
+        <path d="M80,30 L80,115 L190,115 L190,30 Z" fill="#5a9000" opacity="0.3"/>
+        <!-- Sole -->
+        <rect x="5" y="178" width="250" height="10" rx="3" fill="#3a5a00"/>
+      </svg>
+    </div>
+
+    <!-- Dizzy stars -->
+    <div class="dizzy-star" id="star1">⭐</div>
+    <div class="dizzy-star" id="star2">💫</div>
+    <div class="dizzy-star" id="star3">⭐</div>
+
+    <!-- RESIGNED stamp -->
+    <div id="resign-stamp">RESIGNED</div>
+
+    <!-- Board text -->
+    <div id="board-text">THE BOARD DIDN'T EVEN FIGHT IT</div>
+
+    <!-- Flash overlay -->
+    <div id="scandal-flash"></div>
   </div>
 </div>
 <script>
 window.__timelines = window.__timelines || {};
 const tl = gsap.timeline({ paused: true });
 
-// Fade in
+// --- Initial positions ---
+gsap.set("#resign-stamp", { xPercent: -50 });
+gsap.set("#board-text", { xPercent: -50 });
+gsap.set("#door-logo", { xPercent: -50 });
+gsap.set("#door-sign", { xPercent: -50 });
+gsap.set("#spotlight", { xPercent: -50 });
+gsap.set("#boot-container", { rotation: 60, transformOrigin: "100% 0%" });
+
+// Place Jensen for sneaking entrance (start off left)
+gsap.set("#jensen-scandal", { x: -500 });
+
+// Scene fade in
 tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+tl.to("#scene-label", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.2);
 
-// Scene title
-tl.fromTo("#scene-title", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+// ============================
+// ACT 1: AFFAIR #1 (0-5s)
+// Jensen sneaks across the screen
+// ============================
 
-// Timeline line grows
-tl.to("#timeline-line", { height: 700, duration: 12, ease: "none" }, 0.5);
+// Jensen tiptoes in from left
+tl.to("#jensen-scandal", { x: 0, duration: 2.5, ease: "power1.inOut" }, 0.3);
 
-// Card 1: Spy affair (at ~1s into scene)
-tl.to("#dot1", { opacity: 1, duration: 0.2, ease: "power2.out" }, 1.0);
-tl.fromTo("#dot1", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 1.0);
-tl.fromTo("#card-spy .timeline-card", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 1.2);
+// Bobbing up-down walk cycle
+tl.to("#jensen-scandal", { y: -15, duration: 0.35, ease: "sine.inOut", repeat: 6, yoyo: true }, 0.3);
 
-// Card 2: VP affair (at ~5s into scene)
-tl.to("#dot2", { opacity: 1, duration: 0.2, ease: "power2.out" }, 5.0);
-tl.fromTo("#dot2", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 5.0);
-tl.fromTo("#card-vp .timeline-card",
-  { opacity: 0, x: -60 },
-  { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" },
-  5.2
+// Lean forward (sneaking posture)
+tl.to("#jensen-scandal", { rotation: 8, transformOrigin: "50% 100%", duration: 0.5 }, 0.3);
+
+// Head looks side to side nervously
+tl.to("#s-head", { rotation: -12, transformOrigin: "50% 100%", duration: 0.5, ease: "power2.inOut" }, 0.8);
+tl.to("#s-head", { rotation: 15, duration: 0.5, ease: "power2.inOut" }, 1.5);
+tl.to("#s-head", { rotation: -8, duration: 0.4, ease: "power2.inOut" }, 2.2);
+tl.to("#s-head", { rotation: 0, duration: 0.3, ease: "power2.inOut" }, 2.8);
+
+// Hearts float up
+tl.to("#heart1", { opacity: 1, y: -60, duration: 0.6, ease: "power2.out" }, 0.8);
+tl.to("#heart2", { opacity: 1, y: -80, duration: 0.7, ease: "power2.out" }, 1.2);
+tl.to("#heart3", { opacity: 1, y: -70, duration: 0.6, ease: "power2.out" }, 1.6);
+// Hearts pop/disappear
+tl.to("#heart1", { scale: 1.5, opacity: 0, duration: 0.3 }, 2.0);
+tl.to("#heart2", { scale: 1.5, opacity: 0, duration: 0.3 }, 2.3);
+tl.to("#heart3", { scale: 1.5, opacity: 0, duration: 0.3 }, 2.6);
+
+// Spy silhouette fades in (right side)
+tl.to("#spy-figure", { opacity: 0.8, duration: 0.8, ease: "power2.out" }, 1.5);
+
+// Card 1 slides in
+tl.fromTo("#card1", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 1.0);
+
+// ============================
+// ACT 2: AFFAIR #2 (5-9s)
+// ============================
+
+// Card 1 and spy fade out
+tl.to("#card1", { opacity: 0, x: -30, duration: 0.3, ease: "power2.in" }, 4.6);
+tl.to("#spy-figure", { opacity: 0, duration: 0.3 }, 4.6);
+
+// Jensen straightens up briefly, then gets nervous again
+tl.to("#jensen-scandal", { rotation: 0, duration: 0.3 }, 4.8);
+tl.to("#jensen-scandal", { rotation: -5, duration: 0.3 }, 5.3);
+
+// More hearts (round 2)
+tl.to("#heart4", { opacity: 1, y: -50, duration: 0.5, ease: "power2.out" }, 5.2);
+tl.to("#heart5", { opacity: 1, y: -70, duration: 0.6, ease: "power2.out" }, 5.6);
+tl.to("#heart4", { scale: 1.5, opacity: 0, duration: 0.3 }, 6.5);
+tl.to("#heart5", { scale: 1.5, opacity: 0, duration: 0.3 }, 6.8);
+
+// Jensen looks around more frantically
+tl.to("#s-head", { rotation: -20, duration: 0.3, ease: "power3.inOut" }, 5.5);
+tl.to("#s-head", { rotation: 20, duration: 0.3, ease: "power3.inOut" }, 6.0);
+tl.to("#s-head", { rotation: -15, duration: 0.25, ease: "power3.inOut" }, 6.5);
+tl.to("#s-head", { rotation: 0, duration: 0.2, ease: "power3.inOut" }, 7.0);
+
+// Nervous mouth wiggle
+tl.to("#s-mouth-nervous", { attr: { d: "M142,104 Q160,115 178,104" }, duration: 0.2 }, 5.5);
+tl.to("#s-mouth-nervous", { attr: { d: "M140,106 Q160,110 180,106" }, duration: 0.2 }, 5.9);
+
+// Card 2 slides in
+tl.fromTo("#card2", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 5.3);
+
+// ============================
+// ACT 3: CAUGHT! RESIGNED (9-13s)
+// ============================
+
+// Card 2 fades
+tl.to("#card2", { opacity: 0, duration: 0.2 }, 8.8);
+
+// Jensen straightens up, centered
+tl.to("#jensen-scandal", { rotation: 0, x: 50, duration: 0.3, ease: "power2.out" }, 9.0);
+
+// BIG FLASH!
+tl.to("#scandal-flash", { opacity: 0.85, duration: 0.06 }, 9.2);
+tl.to("#scandal-flash", { opacity: 0, duration: 0.5, ease: "power2.out" }, 9.26);
+
+// Spotlight drops down
+tl.to("#spotlight", { opacity: 1, duration: 0.3, ease: "power2.out" }, 9.2);
+
+// SHOCKED EXPRESSION
+tl.to("#s-eyes-sneaky", { opacity: 0, duration: 0.05 }, 9.2);
+tl.to("#s-eyes-shocked", { opacity: 1, duration: 0.05 }, 9.2);
+tl.to("#s-mouth-nervous", { opacity: 0, duration: 0.05 }, 9.2);
+tl.to("#s-mouth-shocked", { opacity: 1, duration: 0.05 }, 9.2);
+
+// Eyebrows shoot up
+tl.to("#s-brow-l", { attr: { y1: 44, y2: 42 }, duration: 0.1 }, 9.2);
+tl.to("#s-brow-r", { attr: { y1: 42, y2: 44 }, duration: 0.1 }, 9.2);
+
+// Glasses go askew
+tl.to("#s-glasses", { rotation: 8, transformOrigin: "50% 50%", duration: 0.15 }, 9.2);
+
+// Jensen recoils/jumps
+tl.to("#jensen-scandal", { y: -40, duration: 0.15, ease: "power3.out" }, 9.2);
+tl.to("#jensen-scandal", { y: 0, duration: 0.3, ease: "bounce.out" }, 9.35);
+
+// Sweat drops fly
+tl.to("#ss1", { opacity: 1, y: -30, x: -20, duration: 0.3, ease: "power2.out" }, 9.3);
+tl.to("#ss2", { opacity: 1, y: -40, x: 15, duration: 0.3, ease: "power2.out" }, 9.4);
+tl.to("#ss3", { opacity: 1, y: -50, x: 5, duration: 0.35, ease: "power2.out" }, 9.5);
+tl.to(".scandal-sweat", { y: 60, opacity: 0, duration: 0.4, ease: "power2.in" }, 10.0);
+
+// RESIGNED stamp SLAMS in
+tl.fromTo("#resign-stamp",
+  { scale: 3, rotation: -25, opacity: 0 },
+  { scale: 1, rotation: -10, opacity: 1, duration: 0.2, ease: "power4.out" },
+  10.5
 );
 
-// Card 3: Resignation (at ~9s into scene)
-tl.to("#dot3", { opacity: 1, duration: 0.2, ease: "power2.out" }, 9.0);
-tl.fromTo("#dot3", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 9.0);
-tl.fromTo("#card-resign .timeline-card", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 9.2);
+// Spotlight fades
+tl.to("#spotlight", { opacity: 0, duration: 0.5 }, 11.5);
 
-// Board stamp slams in
-tl.fromTo("#board-stamp", { scale: 0, rotation: -20, opacity: 0 }, { scale: 1, rotation: -8, opacity: 1, duration: 0.2, ease: "power4.out" }, 13.5);
+// ============================
+// ACT 4: KICKED OUT (13-16.8s)
+// ============================
+
+// Resign stamp fades
+tl.to("#resign-stamp", { opacity: 0, duration: 0.3 }, 12.8);
+
+// NVIDIA door slides in from right
+tl.to("#nvidia-door", { opacity: 1, duration: 0.01 }, 13.0);
+tl.fromTo("#nvidia-door", { x: 200 }, { x: 0, duration: 0.4, ease: "power3.out" }, 13.0);
+
+// Jensen gets nervous, moves toward door
+tl.to("#jensen-scandal", { x: 250, duration: 0.4, ease: "power2.inOut" }, 13.0);
+
+// BOOT SWINGS!
+tl.to("#boot-container", { opacity: 1, duration: 0.01 }, 13.5);
+tl.to("#boot-container", { rotation: -20, duration: 0.2, ease: "power4.out" }, 13.5);
+
+// Jensen goes FLYING to the left!
+tl.to("#jensen-scandal", {
+  x: -800, y: -100, rotation: -360,
+  transformOrigin: "50% 50%",
+  duration: 0.8, ease: "power2.out"
+}, 13.7);
+
+// Boot retracts
+tl.to("#boot-container", { rotation: 60, opacity: 0, duration: 0.3 }, 14.0);
+
+// Door sign appears
+tl.to("#door-sign", { opacity: 1, duration: 0.3, ease: "power2.out" }, 14.0);
+
+// Dizzy stars where Jensen landed (left side)
+tl.to("#star1", { opacity: 1, duration: 0.1 }, 14.3);
+tl.to("#star2", { opacity: 1, duration: 0.1 }, 14.4);
+tl.to("#star3", { opacity: 1, duration: 0.1 }, 14.5);
+// Stars spin
+tl.to(".dizzy-star", { rotation: 360, duration: 2, ease: "none", repeat: 1 }, 14.3);
+
+// Board text
+tl.to("#board-text", { opacity: 1, duration: 0.4, ease: "power2.out" }, 14.8);
 
 // Fade out
 tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 16.2);

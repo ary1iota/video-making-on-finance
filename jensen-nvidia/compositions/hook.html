@@ -12,145 +12,288 @@
   }
   .inner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
 
-  /* Jensen silhouette area */
-  #jensen-figure {
-    position: absolute; bottom: 0; left: 160px;
-    width: 500px; height: 700px;
+  /* NVIDIA green glow behind Jensen */
+  #nvidia-glow {
+    position: absolute; bottom: -100px; left: 100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(118,185,0,0.25) 0%, rgba(118,185,0,0) 70%);
+    border-radius: 50%;
   }
-  #jacket-body {
-    position: absolute; bottom: 0; left: 50px;
-    width: 400px; height: 600px;
-    background: #2a2a2a; border-radius: 30px 30px 0 0;
-    box-shadow: inset 0 -40px 60px rgba(0,0,0,0.5);
-  }
-  #jacket-collar {
-    position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
-    width: 200px; height: 80px;
-    background: #333; border-radius: 50% 50% 0 0;
-  }
-  #jacket-zip {
-    position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
-    width: 4px; height: 400px; background: #555;
-  }
-  #head {
-    position: absolute; bottom: 560px; left: 50%; transform: translateX(-50%);
-    width: 160px; height: 180px;
-    background: #8B7355; border-radius: 80px 80px 60px 60px;
-  }
-  #head-hair {
-    position: absolute; top: 0; left: 0; width: 100%; height: 60%;
-    background: #3a3a3a; border-radius: 80px 80px 0 0;
+
+  /* Jensen SVG container */
+  #jensen-char {
+    position: absolute; bottom: 30px; left: 100px;
+    width: 520px; height: 860px;
   }
 
   /* Text elements */
   #leather-text {
-    position: absolute; top: 180px; right: 160px;
-    font-size: 64px; color: #FFE619; letter-spacing: -0.02em;
-    text-transform: uppercase;
+    position: absolute; top: 160px; right: 160px;
+    font-size: 68px; color: #FFE619; letter-spacing: -0.02em;
+    text-transform: uppercase; opacity: 0;
   }
   #trillion-number {
-    position: absolute; top: 280px; right: 160px;
-    font-size: 160px; color: #ffffff; letter-spacing: -0.04em;
-    font-variant-numeric: tabular-nums;
+    position: absolute; top: 270px; right: 160px;
+    font-size: 170px; color: #ffffff; letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums; opacity: 0;
   }
   #trillion-label {
     position: absolute; top: 460px; right: 160px;
     font-size: 48px; color: #b0b5ba; letter-spacing: 0.1em;
-    text-transform: uppercase; font-family: 'Space Mono', monospace;
+    text-transform: uppercase; font-family: 'Space Mono', monospace; opacity: 0;
+  }
+  #accent-line {
+    position: absolute; top: 430px; right: 160px;
+    width: 0; height: 6px; background: #FFE619;
   }
   #built-line {
-    position: absolute; top: 560px; right: 160px;
-    font-size: 42px; color: #E9E9EB; max-width: 700px;
+    position: absolute; top: 530px; right: 160px;
+    font-size: 42px; color: #E9E9EB; max-width: 720px;
     text-align: right; line-height: 1.3;
-    font-family: 'Inter', sans-serif; font-weight: 700;
+    font-family: 'Inter', sans-serif; font-weight: 700; opacity: 0;
   }
 
-  /* Scandal headline */
+  /* Scandal bar */
   #scandal-bar {
-    position: absolute; bottom: 0; left: 0; width: 100%; height: 200px;
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 220px;
     background: #E74C3C;
   }
   #scandal-text {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    font-size: 72px; color: #ffffff; text-transform: uppercase;
-    letter-spacing: 0.05em; white-space: nowrap;
+    position: absolute; top: 50%; left: 50%;
+    font-size: 76px; color: #ffffff; text-transform: uppercase;
+    letter-spacing: 0.06em; white-space: nowrap;
   }
 
-  /* Yellow accent line */
-  #accent-line {
-    position: absolute; top: 520px; right: 160px;
-    width: 0; height: 6px; background: #FFE619;
+  /* Flash overlay */
+  #flash-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #ffffff; opacity: 0; pointer-events: none;
   }
+
+  /* Sweat drops */
+  .sweat {
+    position: absolute; width: 14px; height: 20px;
+    background: #66CFFF; border-radius: 50% 50% 50% 20%;
+    opacity: 0;
+  }
+  #sweat1 { left: 260px; top: 200px; }
+  #sweat2 { left: 420px; top: 170px; }
+  #sweat3 { left: 340px; top: 150px; }
 </style>
 </head>
 <body>
 <div id="root" data-composition-id="hook" data-start="0" data-duration="8.6" data-width="1920" data-height="1080">
   <div class="inner" id="scene-inner">
-    <!-- Jensen figure -->
-    <div id="jensen-figure">
-      <div id="jacket-body">
-        <div id="jacket-collar"></div>
-        <div id="jacket-zip"></div>
-      </div>
-      <div id="head">
-        <div id="head-hair"></div>
-      </div>
+
+    <!-- NVIDIA glow -->
+    <div id="nvidia-glow"></div>
+
+    <!-- Jensen character SVG -->
+    <div id="jensen-char">
+      <svg viewBox="0 0 420 720" width="520" height="860">
+        <!-- Legs -->
+        <g id="j-legs">
+          <rect x="135" y="520" width="50" height="140" rx="10" fill="#2a2a2a"/>
+          <rect x="235" y="520" width="50" height="140" rx="10" fill="#2a2a2a"/>
+          <ellipse cx="160" cy="660" rx="38" ry="14" fill="#111"/>
+          <ellipse cx="260" cy="660" rx="38" ry="14" fill="#111"/>
+        </g>
+
+        <!-- Body / Leather Jacket -->
+        <g id="j-body">
+          <path d="M110,240 L95,530 L325,530 L310,240 C300,195 260,175 210,175 C160,175 120,195 110,240Z" fill="#2a2a2a"/>
+          <!-- Jacket shine/highlight -->
+          <path d="M155,250 L148,510 L195,510 L200,250Z" fill="#333" opacity="0.5"/>
+          <!-- Collar left -->
+          <path d="M120,245 L165,295 L185,265 L150,215Z" fill="#333"/>
+          <!-- Collar right -->
+          <path d="M300,245 L255,295 L235,265 L270,215Z" fill="#333"/>
+          <!-- Zip line -->
+          <line x1="210" y1="285" x2="210" y2="520" stroke="#444" stroke-width="2.5"/>
+          <!-- Zip pull -->
+          <circle cx="210" cy="295" r="5" fill="#555"/>
+        </g>
+
+        <!-- Arms -->
+        <g id="j-arms">
+          <g id="j-arm-l">
+            <path d="M108,255 L55,430" stroke="#2a2a2a" stroke-width="34" stroke-linecap="round"/>
+            <circle cx="52" cy="438" r="20" fill="#D4A574"/>
+          </g>
+          <g id="j-arm-r">
+            <path d="M312,255 L365,430" stroke="#2a2a2a" stroke-width="34" stroke-linecap="round"/>
+            <circle cx="368" cy="438" r="20" fill="#D4A574"/>
+          </g>
+        </g>
+
+        <!-- Head group -->
+        <g id="j-head">
+          <!-- Neck -->
+          <rect x="185" y="155" width="50" height="35" rx="8" fill="#D4A574"/>
+          <!-- Head shape -->
+          <ellipse cx="210" cy="105" rx="72" ry="82" fill="#D4A574"/>
+          <!-- Ears -->
+          <ellipse cx="140" cy="112" rx="13" ry="18" fill="#C49A6C"/>
+          <ellipse cx="280" cy="112" rx="13" ry="18" fill="#C49A6C"/>
+
+          <!-- Silver spiky hair -->
+          <path d="M138,98 C138,52 165,18 210,12 C255,18 282,52 282,98
+                   L275,82 L264,98 L253,78 L242,98 L231,72 L220,98
+                   L210,68 L200,98 L189,72 L178,98 L167,78 L156,98 L145,82 Z" fill="#9a9a9a"/>
+
+          <!-- Glasses -->
+          <g id="j-glasses">
+            <rect x="157" y="92" width="40" height="32" rx="5" fill="rgba(200,220,255,0.12)" stroke="#333" stroke-width="3.5"/>
+            <rect x="223" y="92" width="40" height="32" rx="5" fill="rgba(200,220,255,0.12)" stroke="#333" stroke-width="3.5"/>
+            <line x1="197" y1="108" x2="223" y2="108" stroke="#333" stroke-width="3.5"/>
+            <line x1="157" y1="103" x2="142" y2="103" stroke="#333" stroke-width="2.5"/>
+            <line x1="263" y1="103" x2="278" y2="103" stroke="#333" stroke-width="2.5"/>
+          </g>
+
+          <!-- Eyes (normal - confident) -->
+          <g id="j-eyes-normal">
+            <circle cx="177" cy="108" r="7" fill="#1a1a1a"/>
+            <circle cx="243" cy="108" r="7" fill="#1a1a1a"/>
+            <circle cx="179" cy="106" r="2.8" fill="#fff"/>
+            <circle cx="245" cy="106" r="2.8" fill="#fff"/>
+          </g>
+
+          <!-- Eyes (shocked - hidden) -->
+          <g id="j-eyes-shocked" opacity="0">
+            <ellipse cx="177" cy="108" rx="16" ry="18" fill="#fff" stroke="#1a1a1a" stroke-width="3"/>
+            <circle cx="177" cy="110" r="7" fill="#1a1a1a"/>
+            <circle cx="179" cy="107" r="2.5" fill="#fff"/>
+            <ellipse cx="243" cy="108" rx="16" ry="18" fill="#fff" stroke="#1a1a1a" stroke-width="3"/>
+            <circle cx="243" cy="110" r="7" fill="#1a1a1a"/>
+            <circle cx="245" cy="107" r="2.5" fill="#fff"/>
+          </g>
+
+          <!-- Mouth (confident smirk) -->
+          <path id="j-mouth-smirk" d="M185,140 Q210,155 235,140" fill="none" stroke="#8B4513" stroke-width="3.5" stroke-linecap="round"/>
+
+          <!-- Mouth (shocked O - hidden) -->
+          <ellipse id="j-mouth-shocked" cx="210" cy="148" rx="16" ry="20" fill="#5C3310" stroke="#4A2508" stroke-width="2" opacity="0"/>
+
+          <!-- Eyebrows (confident - slightly raised) -->
+          <g id="j-brows">
+            <line id="j-brow-l" x1="158" y1="82" x2="195" y2="79" stroke="#7a7a7a" stroke-width="5" stroke-linecap="round"/>
+            <line id="j-brow-r" x1="225" y1="79" x2="262" y2="82" stroke="#7a7a7a" stroke-width="5" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
     </div>
+
+    <!-- Sweat drops -->
+    <div class="sweat" id="sweat1"></div>
+    <div class="sweat" id="sweat2"></div>
+    <div class="sweat" id="sweat3"></div>
 
     <!-- Text stack -->
     <div id="leather-text">Leather Jacket.</div>
     <div id="trillion-number">$3.4T</div>
     <div id="trillion-label">MARKET CAP</div>
     <div id="accent-line"></div>
-    <div id="built-line">Jensen Huang built NVIDIA into the world's most valuable company.</div>
+    <div id="built-line">Jensen Huang built NVIDIA into<br>the world's most valuable company.</div>
 
     <!-- Scandal bar -->
     <div id="scandal-bar">
       <div id="scandal-text">THEN HE BLEW IT UP.</div>
     </div>
+
+    <!-- Flash overlay -->
+    <div id="flash-overlay"></div>
   </div>
 </div>
 <script>
 window.__timelines = window.__timelines || {};
 const tl = gsap.timeline({ paused: true });
 
-const stepEase = (base, dur, fps = 12) => {
-  const e = gsap.parseEase(base);
-  const n = Math.max(1, Math.round(dur * fps));
-  return (p) => e(Math.floor(p * n) / n);
-};
+// --- Initial states ---
+gsap.set("#scandal-bar", { y: 250 });
+gsap.set("#scandal-text", { xPercent: -50, yPercent: -50 });
+gsap.set("#jensen-char", { y: 120, opacity: 0 });
 
-// Fade in scene
+// --- Scene fade in ---
 tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
 
-// Jensen figure rises from bottom
-tl.fromTo("#jensen-figure", { y: 200, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.2);
+// Jensen rises in confidently
+tl.to("#jensen-char", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.1);
 
-// "Leather Jacket" text
-tl.fromTo("#leather-text", { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.3);
+// NVIDIA glow pulses in
+tl.fromTo("#nvidia-glow", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }, 0.2);
 
-// $3.4T counter effect
-tl.fromTo("#trillion-number", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 0.8);
+// Subtle jacket collar adjust (arm-right moves slightly)
+tl.to("#j-arm-r", { rotation: -5, transformOrigin: "50% 0%", duration: 0.4, ease: "power2.inOut" }, 0.6);
+tl.to("#j-arm-r", { rotation: 0, duration: 0.3, ease: "power2.inOut" }, 1.0);
 
-// Market cap label
-tl.fromTo("#trillion-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.2);
+// "Leather Jacket." - punchy entrance
+tl.to("#leather-text", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.4);
+
+// "$3.4T" - big number impact
+tl.to("#trillion-number", { opacity: 1, duration: 0.1 }, 1.5);
+tl.fromTo("#trillion-number", { scale: 1.3 }, { scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 1.5);
+
+// "MARKET CAP" label
+tl.to("#trillion-label", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 2.2);
 
 // Yellow accent line wipe
-tl.to("#accent-line", { width: 500, duration: 0.6, ease: "power2.inOut" }, 1.4);
+tl.to("#accent-line", { width: 520, duration: 0.5, ease: "power2.inOut" }, 2.5);
 
-// Built NVIDIA line
-tl.fromTo("#built-line", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 2.0);
+// "Built NVIDIA..." text
+tl.to("#built-line", { opacity: 1, duration: 0.4, ease: "power2.out" }, 3.2);
 
-// Start scandal bar off-screen (below viewport)
-gsap.set("#scandal-bar", { y: 200 });
+// --- THE TWIST at ~5.5s ---
 
-// Hold for a beat... then scandal bar SMASHES up
-tl.to("#scandal-bar", { y: 0, duration: 0.3, ease: "power4.out" }, 5.5);
+// WHITE FLASH
+tl.to("#flash-overlay", { opacity: 0.9, duration: 0.08 }, 5.5);
+tl.to("#flash-overlay", { opacity: 0, duration: 0.4, ease: "power2.out" }, 5.58);
 
-// Screen flash on scandal hit
-tl.fromTo("#root", { filter: "brightness(3)" }, { filter: "brightness(1)", duration: 0.3, ease: "power2.out" }, 5.5);
+// Glow turns RED
+tl.to("#nvidia-glow", {
+  background: "radial-gradient(circle, rgba(231,76,60,0.35) 0%, rgba(231,76,60,0) 70%)",
+  duration: 0.01
+}, 5.5);
 
-// Hard kill at end
+// Jensen SHOCKED expression
+tl.to("#j-eyes-normal", { opacity: 0, duration: 0.05 }, 5.5);
+tl.to("#j-eyes-shocked", { opacity: 1, duration: 0.05 }, 5.5);
+tl.to("#j-mouth-smirk", { opacity: 0, duration: 0.05 }, 5.5);
+tl.to("#j-mouth-shocked", { opacity: 1, duration: 0.05 }, 5.5);
+
+// Eyebrows shoot up
+tl.to("#j-brow-l", { attr: { y1: 72, y2: 69 }, duration: 0.1, ease: "power3.out" }, 5.5);
+tl.to("#j-brow-r", { attr: { y1: 69, y2: 72 }, duration: 0.1, ease: "power3.out" }, 5.5);
+
+// Glasses shake
+tl.to("#j-glasses", { x: 3, rotation: 4, transformOrigin: "50% 50%", duration: 0.08 }, 5.5);
+tl.to("#j-glasses", { x: -2, rotation: -2, duration: 0.08 }, 5.58);
+tl.to("#j-glasses", { x: 0, rotation: 3, duration: 0.1 }, 5.66);
+
+// Jensen recoils
+tl.to("#jensen-char", { x: -20, duration: 0.15, ease: "power3.out" }, 5.5);
+
+// Sweat drops fly out
+tl.to("#sweat1", { opacity: 1, y: -40, x: -15, duration: 0.3, ease: "power2.out" }, 5.6);
+tl.to("#sweat2", { opacity: 1, y: -50, x: 20, duration: 0.35, ease: "power2.out" }, 5.65);
+tl.to("#sweat3", { opacity: 1, y: -60, x: 5, duration: 0.4, ease: "power2.out" }, 5.7);
+
+// Sweat drops fall
+tl.to("#sweat1", { y: 80, opacity: 0, duration: 0.5, ease: "power2.in" }, 6.0);
+tl.to("#sweat2", { y: 90, opacity: 0, duration: 0.5, ease: "power2.in" }, 6.1);
+tl.to("#sweat3", { y: 100, opacity: 0, duration: 0.5, ease: "power2.in" }, 6.2);
+
+// Text elements fade slightly
+tl.to("#leather-text, #trillion-number, #trillion-label, #built-line, #accent-line", { opacity: 0.3, duration: 0.3 }, 5.5);
+
+// SCANDAL BAR SMASHES UP
+tl.to("#scandal-bar", { y: 0, duration: 0.25, ease: "power4.out" }, 5.6);
+
+// Bar impact shake
+tl.to("#scandal-bar", { x: 4, duration: 0.04 }, 5.85);
+tl.to("#scandal-bar", { x: -3, duration: 0.04 }, 5.89);
+tl.to("#scandal-bar", { x: 0, duration: 0.06 }, 5.93);
+
+// Hard kill
 tl.set("#root", { opacity: 0, visibility: "hidden" }, 8.5);
 
 window.__timelines["hook"] = tl;

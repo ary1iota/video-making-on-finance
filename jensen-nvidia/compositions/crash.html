@@ -84,7 +84,7 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="crash" data-start="0" data-duration="13.5" data-width="1920" data-height="1080">
+<div id="root" data-composition-id="crash" data-start="0" data-duration="13" data-width="1920" data-height="1080">
   <div class="inner" id="scene-inner">
     <div id="scene-label">STOCK CRASH</div>
 
@@ -168,10 +168,10 @@ tl.to("#australia-bar", { opacity: 1, duration: 0.4, ease: "power2.out" }, 10.5)
 tl.fromTo("#australia-bar", { y: 20 }, { y: 0, duration: 0.4, ease: "power2.out" }, 10.5);
 
 // Fade out
-tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 12.9);
+tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 12.4);
 
 // Hard kill
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 13.4);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 12.9);
 
 window.__timelines["crash"] = tl;
 </script>

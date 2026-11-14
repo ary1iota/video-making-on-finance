@@ -15,3 +15,13 @@ Jensen Huang's resignation from NVIDIA - the scandal, stock crash, market impact
 - **GSAP** - Animation engine
 - **Kokoro TTS** - AI voiceover
 - **ffmpeg** - Video processing and vertical format conversion
+
+## Skills & Growth Guide
+
+See **[SKILLS.md](SKILLS.md)** for the full breakdown of:
+- Animation framework and rendering pipeline
+- Visual design system (Vox palette, fonts, SVG characters)
+- Narration scripting techniques for Reels engagement
+- Instagram/YouTube growth strategies (hooks, posting times, hashtags)
+- All available Claude skills and plugins for video production
+- Project structure and quick-reference commands

@@ -80,7 +80,7 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="winners" data-start="0" data-duration="7" data-width="1920" data-height="1080">
+<div id="root" data-composition-id="winners" data-start="0" data-duration="11.5" data-width="1920" data-height="1080">
   <div class="inner" id="scene-inner">
     <div id="scene-label">MARKET IMPACT</div>
     <div id="scene-title">Winners & Losers</div>
@@ -165,11 +165,11 @@ tl.to("#bcom-pct", {
 }, 2.7);
 
 // Losers side label
-tl.fromTo("#losers-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.0);
+tl.fromTo("#losers-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 6.0);
 
 // CoreWeave bar (-7%)
-tl.to("#cw-bar", { opacity: 1, duration: 0.2 }, 5.5);
-tl.to("#cw-fill", { width: "23%", duration: 0.7, ease: "power2.out" }, 5.7);
+tl.to("#cw-bar", { opacity: 1, duration: 0.2 }, 6.5);
+tl.to("#cw-fill", { width: "23%", duration: 0.7, ease: "power2.out" }, 6.7);
 tl.to("#cw-pct", {
   innerText: "-7.5%",
   duration: 0.7,
@@ -178,11 +178,11 @@ tl.to("#cw-pct", {
       return "-" + Math.abs(Math.round(parseFloat(value) * 10) / 10) + "%";
     }
   }
-}, 5.7);
+}, 6.7);
 
 // TSMC bar (-1.15%)
-tl.to("#tsmc-bar", { opacity: 1, duration: 0.2 }, 7.0);
-tl.to("#tsmc-fill", { width: "5%", duration: 0.5, ease: "power2.out" }, 7.2);
+tl.to("#tsmc-bar", { opacity: 1, duration: 0.2 }, 8.5);
+tl.to("#tsmc-fill", { width: "5%", duration: 0.5, ease: "power2.out" }, 8.7);
 tl.to("#tsmc-pct", {
   innerText: "-1.2%",
   duration: 0.5,
@@ -191,11 +191,11 @@ tl.to("#tsmc-pct", {
       return "-" + Math.abs(Math.round(parseFloat(value) * 10) / 10) + "%";
     }
   }
-}, 7.2);
+}, 8.7);
 
 // Fade out
-tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 6.4);
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 6.9);
+tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 10.8);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 11.4);
 
 window.__timelines["winners"] = tl;
 </script>

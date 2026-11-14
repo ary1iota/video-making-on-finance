@@ -106,7 +106,7 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="hook" data-start="0" data-duration="10.5" data-width="1920" data-height="1080">
+<div id="root" data-composition-id="hook" data-start="0" data-duration="11" data-width="1920" data-height="1080">
   <div class="inner" id="scene-inner">
 
     <div id="nvidia-glow"></div>
@@ -352,10 +352,10 @@ tl.to("#story-bar", { x: -3, duration: 0.04 }, 8.39);
 tl.to("#story-bar", { x: 0, duration: 0.06 }, 8.43);
 
 // Fade everything at end
-tl.to("#scene-inner", { opacity: 0, duration: 0.3 }, 10.0);
+tl.to("#scene-inner", { opacity: 0, duration: 0.3 }, 10.5);
 
 // Hard kill
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 10.4);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 10.9);
 
 window.__timelines["hook"] = tl;
 </script>

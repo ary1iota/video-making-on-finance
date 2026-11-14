@@ -33,55 +33,61 @@
   <body>
     <div id="root"
          data-composition-id="main"
-         data-start="0" data-duration="90"
+         data-start="0" data-duration="129"
          data-width="1920" data-height="1080"
          style="width:1920px;height:1080px;position:relative;">
 
-      <!-- Scene 1: Hook (0-10s) -->
-      <div id="hook-host" class="clip" data-start="0" data-duration="10"
+      <!-- Scene 1: Hook (0-20.5s) -->
+      <div id="hook-host" class="clip" data-start="0" data-duration="20.5"
            data-composition-id="hook"
            data-composition-src="compositions/hook.html"
            data-track-index="0" data-track-kind="graphics"></div>
 
-      <!-- Scene 2: Scandal (10-35.5s) -->
-      <div id="scandal-host" class="clip" data-start="10" data-duration="25.5"
+      <!-- Scene 2: Scandal (18.5-56s) -->
+      <div id="scandal-host" class="clip" data-start="18.5" data-duration="37.5"
            data-composition-id="scandal"
            data-composition-src="compositions/scandal.html"
-           data-track-index="0" data-track-kind="graphics"></div>
+           data-track-index="0" data-track-kind="graphics"
+           data-layout-allow-overlap></div>
 
-      <!-- Scene 3: Stock Crash (35.5-48.5s) -->
-      <div id="crash-host" class="clip" data-start="35.5" data-duration="13"
+      <!-- Scene 3: Stock Crash (54.5-73.5s) -->
+      <div id="crash-host" class="clip" data-start="54.5" data-duration="19"
            data-composition-id="crash"
            data-composition-src="compositions/crash.html"
-           data-track-index="0" data-track-kind="graphics"></div>
+           data-track-index="0" data-track-kind="graphics"
+           data-layout-allow-overlap></div>
 
-      <!-- Scene 4: Winners & Losers (48.5-59s) -->
-      <div id="winners-host" class="clip" data-start="48.5" data-duration="10.5"
+      <!-- Scene 4: Winners & Losers (71.5-88.5s) -->
+      <div id="winners-host" class="clip" data-start="71.5" data-duration="17"
            data-composition-id="winners"
            data-composition-src="compositions/winners.html"
-           data-track-index="0" data-track-kind="graphics"></div>
+           data-track-index="0" data-track-kind="graphics"
+           data-layout-allow-overlap></div>
 
-      <!-- Scene 5: What's Next (59-71.5s) -->
-      <div id="next-host" class="clip" data-start="59" data-duration="12.5"
+      <!-- Scene 5: What's Next (87-105.5s) -->
+      <div id="next-host" class="clip" data-start="87" data-duration="18.5"
            data-composition-id="next"
            data-composition-src="compositions/next.html"
-           data-track-index="0" data-track-kind="graphics"></div>
+           data-track-index="0" data-track-kind="graphics"
+           data-layout-allow-overlap></div>
 
-      <!-- Scene 6: Trader Takeaway (71.5-84s) -->
-      <div id="trader-host" class="clip" data-start="71.5" data-duration="12.5"
+      <!-- Scene 6: Trader Takeaway (104-122.5s) -->
+      <div id="trader-host" class="clip" data-start="104" data-duration="18.5"
            data-composition-id="trader"
            data-composition-src="compositions/trader.html"
-           data-track-index="0" data-track-kind="graphics"></div>
+           data-track-index="0" data-track-kind="graphics"
+           data-layout-allow-overlap></div>
 
-      <!-- Scene 7: CTA (84-87.5s) -->
-      <div id="cta-host" class="clip" data-start="84" data-duration="3.5"
+      <!-- Scene 7: CTA (121-127.5s) -->
+      <div id="cta-host" class="clip" data-start="121" data-duration="6.5"
            data-composition-id="cta"
            data-composition-src="compositions/cta.html"
-           data-track-index="0" data-track-kind="graphics"></div>
+           data-track-index="0" data-track-kind="graphics"
+           data-layout-allow-overlap></div>
 
       <!-- Voiceover audio -->
       <audio id="voiceover" src="assets/voiceover.wav"
-             data-start="0" data-duration="87.5"
+             data-start="0" data-duration="126.2"
              data-track-index="1" data-track-kind="voice"
              data-volume="1.0"></audio>
     </div>

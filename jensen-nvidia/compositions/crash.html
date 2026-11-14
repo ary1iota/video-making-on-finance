@@ -84,8 +84,8 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="crash" data-start="0" data-duration="13" data-width="1920" data-height="1080">
-  <div class="inner" id="scene-inner">
+<div id="root" data-composition-id="crash" data-start="0" data-duration="19" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner" data-layout-allow-overlap>
     <div id="scene-label">STOCK CRASH</div>
 
     <div id="chart-area">
@@ -136,42 +136,42 @@ window.__timelines = window.__timelines || {};
 const tl = gsap.timeline({ paused: true });
 
 // Fade in with light background
-tl.to("#scene-inner", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+tl.to("#scene-inner", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
 
 // Scene label
-tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.2);
+tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.3);
 
 // Chart title
-tl.fromTo("#chart-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.3);
+tl.fromTo("#chart-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
 
-// Draw stock line
-tl.to("#stock-line", { strokeDashoffset: 0, duration: 3.0, ease: "power1.inOut" }, 0.8);
+// Draw stock line (slower, more dramatic)
+tl.to("#stock-line", { strokeDashoffset: 0, duration: 4.0, ease: "power1.inOut" }, 1.0);
 
 // Crash dot appears at low point
-tl.to("#crash-dot", { r: 12, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 3.0);
-tl.to("#crash-label", { opacity: 1, duration: 0.3 }, 3.2);
+tl.to("#crash-dot", { r: 12, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 4.5);
+tl.to("#crash-label", { opacity: 1, duration: 0.4 }, 4.8);
 
 // Big -14% number smashes in
-tl.to("#crash-number", { opacity: 1, duration: 0.15, ease: "power4.out" }, 3.5);
-tl.fromTo("#crash-number", { scale: 2, y: -40 }, { scale: 1, y: 0, duration: 0.4, ease: "back.out(1.2)" }, 3.5);
+tl.to("#crash-number", { opacity: 1, duration: 0.2, ease: "power4.out" }, 5.2);
+tl.fromTo("#crash-number", { scale: 2, y: -40 }, { scale: 1, y: 0, duration: 0.5, ease: "back.out(1.2)" }, 5.2);
 
 // Screen shake on crash
-tl.fromTo("#scene-inner", { x: -10 }, { x: 0, duration: 0.1, ease: "power4.out" }, 3.5);
-tl.fromTo("#scene-inner", { x: 8 }, { x: 0, duration: 0.08, ease: "power4.out" }, 3.62);
+tl.fromTo("#scene-inner", { x: -10 }, { x: 0, duration: 0.12, ease: "power4.out" }, 5.2);
+tl.fromTo("#scene-inner", { x: 8 }, { x: 0, duration: 0.1, ease: "power4.out" }, 5.35);
 
-// Trillion counter (at ~7s into scene, matching "one point six trillion")
-tl.fromTo("#trillion-val", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 7.0);
-tl.fromTo("#trillion-desc", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 7.4);
+// Trillion counter (~10s into scene, matching "one point six trillion")
+tl.fromTo("#trillion-val", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 10.0);
+tl.fromTo("#trillion-desc", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 10.5);
 
 // Australia comparison
-tl.to("#australia-bar", { opacity: 1, duration: 0.4, ease: "power2.out" }, 10.5);
-tl.fromTo("#australia-bar", { y: 20 }, { y: 0, duration: 0.4, ease: "power2.out" }, 10.5);
+tl.to("#australia-bar", { opacity: 1, duration: 0.5, ease: "power2.out" }, 14.5);
+tl.fromTo("#australia-bar", { y: 20 }, { y: 0, duration: 0.5, ease: "power2.out" }, 14.5);
 
 // Fade out
-tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 12.4);
+tl.to("#scene-inner", { opacity: 0, duration: 0.5, ease: "power2.in" }, 18.2);
 
 // Hard kill
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 12.9);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 18.8);
 
 window.__timelines["crash"] = tl;
 </script>

@@ -80,8 +80,8 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="winners" data-start="0" data-duration="10.5" data-width="1920" data-height="1080">
-  <div class="inner" id="scene-inner">
+<div id="root" data-composition-id="winners" data-start="0" data-duration="17" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner" data-layout-allow-overlap>
     <div id="scene-label">MARKET IMPACT</div>
     <div id="scene-title">Winners & Losers</div>
     <div id="divider"></div>
@@ -124,24 +124,24 @@ window.__timelines = window.__timelines || {};
 const tl = gsap.timeline({ paused: true });
 
 // Fade in
-tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+tl.to("#scene-inner", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
 
 // Labels
-tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.1);
-tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.2);
+tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.3);
 
 // Divider grows
-tl.to("#divider", { height: 700, duration: 1.5, ease: "power2.inOut" }, 0.4);
+tl.to("#divider", { height: 700, duration: 2.0, ease: "power2.inOut" }, 0.5);
 
 // Winners side label
-tl.fromTo("#winners-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.6);
+tl.fromTo("#winners-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.8);
 
 // AMD bar (30%)
-tl.to("#amd-bar", { opacity: 1, duration: 0.2 }, 1.0);
-tl.to("#amd-fill", { width: "100%", duration: 1.0, ease: "power2.out" }, 1.2);
+tl.to("#amd-bar", { opacity: 1, duration: 0.3 }, 1.5);
+tl.to("#amd-fill", { width: "100%", duration: 1.5, ease: "power2.out" }, 1.8);
 tl.to("#amd-pct", {
   innerText: "+30%",
-  duration: 1.0,
+  duration: 1.5,
   snap: { innerText: 1 },
   ease: "power1.inOut",
   modifiers: {
@@ -149,53 +149,53 @@ tl.to("#amd-pct", {
       return "+" + Math.round(parseFloat(value)) + "%";
     }
   }
-}, 1.2);
+}, 1.8);
 
 // Broadcom bar (24%)
-tl.to("#bcom-bar", { opacity: 1, duration: 0.2 }, 2.5);
-tl.to("#bcom-fill", { width: "80%", duration: 0.8, ease: "power2.out" }, 2.7);
+tl.to("#bcom-bar", { opacity: 1, duration: 0.3 }, 4.0);
+tl.to("#bcom-fill", { width: "80%", duration: 1.2, ease: "power2.out" }, 4.3);
 tl.to("#bcom-pct", {
   innerText: "+24%",
-  duration: 0.8,
+  duration: 1.2,
   modifiers: {
     innerText: function(value) {
       return "+" + Math.round(parseFloat(value)) + "%";
     }
   }
-}, 2.7);
+}, 4.3);
 
 // Losers side label
-tl.fromTo("#losers-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 6.0);
+tl.fromTo("#losers-side .side-label", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 9.5);
 
 // CoreWeave bar (-7%)
-tl.to("#cw-bar", { opacity: 1, duration: 0.2 }, 6.5);
-tl.to("#cw-fill", { width: "23%", duration: 0.7, ease: "power2.out" }, 6.7);
+tl.to("#cw-bar", { opacity: 1, duration: 0.3 }, 10.0);
+tl.to("#cw-fill", { width: "23%", duration: 1.0, ease: "power2.out" }, 10.3);
 tl.to("#cw-pct", {
   innerText: "-7.5%",
-  duration: 0.7,
+  duration: 1.0,
   modifiers: {
     innerText: function(value) {
       return "-" + Math.abs(Math.round(parseFloat(value) * 10) / 10) + "%";
     }
   }
-}, 6.7);
+}, 10.3);
 
 // TSMC bar (-1.15%)
-tl.to("#tsmc-bar", { opacity: 1, duration: 0.2 }, 8.5);
-tl.to("#tsmc-fill", { width: "5%", duration: 0.5, ease: "power2.out" }, 8.7);
+tl.to("#tsmc-bar", { opacity: 1, duration: 0.3 }, 12.5);
+tl.to("#tsmc-fill", { width: "5%", duration: 0.8, ease: "power2.out" }, 12.8);
 tl.to("#tsmc-pct", {
   innerText: "-1.2%",
-  duration: 0.5,
+  duration: 0.8,
   modifiers: {
     innerText: function(value) {
       return "-" + Math.abs(Math.round(parseFloat(value) * 10) / 10) + "%";
     }
   }
-}, 8.7);
+}, 12.8);
 
 // Fade out
-tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 9.8);
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 10.4);
+tl.to("#scene-inner", { opacity: 0, duration: 0.5, ease: "power2.in" }, 16.2);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 16.8);
 
 window.__timelines["winners"] = tl;
 </script>

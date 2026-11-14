@@ -76,8 +76,8 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="trader" data-start="0" data-duration="12.5" data-width="1920" data-height="1080">
-  <div class="inner" id="scene-inner">
+<div id="root" data-composition-id="trader" data-start="0" data-duration="18.5" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner" data-layout-allow-overlap>
     <div id="scene-label">TRADER TAKEAWAY</div>
     <div id="scene-title">What Should You Do?</div>
 
@@ -113,41 +113,41 @@ window.__timelines = window.__timelines || {};
 const tl = gsap.timeline({ paused: true });
 
 // Fade in
-tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
-tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.1);
-tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+tl.to("#scene-inner", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.2);
+tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.3);
 
 // Bull side slides in from left
-tl.to("#bull-side", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.8);
-tl.fromTo("#bull-side", { x: -80 }, { x: 0, duration: 0.5, ease: "power3.out" }, 0.8);
+tl.to("#bull-side", { opacity: 1, duration: 0.5, ease: "power2.out" }, 1.0);
+tl.fromTo("#bull-side", { x: -80 }, { x: 0, duration: 0.6, ease: "power3.out" }, 1.0);
 
-// Bull points stagger in
-tl.to("#bull-points li:nth-child(1)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 1.5);
-tl.to("#bull-points li:nth-child(2)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.3);
-tl.to("#bull-points li:nth-child(3)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.0);
-tl.to("#bull-points li:nth-child(4)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.6);
+// Bull points stagger in (more breathing room)
+tl.to("#bull-points li:nth-child(1)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 2.0);
+tl.to("#bull-points li:nth-child(2)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 3.2);
+tl.to("#bull-points li:nth-child(3)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 4.2);
+tl.to("#bull-points li:nth-child(4)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 5.2);
 
 // VS circle
-tl.to("#vs-circle", { opacity: 1, duration: 0.2, ease: "power2.out" }, 5.0);
-tl.fromTo("#vs-circle", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 5.0);
+tl.to("#vs-circle", { opacity: 1, duration: 0.25, ease: "power2.out" }, 7.5);
+tl.fromTo("#vs-circle", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 7.5);
 
 // Bear side slides in from right
-tl.to("#bear-side", { opacity: 1, duration: 0.4, ease: "power2.out" }, 5.5);
-tl.fromTo("#bear-side", { x: 80 }, { x: 0, duration: 0.5, ease: "power3.out" }, 5.5);
+tl.to("#bear-side", { opacity: 1, duration: 0.5, ease: "power2.out" }, 8.0);
+tl.fromTo("#bear-side", { x: 80 }, { x: 0, duration: 0.6, ease: "power3.out" }, 8.0);
 
 // Bear points stagger in
-tl.to("#bear-points li:nth-child(1)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 6.2);
-tl.to("#bear-points li:nth-child(2)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 7.0);
-tl.to("#bear-points li:nth-child(3)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 7.7);
-tl.to("#bear-points li:nth-child(4)", { opacity: 1, duration: 0.3, ease: "power2.out" }, 8.3);
+tl.to("#bear-points li:nth-child(1)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 9.0);
+tl.to("#bear-points li:nth-child(2)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 10.2);
+tl.to("#bear-points li:nth-child(3)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 11.3);
+tl.to("#bear-points li:nth-child(4)", { opacity: 1, duration: 0.4, ease: "power2.out" }, 12.5);
 
 // Disclaimer
-tl.to("#disclaimer", { opacity: 1, duration: 0.4, ease: "power2.out" }, 10.5);
-tl.fromTo("#disclaimer", { y: 20 }, { y: 0, duration: 0.4, ease: "power2.out" }, 10.5);
+tl.to("#disclaimer", { opacity: 1, duration: 0.5, ease: "power2.out" }, 15.5);
+tl.fromTo("#disclaimer", { y: 20 }, { y: 0, duration: 0.5, ease: "power2.out" }, 15.5);
 
 // Fade out
-tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 11.8);
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 12.3);
+tl.to("#scene-inner", { opacity: 0, duration: 0.5, ease: "power2.in" }, 17.5);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 18.2);
 
 window.__timelines["trader"] = tl;
 </script>

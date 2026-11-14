@@ -120,8 +120,8 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="next" data-start="0" data-duration="12.5" data-width="1920" data-height="1080">
-  <div class="inner" id="scene-inner">
+<div id="root" data-composition-id="next" data-start="0" data-duration="18.5" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner" data-layout-allow-overlap>
     <div id="scene-label">WHAT'S NEXT</div>
     <div id="scene-title">Analyst Targets Slashed</div>
 
@@ -182,30 +182,30 @@ window.__timelines = window.__timelines || {};
 const tl = gsap.timeline({ paused: true });
 
 // Fade in
-tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
-tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.1);
-tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+tl.to("#scene-inner", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+tl.fromTo("#scene-label", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.2);
+tl.fromTo("#scene-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.3);
 
-// Analyst cards cascade in (staggered)
-tl.fromTo("#card-citi", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.0);
-tl.fromTo("#card-bernstein", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.0);
-tl.fromTo("#card-stifel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 3.0);
-tl.fromTo("#card-morningstar", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.0);
+// Analyst cards cascade in (staggered, more breathing room)
+tl.fromTo("#card-citi", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 1.5);
+tl.fromTo("#card-bernstein", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.0);
+tl.fromTo("#card-stifel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 4.5);
+tl.fromTo("#card-morningstar", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 6.0);
 
 // CEO card slides in
-tl.to("#ceo-card", { opacity: 1, duration: 0.4, ease: "power2.out" }, 8.0);
-tl.fromTo("#ceo-card", { x: -60 }, { x: 0, duration: 0.5, ease: "power3.out" }, 8.0);
+tl.to("#ceo-card", { opacity: 1, duration: 0.5, ease: "power2.out" }, 9.0);
+tl.fromTo("#ceo-card", { x: -60 }, { x: 0, duration: 0.6, ease: "power3.out" }, 9.0);
 
 // Earnings box pops
-tl.to("#earnings-box", { opacity: 1, duration: 0.3, ease: "power2.out" }, 11.0);
-tl.fromTo("#earnings-box", { scale: 0.8 }, { scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 11.0);
+tl.to("#earnings-box", { opacity: 1, duration: 0.4, ease: "power2.out" }, 12.0);
+tl.fromTo("#earnings-box", { scale: 0.8 }, { scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 12.0);
 
 // Question fades in
-tl.to("#question", { opacity: 1, duration: 0.6, ease: "power2.out" }, 16.0);
+tl.to("#question", { opacity: 1, duration: 0.7, ease: "power2.out" }, 15.0);
 
 // Fade out
-tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 11.8);
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 12.3);
+tl.to("#scene-inner", { opacity: 0, duration: 0.5, ease: "power2.in" }, 17.5);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 18.2);
 
 window.__timelines["next"] = tl;
 </script>

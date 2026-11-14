@@ -203,8 +203,8 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="scandal" data-start="0" data-duration="25.5" data-width="1920" data-height="1080" data-layout-allow-overlap>
-  <div class="inner" id="scene-inner">
+<div id="root" data-composition-id="scandal" data-start="0" data-duration="37.5" data-width="1920" data-height="1080" data-layout-allow-overlap>
+  <div class="inner" id="scene-inner" data-layout-allow-overlap>
 
     <div id="scene-label">THE SCANDAL</div>
 
@@ -528,242 +528,240 @@ gsap.set("#boot-container", { rotation: 60, transformOrigin: "100% 0%" });
 gsap.set("#jensen-scandal", { x: -500 });
 
 // ==============================
-// FADE IN (0-0.3s)
+// FADE IN (0-0.5s)
 // ==============================
-tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
-tl.to("#scene-label", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.2);
+tl.to("#scene-inner", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+tl.to("#scene-label", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.3);
 
 // ==============================
-// ACT 1: AFFAIR #1 — ALICE HUANG, THE SPY (0-7s)
-// Narration: "First, Alice Huang. A businesswoman in Singapore
-// that U.S. intelligence says was a Chinese spy."
+// ACT 1: AFFAIR #1 — ALICE HUANG, THE SPY (0-16s)
+// "So let me walk you through this. Affair number one. A woman named Alice Huang.
+// U.S. intelligence flagged her... as a Chinese spy."
 // ==============================
 
-// Jensen tiptoes in from left
-tl.to("#jensen-scandal", { x: 0, duration: 2.5, ease: "power1.inOut" }, 0.3);
-tl.to("#jensen-scandal", { y: -15, duration: 0.35, ease: "sine.inOut", repeat: 6, yoyo: true }, 0.3);
-tl.to("#jensen-scandal", { rotation: 8, transformOrigin: "50% 100%", duration: 0.5 }, 0.3);
+// Jensen tiptoes in from left (slower, more deliberate)
+tl.to("#jensen-scandal", { x: 0, duration: 3.5, ease: "power1.inOut" }, 0.5);
+tl.to("#jensen-scandal", { y: -15, duration: 0.4, ease: "sine.inOut", repeat: 8, yoyo: true }, 0.5);
+tl.to("#jensen-scandal", { rotation: 8, transformOrigin: "50% 100%", duration: 0.6 }, 0.5);
 
 // Head looks around nervously
-tl.to("#s-head", { rotation: -12, transformOrigin: "50% 100%", duration: 0.5, ease: "power2.inOut" }, 0.8);
-tl.to("#s-head", { rotation: 15, duration: 0.5, ease: "power2.inOut" }, 1.5);
-tl.to("#s-head", { rotation: 0, duration: 0.3, ease: "power2.inOut" }, 2.3);
+tl.to("#s-head", { rotation: -12, transformOrigin: "50% 100%", duration: 0.6, ease: "power2.inOut" }, 1.2);
+tl.to("#s-head", { rotation: 15, duration: 0.6, ease: "power2.inOut" }, 2.2);
+tl.to("#s-head", { rotation: 0, duration: 0.4, ease: "power2.inOut" }, 3.4);
 
 // Hearts float up
-tl.to("#heart1", { opacity: 1, y: -60, duration: 0.6, ease: "power2.out" }, 1.0);
-tl.to("#heart2", { opacity: 1, y: -80, duration: 0.7, ease: "power2.out" }, 1.4);
-tl.to("#heart1", { scale: 1.5, opacity: 0, duration: 0.3 }, 2.2);
-tl.to("#heart2", { scale: 1.5, opacity: 0, duration: 0.3 }, 2.6);
+tl.to("#heart1", { opacity: 1, y: -60, duration: 0.7, ease: "power2.out" }, 1.5);
+tl.to("#heart2", { opacity: 1, y: -80, duration: 0.8, ease: "power2.out" }, 2.2);
+tl.to("#heart1", { scale: 1.5, opacity: 0, duration: 0.4 }, 3.5);
+tl.to("#heart2", { scale: 1.5, opacity: 0, duration: 0.4 }, 4.0);
 
 // Alice spy figure fades in on the right
-tl.to("#alice-figure", { opacity: 1, duration: 0.8, ease: "power2.out" }, 1.2);
+tl.to("#alice-figure", { opacity: 1, duration: 1.0, ease: "power2.out" }, 2.0);
 
 // Card 1 slides in
-tl.fromTo("#card1", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 1.5);
+tl.fromTo("#card1", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 3.0);
 
 // Jensen looks towards Alice (sneaky glance)
-tl.to("#s-head", { rotation: 10, duration: 0.3, ease: "power2.inOut" }, 3.0);
+tl.to("#s-head", { rotation: 10, duration: 0.4, ease: "power2.inOut" }, 5.0);
 
 // Hold for reading...
 
 // Card 1 and Alice fade out
-tl.to("#card1", { opacity: 0, x: -30, duration: 0.3, ease: "power2.in" }, 6.2);
-tl.to("#alice-figure", { opacity: 0, x: 30, duration: 0.4, ease: "power2.in" }, 6.2);
+tl.to("#card1", { opacity: 0, x: -30, duration: 0.4, ease: "power2.in" }, 14.5);
+tl.to("#alice-figure", { opacity: 0, x: 30, duration: 0.5, ease: "power2.in" }, 14.5);
 
 // ==============================
-// ACT 2: AFFAIR #2 — KIMBERLY POWELL, HIS VP (7-13s)
-// Narration: "Then, Kimberly Powell, his own VP at NVIDIA.
-// She reported directly to him. Caught on video at a San Jose hotel."
+// ACT 2: AFFAIR #2 — KIMBERLY POWELL, HIS VP (16-27.5s)
+// "Number two. Kimberly Powell. His own VP. At NVIDIA.
+// Caught on video... at a San Jose hotel."
 // ==============================
 
 // Jensen straightens up, gets nervous again
-tl.to("#jensen-scandal", { rotation: 0, duration: 0.3 }, 6.8);
-tl.to("#s-head", { rotation: 0, duration: 0.2 }, 6.8);
-tl.to("#jensen-scandal", { rotation: -5, duration: 0.3 }, 7.3);
+tl.to("#jensen-scandal", { rotation: 0, duration: 0.4 }, 15.2);
+tl.to("#s-head", { rotation: 0, duration: 0.3 }, 15.2);
+tl.to("#jensen-scandal", { rotation: -5, duration: 0.4 }, 16.0);
 
 // More hearts
-tl.to("#heart3", { opacity: 1, y: -70, duration: 0.6, ease: "power2.out" }, 7.2);
-tl.to("#heart4", { opacity: 1, y: -50, duration: 0.5, ease: "power2.out" }, 7.6);
-tl.to("#heart3", { scale: 1.5, opacity: 0, duration: 0.3 }, 8.5);
-tl.to("#heart4", { scale: 1.5, opacity: 0, duration: 0.3 }, 8.8);
+tl.to("#heart3", { opacity: 1, y: -70, duration: 0.7, ease: "power2.out" }, 16.2);
+tl.to("#heart4", { opacity: 1, y: -50, duration: 0.6, ease: "power2.out" }, 16.8);
+tl.to("#heart3", { scale: 1.5, opacity: 0, duration: 0.4 }, 18.0);
+tl.to("#heart4", { scale: 1.5, opacity: 0, duration: 0.4 }, 18.5);
 
 // Kimberly VP figure fades in
-tl.to("#kimberly-figure", { opacity: 1, duration: 0.8, ease: "power2.out" }, 7.0);
+tl.to("#kimberly-figure", { opacity: 1, duration: 1.0, ease: "power2.out" }, 16.0);
 
 // Card 2 slides in
-tl.fromTo("#card2", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 7.5);
+tl.fromTo("#card2", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 17.0);
 
 // Head looks around frantically
-tl.to("#s-head", { rotation: -20, duration: 0.3, ease: "power3.inOut" }, 8.5);
-tl.to("#s-head", { rotation: 20, duration: 0.3, ease: "power3.inOut" }, 9.0);
-tl.to("#s-head", { rotation: 0, duration: 0.2, ease: "power3.inOut" }, 9.5);
+tl.to("#s-head", { rotation: -20, duration: 0.4, ease: "power3.inOut" }, 19.0);
+tl.to("#s-head", { rotation: 20, duration: 0.4, ease: "power3.inOut" }, 19.6);
+tl.to("#s-head", { rotation: 0, duration: 0.3, ease: "power3.inOut" }, 20.2);
 
 // Nervous mouth
-tl.to("#s-mouth-nervous", { attr: { d: "M142,104 Q160,115 178,104" }, duration: 0.2 }, 8.5);
+tl.to("#s-mouth-nervous", { attr: { d: "M142,104 Q160,115 178,104" }, duration: 0.25 }, 19.0);
 
 // "CAUGHT ON VIDEO" text punches in
-tl.to("#caught-text", { opacity: 1, duration: 0.15 }, 10.0);
-tl.fromTo("#caught-text", { scale: 1.1 }, { scale: 1, duration: 0.25, ease: "back.out(2)" }, 10.0);
+tl.to("#caught-text", { opacity: 1, duration: 0.2 }, 21.0);
+tl.fromTo("#caught-text", { scale: 1.1 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 21.0);
 
 // Card 2 and Kimberly fade out
-tl.to("#card2", { opacity: 0, x: -30, duration: 0.3 }, 12.0);
-tl.to("#kimberly-figure", { opacity: 0, x: 30, duration: 0.4 }, 12.0);
-tl.to("#caught-text", { opacity: 0, duration: 0.2 }, 12.0);
+tl.to("#card2", { opacity: 0, x: -30, duration: 0.4 }, 24.5);
+tl.to("#kimberly-figure", { opacity: 0, x: 30, duration: 0.5 }, 24.5);
+tl.to("#caught-text", { opacity: 0, duration: 0.3 }, 24.5);
 
 // ==============================
-// ACT 3: AFFAIR #3 — THE MYSTERY (13-16.5s)
-// Narration: "And then, hours after he resigned, Reuters
-// dropped another bombshell. A third affair with another NVIDIA employee."
+// ACT 3: AFFAIR #3 — THE MYSTERY + third woman (24.5-27.5s)
+// "And then. Hours after he resigned... Reuters dropped another name. A third woman."
 // ==============================
 
 // Quick flash
-tl.to("#scandal-flash", { opacity: 0.5, duration: 0.05 }, 13.0);
-tl.to("#scandal-flash", { opacity: 0, duration: 0.3 }, 13.05);
+tl.to("#scandal-flash", { opacity: 0.5, duration: 0.05 }, 25.0);
+tl.to("#scandal-flash", { opacity: 0, duration: 0.4 }, 25.05);
 
 // Mystery silhouette appears
-tl.to("#mystery-figure", { opacity: 1, duration: 0.5, ease: "power2.out" }, 13.2);
+tl.to("#mystery-figure", { opacity: 1, duration: 0.6, ease: "power2.out" }, 25.2);
 
 // "ANOTHER ONE?!" slams on screen
-tl.to("#another-one", { opacity: 1, duration: 0.1 }, 13.4);
-tl.fromTo("#another-one", { scale: 2, rotation: -10 }, { scale: 1, rotation: 5, duration: 0.25, ease: "back.out(3)" }, 13.4);
+tl.to("#another-one", { opacity: 1, duration: 0.12 }, 25.5);
+tl.fromTo("#another-one", { scale: 2, rotation: -10 }, { scale: 1, rotation: 5, duration: 0.3, ease: "back.out(3)" }, 25.5);
 
 // Jensen is SHOCKED
-tl.to("#jensen-scandal", { rotation: 0, duration: 0.15 }, 13.0);
-tl.to("#s-eyes-sneaky", { opacity: 0, duration: 0.05 }, 13.2);
-tl.to("#s-eyes-shocked", { opacity: 1, duration: 0.05 }, 13.2);
-tl.to("#s-mouth-nervous", { opacity: 0, duration: 0.05 }, 13.2);
-tl.to("#s-mouth-shocked", { opacity: 1, duration: 0.05 }, 13.2);
+tl.to("#jensen-scandal", { rotation: 0, duration: 0.2 }, 25.0);
+tl.to("#s-eyes-sneaky", { opacity: 0, duration: 0.05 }, 25.2);
+tl.to("#s-eyes-shocked", { opacity: 1, duration: 0.05 }, 25.2);
+tl.to("#s-mouth-nervous", { opacity: 0, duration: 0.05 }, 25.2);
+tl.to("#s-mouth-shocked", { opacity: 1, duration: 0.05 }, 25.2);
 
 // Eyebrows up
-tl.to("#s-brow-l", { attr: { y1: 44, y2: 42 }, duration: 0.1 }, 13.2);
-tl.to("#s-brow-r", { attr: { y1: 42, y2: 44 }, duration: 0.1 }, 13.2);
+tl.to("#s-brow-l", { attr: { y1: 44, y2: 42 }, duration: 0.12 }, 25.2);
+tl.to("#s-brow-r", { attr: { y1: 42, y2: 44 }, duration: 0.12 }, 25.2);
 
 // Glasses askew
-tl.to("#s-glasses", { rotation: 8, transformOrigin: "50% 50%", duration: 0.15 }, 13.2);
+tl.to("#s-glasses", { rotation: 8, transformOrigin: "50% 50%", duration: 0.18 }, 25.2);
 
 // Jensen recoils
-tl.to("#jensen-scandal", { y: -40, duration: 0.15, ease: "power3.out" }, 13.2);
-tl.to("#jensen-scandal", { y: 0, duration: 0.3, ease: "bounce.out" }, 13.35);
+tl.to("#jensen-scandal", { y: -40, duration: 0.18, ease: "power3.out" }, 25.2);
+tl.to("#jensen-scandal", { y: 0, duration: 0.35, ease: "bounce.out" }, 25.38);
 
 // Card 3 slides in
-tl.fromTo("#card3", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 13.8);
+tl.fromTo("#card3", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 25.8);
 
 // Sweat drops
-tl.to("#ss1", { opacity: 1, y: -30, x: -20, duration: 0.3, ease: "power2.out" }, 13.5);
-tl.to("#ss2", { opacity: 1, y: -40, x: 15, duration: 0.3, ease: "power2.out" }, 13.6);
-tl.to("#ss3", { opacity: 1, y: -50, x: 5, duration: 0.35, ease: "power2.out" }, 13.7);
-tl.to(".scandal-sweat", { y: 60, opacity: 0, duration: 0.4, ease: "power2.in" }, 14.5);
+tl.to("#ss1", { opacity: 1, y: -30, x: -20, duration: 0.35, ease: "power2.out" }, 25.5);
+tl.to("#ss2", { opacity: 1, y: -40, x: 15, duration: 0.35, ease: "power2.out" }, 25.7);
+tl.to("#ss3", { opacity: 1, y: -50, x: 5, duration: 0.4, ease: "power2.out" }, 25.9);
+tl.to(".scandal-sweat", { y: 60, opacity: 0, duration: 0.5, ease: "power2.in" }, 26.5);
 
 // Hearts one more time (ironic)
-tl.to("#heart5", { opacity: 0.6, y: -50, duration: 0.4, ease: "power2.out" }, 14.0);
-tl.to("#heart6", { opacity: 0.6, y: -60, duration: 0.5, ease: "power2.out" }, 14.3);
-tl.to("#heart5", { scale: 2, opacity: 0, duration: 0.2 }, 14.8);
-tl.to("#heart6", { scale: 2, opacity: 0, duration: 0.2 }, 15.0);
+tl.to("#heart5", { opacity: 0.6, y: -50, duration: 0.5, ease: "power2.out" }, 26.0);
+tl.to("#heart6", { opacity: 0.6, y: -60, duration: 0.6, ease: "power2.out" }, 26.4);
+tl.to("#heart5", { scale: 2, opacity: 0, duration: 0.25 }, 26.8);
+tl.to("#heart6", { scale: 2, opacity: 0, duration: 0.25 }, 27.0);
 
 // Fade mystery + card 3 + "ANOTHER ONE"
-tl.to("#mystery-figure, #card3, #another-one", { opacity: 0, duration: 0.3 }, 16.0);
+tl.to("#mystery-figure, #card3, #another-one", { opacity: 0, duration: 0.4 }, 27.0);
 
 // ==============================
-// ACT 4: WIFE LORI — "33 YEARS" (16.5-19s)
-// Narration: "His wife Lori, married to him since nineteen eighty five.
-// Thirty three years as CEO. Gone in one week."
+// ACT 4: WIFE LORI — "33 YEARS" (27.5-32s)
+// "His wife Lori? Married since 1985. 33 years as CEO. Gone. In one week."
 // ==============================
 
 // Jensen moves right, shrinks (ashamed)
-tl.to("#jensen-scandal", { x: 200, scale: 0.85, transformOrigin: "50% 100%", duration: 0.5 }, 16.5);
+tl.to("#jensen-scandal", { x: 200, scale: 0.85, transformOrigin: "50% 100%", duration: 0.6 }, 27.5);
 // Reset shocked back to nervous look
-tl.to("#s-eyes-shocked", { opacity: 0, duration: 0.05 }, 16.5);
-tl.to("#s-eyes-sneaky", { opacity: 1, duration: 0.05 }, 16.5);
-tl.to("#s-mouth-shocked", { opacity: 0, duration: 0.05 }, 16.5);
-tl.to("#s-mouth-nervous", { opacity: 1, duration: 0.05 }, 16.5);
+tl.to("#s-eyes-shocked", { opacity: 0, duration: 0.05 }, 27.5);
+tl.to("#s-eyes-sneaky", { opacity: 1, duration: 0.05 }, 27.5);
+tl.to("#s-mouth-shocked", { opacity: 0, duration: 0.05 }, 27.5);
+tl.to("#s-mouth-nervous", { opacity: 1, duration: 0.05 }, 27.5);
 // Nervous mouth drooping
-tl.to("#s-mouth-nervous", { attr: { d: "M140,108 Q160,100 180,108" }, duration: 0.2 }, 16.5);
-tl.to("#s-glasses", { rotation: 0, duration: 0.2 }, 16.5);
-tl.to("#s-brow-l", { attr: { y1: 56, y2: 54 }, duration: 0.2 }, 16.5);
-tl.to("#s-brow-r", { attr: { y1: 54, y2: 56 }, duration: 0.2 }, 16.5);
+tl.to("#s-mouth-nervous", { attr: { d: "M140,108 Q160,100 180,108" }, duration: 0.25 }, 27.5);
+tl.to("#s-glasses", { rotation: 0, duration: 0.25 }, 27.5);
+tl.to("#s-brow-l", { attr: { y1: 56, y2: 54 }, duration: 0.25 }, 27.5);
+tl.to("#s-brow-r", { attr: { y1: 54, y2: 56 }, duration: 0.25 }, 27.5);
 
 // Wife Lori appears from left, arms crossed
-tl.to("#lori-figure", { opacity: 1, duration: 0.5, ease: "power2.out" }, 16.8);
-tl.fromTo("#lori-figure", { x: -80 }, { x: 0, duration: 0.5, ease: "power3.out" }, 16.8);
+tl.to("#lori-figure", { opacity: 1, duration: 0.6, ease: "power2.out" }, 28.0);
+tl.fromTo("#lori-figure", { x: -80 }, { x: 0, duration: 0.6, ease: "power3.out" }, 28.0);
 
 // Speech bubble: "33 YEARS."
-tl.to("#lori-speech", { opacity: 1, duration: 0.2, ease: "power2.out" }, 17.3);
-tl.fromTo("#lori-speech", { scale: 0.8 }, { scale: 1, duration: 0.2, ease: "back.out(2)" }, 17.3);
+tl.to("#lori-speech", { opacity: 1, duration: 0.25, ease: "power2.out" }, 29.0);
+tl.fromTo("#lori-speech", { scale: 0.8 }, { scale: 1, duration: 0.25, ease: "back.out(2)" }, 29.0);
 
 // Jensen cowers
-tl.to("#jensen-scandal", { y: 20, rotation: -8, transformOrigin: "50% 100%", duration: 0.3, ease: "power2.out" }, 17.5);
+tl.to("#jensen-scandal", { y: 20, rotation: -8, transformOrigin: "50% 100%", duration: 0.4, ease: "power2.out" }, 29.5);
 
 // Fade lori, speech
-tl.to("#lori-figure, #lori-speech", { opacity: 0, duration: 0.3 }, 18.8);
+tl.to("#lori-figure, #lori-speech", { opacity: 0, duration: 0.4 }, 31.5);
 
 // ==============================
-// ACT 5: RESIGNED + KICKED OUT (19-25.5s)
-// Narration: "The board didn't even fight it."
+// ACT 5: RESIGNED + KICKED OUT (32-37.5s)
+// "The board didn't even fight it."
 // ==============================
 
 // Jensen moves center
-tl.to("#jensen-scandal", { x: 50, y: 0, scale: 1, rotation: 0, duration: 0.3 }, 19.0);
+tl.to("#jensen-scandal", { x: 50, y: 0, scale: 1, rotation: 0, duration: 0.4 }, 32.0);
 
 // BIG SPOTLIGHT FLASH
-tl.to("#scandal-flash", { opacity: 0.85, duration: 0.06 }, 19.2);
-tl.to("#scandal-flash", { opacity: 0, duration: 0.5, ease: "power2.out" }, 19.26);
-tl.to("#spotlight", { opacity: 1, duration: 0.3, ease: "power2.out" }, 19.2);
+tl.to("#scandal-flash", { opacity: 0.85, duration: 0.06 }, 32.3);
+tl.to("#scandal-flash", { opacity: 0, duration: 0.6, ease: "power2.out" }, 32.36);
+tl.to("#spotlight", { opacity: 1, duration: 0.4, ease: "power2.out" }, 32.3);
 
 // SHOCKED again
-tl.to("#s-eyes-sneaky", { opacity: 0, duration: 0.05 }, 19.2);
-tl.to("#s-eyes-shocked", { opacity: 1, duration: 0.05 }, 19.2);
-tl.to("#s-mouth-nervous", { opacity: 0, duration: 0.05 }, 19.2);
-tl.to("#s-mouth-shocked", { opacity: 1, duration: 0.05 }, 19.2);
+tl.to("#s-eyes-sneaky", { opacity: 0, duration: 0.05 }, 32.3);
+tl.to("#s-eyes-shocked", { opacity: 1, duration: 0.05 }, 32.3);
+tl.to("#s-mouth-nervous", { opacity: 0, duration: 0.05 }, 32.3);
+tl.to("#s-mouth-shocked", { opacity: 1, duration: 0.05 }, 32.3);
 
 // RESIGNED stamp SLAMS in
 tl.fromTo("#resign-stamp",
   { scale: 3, rotation: -25, opacity: 0 },
-  { scale: 1, rotation: -10, opacity: 1, duration: 0.2, ease: "power4.out" },
-  19.8
+  { scale: 1, rotation: -10, opacity: 1, duration: 0.25, ease: "power4.out" },
+  33.0
 );
 
 // Stamp stays...
-tl.to("#spotlight", { opacity: 0, duration: 0.5 }, 20.8);
-tl.to("#resign-stamp", { opacity: 0, duration: 0.3 }, 21.0);
+tl.to("#spotlight", { opacity: 0, duration: 0.6 }, 33.8);
+tl.to("#resign-stamp", { opacity: 0, duration: 0.4 }, 34.0);
 
 // NVIDIA door slides in
-tl.to("#nvidia-door", { opacity: 1, duration: 0.01 }, 21.5);
-tl.fromTo("#nvidia-door", { x: 200 }, { x: 0, duration: 0.4, ease: "power3.out" }, 21.5);
+tl.to("#nvidia-door", { opacity: 1, duration: 0.01 }, 34.5);
+tl.fromTo("#nvidia-door", { x: 200 }, { x: 0, duration: 0.5, ease: "power3.out" }, 34.5);
 
 // Jensen moves toward door
-tl.to("#jensen-scandal", { x: 250, duration: 0.4, ease: "power2.inOut" }, 21.5);
+tl.to("#jensen-scandal", { x: 250, duration: 0.5, ease: "power2.inOut" }, 34.5);
 
 // BOOT SWINGS!
-tl.to("#boot-container", { opacity: 1, duration: 0.01 }, 22.0);
-tl.to("#boot-container", { rotation: -20, duration: 0.2, ease: "power4.out" }, 22.0);
+tl.to("#boot-container", { opacity: 1, duration: 0.01 }, 35.0);
+tl.to("#boot-container", { rotation: -20, duration: 0.25, ease: "power4.out" }, 35.0);
 
 // Jensen goes FLYING!
 tl.to("#jensen-scandal", {
   x: -800, y: -100, rotation: -360,
   transformOrigin: "50% 50%",
-  duration: 0.8, ease: "power2.out"
-}, 22.2);
+  duration: 0.9, ease: "power2.out"
+}, 35.2);
 
 // Boot retracts
-tl.to("#boot-container", { rotation: 60, opacity: 0, duration: 0.3 }, 22.5);
+tl.to("#boot-container", { rotation: 60, opacity: 0, duration: 0.4 }, 35.5);
 
 // Door sign appears
-tl.to("#door-sign", { opacity: 1, duration: 0.3, ease: "power2.out" }, 22.5);
+tl.to("#door-sign", { opacity: 1, duration: 0.4, ease: "power2.out" }, 35.5);
 
 // Dizzy stars
-tl.to("#star1", { opacity: 1, duration: 0.1 }, 22.8);
-tl.to("#star2", { opacity: 1, duration: 0.1 }, 22.9);
-tl.to("#star3", { opacity: 1, duration: 0.1 }, 23.0);
-tl.to(".dizzy-star", { rotation: 360, duration: 2, ease: "none", repeat: 1 }, 22.8);
+tl.to("#star1", { opacity: 1, duration: 0.12 }, 35.5);
+tl.to("#star2", { opacity: 1, duration: 0.12 }, 35.6);
+tl.to("#star3", { opacity: 1, duration: 0.12 }, 35.7);
+tl.to(".dizzy-star", { rotation: 360, duration: 2, ease: "none", repeat: 1 }, 35.5);
 
 // Board text: "THE BOARD DIDN'T EVEN FIGHT IT"
-tl.to("#board-text", { opacity: 1, duration: 0.4, ease: "power2.out" }, 23.2);
+tl.to("#board-text", { opacity: 1, duration: 0.5, ease: "power2.out" }, 35.8);
 
 // Fade out scene
-tl.to("#scene-inner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 24.8);
+tl.to("#scene-inner", { opacity: 0, duration: 0.5, ease: "power2.in" }, 36.8);
 
 // Hard kill
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 25.3);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 37.3);
 
 window.__timelines["scandal"] = tl;
 </script>

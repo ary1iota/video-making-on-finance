@@ -106,8 +106,8 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="hook" data-start="0" data-duration="10" data-width="1920" data-height="1080">
-  <div class="inner" id="scene-inner">
+<div id="root" data-composition-id="hook" data-start="0" data-duration="20.5" data-width="1920" data-height="1080">
+  <div class="inner" id="scene-inner" data-layout-allow-overlap>
 
     <div id="nvidia-glow"></div>
 
@@ -230,132 +230,138 @@ gsap.set("#jensen-char", { y: 120, opacity: 0 });
 gsap.set("#count-container", { xPercent: -50 });
 gsap.set("#spy-text", { xPercent: -50 });
 
-// --- PHASE 1: $3.4T COMPANY (0-2.5s) ---
-tl.to("#scene-inner", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+// --- PHASE 1: JENSEN INTRO (0-5s) ---
+// "So. There's this guy. Jensen Huang."
+tl.to("#scene-inner", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
 
-// Jensen rises in confidently
-tl.to("#jensen-char", { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.1);
-tl.fromTo("#nvidia-glow", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 0.2);
+// Jensen rises in slowly, confidently
+tl.to("#jensen-char", { y: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 0.3);
+tl.fromTo("#nvidia-glow", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.5);
+
+// --- PHASE 2: $3.4T COMPANY (5-8s) ---
+// "He built NVIDIA into a 3.4T company. Most powerful man in tech."
 
 // "$3.4T" slams in
-tl.to("#trillion-number", { opacity: 1, duration: 0.1 }, 0.5);
-tl.fromTo("#trillion-number", { scale: 1.4 }, { scale: 1, duration: 0.35, ease: "back.out(1.7)" }, 0.5);
+tl.to("#trillion-number", { opacity: 1, duration: 0.1 }, 5.0);
+tl.fromTo("#trillion-number", { scale: 1.4 }, { scale: 1, duration: 0.35, ease: "back.out(1.7)" }, 5.0);
 
 // Green accent line wipes
-tl.to("#accent-line", { width: 380, duration: 0.4, ease: "power2.inOut" }, 1.0);
+tl.to("#accent-line", { width: 380, duration: 0.5, ease: "power2.inOut" }, 5.8);
 
 // "COMPANY" label
-tl.to("#trillion-label", { opacity: 1, duration: 0.3, ease: "power2.out" }, 1.2);
+tl.to("#trillion-label", { opacity: 1, duration: 0.4, ease: "power2.out" }, 6.2);
 
 // Jacket collar adjust (confident gesture)
-tl.to("#j-arm-r", { rotation: -6, transformOrigin: "50% 0%", duration: 0.35, ease: "power2.inOut" }, 0.8);
-tl.to("#j-arm-r", { rotation: 0, duration: 0.3, ease: "power2.inOut" }, 1.15);
+tl.to("#j-arm-r", { rotation: -6, transformOrigin: "50% 0%", duration: 0.4, ease: "power2.inOut" }, 5.5);
+tl.to("#j-arm-r", { rotation: 0, duration: 0.35, ease: "power2.inOut" }, 5.9);
 
-// --- PHASE 2: CHEATED ON HIS WIFE (2.5-4.5s) ---
+// --- PHASE 3: LOST IT ALL / CHEATING (8-12s) ---
+// "And then... he lost it all. Not because of a competitor."
 
 // Trillion text fades
-tl.to("#trillion-number, #trillion-label, #accent-line", { opacity: 0, duration: 0.2 }, 2.4);
-
-// "CHEATED ON HIS WIFE" punches in
-tl.to("#cheat-text", { opacity: 1, duration: 0.12 }, 2.6);
-tl.fromTo("#cheat-text", { scale: 1.2 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 2.6);
+tl.to("#trillion-number, #trillion-label, #accent-line", { opacity: 0, duration: 0.3 }, 7.8);
 
 // Glow shifts to warning amber
 tl.to("#nvidia-glow", {
   background: "radial-gradient(circle, rgba(255,200,0,0.3) 0%, rgba(255,200,0,0) 70%)",
   duration: 0.01
-}, 2.6);
+}, 8.5);
+
+// "CHEATED ON HIS WIFE" punches in at "Because of three affairs"
+tl.to("#cheat-text", { opacity: 1, duration: 0.12 }, 10.5);
+tl.fromTo("#cheat-text", { scale: 1.2 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 10.5);
 
 // Jensen's smirk widens slightly (nervous)
-tl.to("#j-mouth-smirk", { attr: { d: "M185,140 Q210,158 235,140" }, duration: 0.2 }, 2.6);
+tl.to("#j-mouth-smirk", { attr: { d: "M185,140 Q210,158 235,140" }, duration: 0.2 }, 10.5);
 
-// --- PHASE 3: THREE TIMES counter (4.5-6s) ---
+// --- PHASE 4: THREE TIMES counter (12-14s) ---
 
 // Cheat text fades
-tl.to("#cheat-text", { opacity: 0, duration: 0.2 }, 4.3);
+tl.to("#cheat-text", { opacity: 0, duration: 0.25 }, 11.8);
 
 // Jensen fades a bit
-tl.to("#jensen-char", { opacity: 0.4, duration: 0.3 }, 4.4);
+tl.to("#jensen-char", { opacity: 0.4, duration: 0.3 }, 12.0);
 
 // Counter appears - shows "3 TIMES"
-tl.to("#count-container", { opacity: 1, duration: 0.1 }, 4.6);
-tl.fromTo("#count-container", { scale: 0.5 }, { scale: 1, duration: 0.3, ease: "back.out(2.5)" }, 4.6);
+tl.to("#count-container", { opacity: 1, duration: 0.1 }, 12.2);
+tl.fromTo("#count-container", { scale: 0.5 }, { scale: 1, duration: 0.35, ease: "back.out(2.5)" }, 12.2);
 
 // Number pulses red
-tl.fromTo("#count-number", { color: "#ffffff" }, { color: "#E74C3C", duration: 0.01 }, 4.8);
-tl.fromTo("#count-number", { scale: 1 }, { scale: 1.15, duration: 0.15, ease: "power2.out" }, 4.8);
-tl.to("#count-number", { scale: 1, duration: 0.15, ease: "power2.in" }, 4.95);
+tl.fromTo("#count-number", { color: "#ffffff" }, { color: "#E74C3C", duration: 0.01 }, 12.5);
+tl.fromTo("#count-number", { scale: 1 }, { scale: 1.15, duration: 0.2, ease: "power2.out" }, 12.5);
+tl.to("#count-number", { scale: 1, duration: 0.2, ease: "power2.in" }, 12.7);
 
-// --- PHASE 4: ONE WAS A SPY (6-8s) ---
+// --- PHASE 5: ONE WAS A SPY (14-17s) ---
+// "And one of them... was a Chinese spy. Yeah. Let that hit you."
 
 // Counter fades
-tl.to("#count-container", { opacity: 0, duration: 0.2 }, 5.9);
+tl.to("#count-container", { opacity: 0, duration: 0.25 }, 13.8);
 
 // Jensen reappears, glow goes red
-tl.to("#jensen-char", { opacity: 1, duration: 0.2 }, 6.0);
+tl.to("#jensen-char", { opacity: 1, duration: 0.25 }, 14.0);
 tl.to("#nvidia-glow", {
   background: "radial-gradient(circle, rgba(231,76,60,0.35) 0%, rgba(231,76,60,0) 70%)",
   duration: 0.01
-}, 6.0);
+}, 14.0);
 
 // Spy text with emoji
-tl.to("#spy-text", { opacity: 1, duration: 0.15, ease: "power2.out" }, 6.1);
-tl.fromTo("#spy-text", { y: 30 }, { y: 0, duration: 0.3, ease: "power3.out" }, 6.1);
+tl.to("#spy-text", { opacity: 1, duration: 0.2, ease: "power2.out" }, 14.2);
+tl.fromTo("#spy-text", { y: 30 }, { y: 0, duration: 0.35, ease: "power3.out" }, 14.2);
 
 // Spy silhouette fades in
-tl.to("#spy-mini", { opacity: 1, duration: 0.6, ease: "power2.out" }, 6.3);
+tl.to("#spy-mini", { opacity: 1, duration: 0.8, ease: "power2.out" }, 14.4);
 
 // SHOCKED expression on Jensen
-tl.to("#j-eyes-normal", { opacity: 0, duration: 0.05 }, 6.1);
-tl.to("#j-eyes-shocked", { opacity: 1, duration: 0.05 }, 6.1);
-tl.to("#j-mouth-smirk", { opacity: 0, duration: 0.05 }, 6.1);
-tl.to("#j-mouth-shocked", { opacity: 1, duration: 0.05 }, 6.1);
+tl.to("#j-eyes-normal", { opacity: 0, duration: 0.05 }, 14.2);
+tl.to("#j-eyes-shocked", { opacity: 1, duration: 0.05 }, 14.2);
+tl.to("#j-mouth-smirk", { opacity: 0, duration: 0.05 }, 14.2);
+tl.to("#j-mouth-shocked", { opacity: 1, duration: 0.05 }, 14.2);
 
 // Eyebrows up
-tl.to("#j-brow-l", { attr: { y1: 72, y2: 69 }, duration: 0.1, ease: "power3.out" }, 6.1);
-tl.to("#j-brow-r", { attr: { y1: 69, y2: 72 }, duration: 0.1, ease: "power3.out" }, 6.1);
+tl.to("#j-brow-l", { attr: { y1: 72, y2: 69 }, duration: 0.12, ease: "power3.out" }, 14.2);
+tl.to("#j-brow-r", { attr: { y1: 69, y2: 72 }, duration: 0.12, ease: "power3.out" }, 14.2);
 
 // Glasses shake
-tl.to("#j-glasses", { x: 3, rotation: 4, transformOrigin: "50% 50%", duration: 0.08 }, 6.1);
-tl.to("#j-glasses", { x: -2, rotation: -2, duration: 0.08 }, 6.18);
-tl.to("#j-glasses", { x: 0, rotation: 0, duration: 0.1 }, 6.26);
+tl.to("#j-glasses", { x: 3, rotation: 4, transformOrigin: "50% 50%", duration: 0.08 }, 14.2);
+tl.to("#j-glasses", { x: -2, rotation: -2, duration: 0.08 }, 14.28);
+tl.to("#j-glasses", { x: 0, rotation: 0, duration: 0.1 }, 14.36);
 
 // Jensen recoils
-tl.to("#jensen-char", { x: -20, duration: 0.15, ease: "power3.out" }, 6.1);
+tl.to("#jensen-char", { x: -20, duration: 0.2, ease: "power3.out" }, 14.2);
 
 // Sweat drops
-tl.to("#sweat1", { opacity: 1, y: -40, x: -15, duration: 0.3, ease: "power2.out" }, 6.3);
-tl.to("#sweat2", { opacity: 1, y: -50, x: 20, duration: 0.35, ease: "power2.out" }, 6.4);
-tl.to("#sweat3", { opacity: 1, y: -60, x: 5, duration: 0.4, ease: "power2.out" }, 6.5);
-tl.to("#sweat1", { y: 80, opacity: 0, duration: 0.5, ease: "power2.in" }, 6.8);
-tl.to("#sweat2", { y: 90, opacity: 0, duration: 0.5, ease: "power2.in" }, 6.9);
-tl.to("#sweat3", { y: 100, opacity: 0, duration: 0.5, ease: "power2.in" }, 7.0);
+tl.to("#sweat1", { opacity: 1, y: -40, x: -15, duration: 0.35, ease: "power2.out" }, 14.5);
+tl.to("#sweat2", { opacity: 1, y: -50, x: 20, duration: 0.4, ease: "power2.out" }, 14.6);
+tl.to("#sweat3", { opacity: 1, y: -60, x: 5, duration: 0.45, ease: "power2.out" }, 14.7);
+tl.to("#sweat1", { y: 80, opacity: 0, duration: 0.5, ease: "power2.in" }, 15.1);
+tl.to("#sweat2", { y: 90, opacity: 0, duration: 0.5, ease: "power2.in" }, 15.2);
+tl.to("#sweat3", { y: 100, opacity: 0, duration: 0.5, ease: "power2.in" }, 15.3);
 
-// --- PHASE 5: STORY TITLE (8-10.5s) ---
+// --- PHASE 6: STORY TITLE (17-20s) ---
 
 // Flash
-tl.to("#flash-overlay", { opacity: 0.85, duration: 0.06 }, 8.0);
-tl.to("#flash-overlay", { opacity: 0, duration: 0.4, ease: "power2.out" }, 8.06);
+tl.to("#flash-overlay", { opacity: 0.85, duration: 0.06 }, 17.0);
+tl.to("#flash-overlay", { opacity: 0, duration: 0.5, ease: "power2.out" }, 17.06);
 
 // Clear spy text
-tl.to("#spy-text, #spy-mini", { opacity: 0, duration: 0.2 }, 8.0);
+tl.to("#spy-text, #spy-mini", { opacity: 0, duration: 0.25 }, 17.0);
 
 // Jensen recovers slightly, centered
-tl.to("#jensen-char", { x: 0, opacity: 0.6, duration: 0.2 }, 8.0);
+tl.to("#jensen-char", { x: 0, opacity: 0.6, duration: 0.25 }, 17.0);
 
 // Story bar smashes up
-tl.to("#story-bar", { y: 0, duration: 0.25, ease: "power4.out" }, 8.1);
+tl.to("#story-bar", { y: 0, duration: 0.3, ease: "power4.out" }, 17.2);
 
 // Bar impact shake
-tl.to("#story-bar", { x: 4, duration: 0.04 }, 8.35);
-tl.to("#story-bar", { x: -3, duration: 0.04 }, 8.39);
-tl.to("#story-bar", { x: 0, duration: 0.06 }, 8.43);
+tl.to("#story-bar", { x: 4, duration: 0.04 }, 17.5);
+tl.to("#story-bar", { x: -3, duration: 0.04 }, 17.54);
+tl.to("#story-bar", { x: 0, duration: 0.06 }, 17.58);
 
 // Fade everything at end
-tl.to("#scene-inner", { opacity: 0, duration: 0.3 }, 9.5);
+tl.to("#scene-inner", { opacity: 0, duration: 0.4 }, 19.5);
 
 // Hard kill
-tl.set("#root", { opacity: 0, visibility: "hidden" }, 9.9);
+tl.set("#root", { opacity: 0, visibility: "hidden" }, 20.2);
 
 window.__timelines["hook"] = tl;
 </script>
